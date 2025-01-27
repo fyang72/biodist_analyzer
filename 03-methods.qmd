@@ -1,0 +1,131 @@
+# Materials and Methods {#sec-method .unnumbered}
+
+## Overview of Study Data Included in the Analysis
+
+A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled "A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey". 
+
+The study design is provided below:
+
+![](images/study_design3_noval_capsid.PNG)
+
+Groups 2 to 4 are evaluating CNS capsids. Group 2 utilizes the established control capsid, whereas Groups 3 and 4 employ the new JBC capsids developed by JCR Pharmaceuticals. Notably, the capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant, which is anticipated to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3. Therefore, Groups 3 and 4 will be compared to Group 2 for CNS capsids.
+
+Regarding the DM1 capsids, Group 5 utilizes the established capsid, while Group 6 employs the new Gcap-106 capsid. Therefore, Group 6 (new) will be compared to Group 5 (old) for DM1 capsids.
+<!-- 
+## Dataset Preparation
+
+```{r}
+#| label: Overview of the data using heatmap at Day 92
+#| warning: false
+#| message: false
+#| eval: false 
+#| echo: false
+#| include: true
+ 
+# EXTRACT DATA FROM PDF 
+# https://www.charlesbordet.com/en/extract-pdf/#3-find-the-rows-of-the-speakers
+# read_single_page <- function(pdf, page){
+#   tmp <- tempfile()
+#   on.exit(unlink(tmp))
+#   tempfile <- pdftools::pdf_subset(pdf, tmp, pages = page)
+#   pdftools::pdf_text(tmp)
+# }
+# 
+# read_single_page('https://cran.r-project.org/doc/manuals/r-release/R-exts.pdf', page = 100)
+
+```
+
+### Source Data
+
+During the course of a toxicity and biodistribution study, preliminary datasets will be initially transferred to the designated analysis lead, who will perform the analysis based on the template provided by 'ToxBioDist (TBD) Analyzer'. Subsequently, SEND datasets will be integrated and the analysis will be updated. SEND, an acronym for Standard for Exchange of Nonclinical Data, providing a standardized framework for presenting nonclinical data.
+
+The source data encompasses dosing information, viral shedding, vector genome copies (VGC), mRNA, protein, electrocardiogram (ECG) values, histopathologic findings, demographics, clinical laboratory values, and other covariate information collected in the Study.
+
+There could be two kind of source data:
+
+-   From preliminary excel-based dataset for early glimpse;
+-   From final SEND-based datasets
+
+```{r}
+#| label: fig-diagram-data-source-analysis-set-workflow
+#| echo: false
+#| out.width: 80%
+#| fig-cap: |
+#|   Although the input sources dataset can vary, the analysis set of datasets remains relatively stable #|   for conducting subsequent analyses.
+#| fig-alt: |
+#|   A diagram displaying the derivation of analysis set on which analysis will be conducted.  
+ 
+
+#![Elephant](diagrams/diagram_data_source.JPG){width=80%}
+
+knitr::include_graphics("diagrams/diagram_data_source.JPG", dpi = 270)  
+
+```
+
+Considering that SEND-based datasets usually come late, the key internal decisions will be made based on the preliminary excel-based dataset. Therefore, our focus of this workflow is for option 1).
+
+However, there is a possibility that agencies make requst the analysis, or we may need to defense our position (i.e dose selection). In such a case, the analysis needs to be refreshed based on SEND-dataset.
+
+The specification of the analysis data will be based on yspec format, see xxx.yml. The source files will be based on excel data sheet, see the example data in the folder of ./data/source/.
+
+### Data Specification
+
+Data specifications are a set of guidelines that outline how to convey data and ensure it is consistent and comprehensive. The following requirements should be considered:
+
+-   accommodate the ALXN2340 and ALXN2350, if possible, also include PKP2
+-   merge shredding, VGC, mRNA, protein data into one unified data structure
+-   add ADA data, both ADA per subject, and time-dependent ADA;
+-   add baseline weight and time-varied weight (mainly need SEND data)
+-   add key Lab info (from SEND data), what Labs to include may depend on the programs, could be baseline or time-varied.
+-   we also need to standardize the NAMING CONVENTION for all the MATRIX name, refer to the SEND data
+-   for AVAL (Analysis value), we may need to calculate BL, CHG, PCHG, etc.
+-   what are the analysis unit for each AVAL?
+-   must be arranged by study, dose group, subject, time, event/observations (prefer in the order of shedding, vgc, mRNA, protein, efficacy and toxicity)
+-   if missing variables (for example, weight, histopath), leave them "NA" as a placeholder. Let the script to handle for these missing variables.
+-   accommodate SEND format as much as possible (such as variable name, etc), using ALXN2350 SEND
+-   add toxicity data (such as histopath data)
+-   make the main data structure/variables as numerical as possible, (leave the meta info to YML using yspec package)
+-   using yspec package, as highly suggested, as this is the format that the popPK/PD analysis that Metrum/AZ are using.
+
+### Data Programming and Quality Control
+
+Assembly of the biodistribution datasets and others will be performed using R version 4.1.0 or later or Statistical Analysis System (SAS®) Version 9.3 or later. Software version numbers will be documented in the report.
+
+Procedures include dataset creation, dataset quality control (QC) review, and preparation of submission-ready datasets (if required). If datasets are modified over the course of the analysis, the file name of each version of the dataset will be unique.
+
+In preparing the analysis set of data, the following requirements should be considered:
+
+-   prepare scripts to process the raw data in excel and merge all (shredding, VGC, mRNA, protein, histopath, ADA, meta info, weight, lab info) into one?
+-   generate the data based on SEND format (Using ALXN2350 data)
+-   how to identify missing/abnormal/grouping error in the preliminary data just created?
+-   how to identify the outliers, using visualization and followed by a quantitative way?
+-   by what criteria we can call such a dataset is QC'd, and ready for subsequent analysis. (align with data specification, consistency with study design and naming convention)
+-   during the QC steps, we may need to generate a lot of plots and identify the outliers, could we make it dynamic using shiny?
+
+### Evaluable Subjects
+
+The analysis population for this analysis will include all subjects who received at least one dose of study drug, VCA control, with or without immunosuppressantand, have at least one valid measurements from Day -1 and on-treatment measurement. All filters will be listed when a particular analysis is applied upon a sub-population.
+
+### Handling of Missing and/or Incomplete Data
+
+Data analyses will be performed only on observed data. Any concentration or measurements that cannot be uniquely and unequivocally attributed to a particular time point will be treated as incomplete data. Incomplete data will be excluded from analysis data sets.
+
+Measurement below the lower assay limit of quantitation (BLQ) will be set to LOOQ/2, and missing data or not recorded samples will be treated as "NA".
+
+Any outliers will be identified, and their handling will be agreed upon by Core Development Team and discussed and documented in the report.
+
+### Software
+
+All visualization and statistical analyses will be performed using R and/or SAS. Software version numbers will be documented in the report.
+
+## Data Visualization and Statistical Analysis
+
+The analysis will generally be conducted in the following steps:
+
+• Trend analysis (visualization) -- Overview visualization -- Integrative visualization -- Assessment of covariates
+
+• Quantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation -- Statistical modeling -- Empirical modeling
+
+-   Use boxplot to illustrate the covariate effects i.e. x-axis show the covariate, y-axis show the analysis values. The analysis value can be scaled or not.
+
+-   A quantitative method is to use generalized linear model to classify the covariates, i.e. y=function(x) with a list of potential covariates -->

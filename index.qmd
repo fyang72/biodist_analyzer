@@ -1,0 +1,13 @@
+# Welcome {.unnumbered}
+
+Welcome to the **"ToxBioDist (TBD) Analyzer"**, a comprehensive analysis framework designed to support genomic medicine through the analysis and summarization of GLP/Non-GLP toxicity and biodistribution studies in immunosuppressed and non-immunosuppressed cynomolgus monkeys.
+
+The primary goal of the **"ToxBioDist (TBD) Analyzer"** is to develop an integrative analysis workflow tailored to the unique challenges posed by data generated for genomic medicine. This workflow encompasses data structure standardization, quality checks, visualization of multi-dimensional data, identification of sources of variation, and quantification of exposure-response relationships, supporting posology assessments for pre-clinical to clinical program transitions.
+
+With the recent acquisitions of genomic and cell therapy programs, Alexion CPSS has designed and implemented a framework and an ops model for innovating toxicology and pathology expertise, building a state-of-the-art Quantitative Systems Modeling platform, leveraging the Data Sciences Unit for conducting risk: benefit and posology assessments for pre-clinical to clinical program transitions. Unique approaches to data visualization and interpretation have been developed for biodistribution, expression of VGCs and mRNA, and toxicology study findings including histopathology. These approaches have been demonstrated in moving the pipeline forward and addressing relevant agency questions effectively.
+
+We hope that the **"ToxBioDist (TBD) Analyzer"** will serve as a valuable resource for your endeavors in the field of genomic medicine and provide the necessary tools to navigate the complexities of multi-dimensional data analysis in pre-clinical and clinical program transitions.
+
+## Acknowledgements {.unnumbered}
+
+**"ToxBioDist (TBD) Analyzer"** is developed by ToxBioDist (TBD) Analyzer Core Development Team, including CPSS DSU team members as well as relevant key stakeholders within CPSS.

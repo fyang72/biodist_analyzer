@@ -1,0 +1,99 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "ToxBioDist (TBD) Analyzer"
+  reader-mode: true
+
+  page-footer:
+    left: |
+      An Analysis Template for Toxicity and Biodistribution Data, 
+      was written by ToxBioDist (TBD) Analyzer Core Development Team.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  cover-image: cover-TBD-Analyzer.jpg
+  favicon: cover-TBD-Analyzer.jpg
+  site-url: https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git
+  repo-url: https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git
+  repo-branch: main
+  repo-actions: [edit, issue]
+  chapters:
+    - index.qmd
+    
+    - 01-objective.qmd
+    #- 02-intro.qmd
+    - 03-methods.qmd
+  
+    # - part: 04-antibody-analysis.qmd  
+    #   chapters:
+    #     - 04A-anti-aav-nab.qmd
+    #     - 04B-anti-target-protein.qmd
+ 
+
+    - part: 05-biodist.qmd
+      # chapters:
+      #   - 05A-viral-shedding.qmd
+      #   - 05B-vgc-mRNA.qmd
+      #   - 05C-protein.qmd
+      #   - 05D-integrative-analysis.qmd
+ 
+    #
+    # - part: 06-inlife-evaluations.qmd
+    #   chapters:
+    #     - 06A-animal-fate.qmd
+    #     - 06B-body-weight.qmd
+    #     - 06C-food-consumption.qmd
+    #     - 06D-electrocardiographic.qmd
+    #     - 06E-echocardiogram.qmd
+    # 
+    # - part: 07-lab-cytokine-complement.qmd 
+    #   chapters:
+    #     - 07A-lab.qmd
+    #     - 07B-cytokine-complement.qmd
+    #     - 07C-RNA-scope-in-ISH.qmd
+    # 
+    # - part: 08-terminal-evaluations.qmd
+    #   chapters:
+    #      - 08A-organ-weights.qmd
+    #      - 08B-macroscopic.qmd
+    #      - 08C-microscopic.qmd
+ 
+    # - part: 09-conclusions.qmd
+    #   chapters:
+    #     - quarto.qmd
+    #     - quarto-formats.qmd
+    
+    # - part: 10-appendix.qmd
+    #   chapters:
+    #   - 10A-appendix-I.qmd
+    #   - 10B-appendix-II.qmd
+ 
+
+format:
+  html:
+    theme:
+      - cosmo
+      - r4ds.scss
+    code-link: true
+    #css: styles.css  # Include the custom CSS file
+
+    author-meta: "ToxBioDist (TBD) Analyzer Core Development Team"
+    include-in-header: "plausible.html"
+    callout-appearance: simple
+
+editor: visual
+
+execute: 
+  eval: true 
+  echo: false
+  warning: false
+  error: false
+  message: false
+  include: true
+
+# Apply the custom class to all figures
+# filters:
+#   - apply-class:
+#       class: full-width-figure
+#       selector: "figure"

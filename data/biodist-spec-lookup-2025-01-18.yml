@@ -1,0 +1,135 @@
+SETUP__:
+  description: yspec internal column database
+  
+STUDYID: 
+  short: Study name
+  type: character
+  values:
+    - ALXN2340-GLP-MKY
+    - ALXN2350-GLP-MKY
+  make_factor: true
+  
+GROUP: 
+  short: Treatment group
+  type: numeric 
+  values: [1, 2, 3, 4, 5, 6]
+  decode: 
+    - VCA + IS
+    - VCA - IS
+    - Low + IS
+    - Intermediate + IS
+    - Intermediate - IS
+    - High + IS
+  make_factor: true
+  
+DOSE: 
+  short: Nominal dose amount
+  values: [0, 6, 20, 50]
+  decode: ["0", "6e+13 vg/kg", "2.0e+14 vg/kg",  "5.0e+14 vg/kg"]
+  make_factor: true  
+  
+USUBJID:
+  short: Unique subject identifer
+  type: character
+  comment: It must be unique per study and for the entire analysis dataset
+
+SEX: 
+  short: Sex
+  values: [1, 2]
+  decode: ["Male", "Female"]
+  
+ATPT:
+  short: Norminal time point 
+  unit: Week
+  unit.plot: Week  
+  values: [-3, 0, 6, 24, 48, 168, 312, 1008, 4368]     # hours
+  decode: ["Pretest", "D1: Predose",  "D1: 6HR", "D1: 24HR",   "Day 3", "Day 8" ,  "Day 14" , "Interim Necropsy Week 6" ,"Terminal Necropsy Weeks 26/27"]
+
+  
+DAY:
+  short: Time after first dose
+  unit: day
+  unit.plot: day
+
+PARAMCD: 
+  short: Parameter short  
+  type: character
+  values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  
+  decode: 
+    - PK
+    - VGC 
+    - VGC_MTH1
+    - VGC_MTH2
+    - mRNA
+    - mRNA_MTH1
+    - mRNA_MTH2
+    - EVV
+    - LPA
+    - delta4
+  decode.long: 
+    - Viral Shedding
+    - Vector Genome Copies
+    - Vector Genome Copies (Normalization Method 1)
+    - Vector Genome Copies (Normalization Method 2)
+    - messenger RNA
+    - messenger RNA  (Normalization Method 1)
+    - messenger RNA  (Normalization Method 2)
+    - EVV 
+    - LPA 
+    - delta4
+            
+TISSUE:   
+  short: Tissue 
+  type: character
+  values: [1, 2, 3, 4, 5]  
+  decode: ["Whole", "Brain", "CSF", "Liver", "Serum"] 
+  decode.long: [Whole, Brain, Cerebrospinal fluid, Liver, Serum] 
+              
+MATRIX:
+  short: Biological matrix 
+  type: character
+  
+MATRIXCD:
+  short: Biological matrix short  
+  type: character    
+  
+CUSTOMID: 
+  short: Custom ID
+  
+SAMPID: 
+  short: Sample ID
+
+AVAL:
+  short: Concentration {xunit}
+  type: numeric
+  unit: copies/uL
+  unit.plot: copies/uL
+  
+AVALU: 
+  short: Unit associated with AVAL
+  type: character 
+
+
+BLQ:
+  short: Below limit of quantification
+  values: [1, 0]
+  decode: ["<LLOQ", ">LLOQ"]
+  make_factor: true
+  
+MDV:
+  short: Missing dependent variable
+  values: [0, 1]
+  decode: ["No", "Yes"]
+  
+ADA: 
+  short: ADA {xunit}
+  type: numeric
+  
+NAB: 
+  short: NAB {xunit}
+  type: numeric  
+  
+HISTOPTH: 
+  short: HISTOPATH {xunit}
+  type: character    
+  

@@ -1,0 +1,46 @@
+# Appendix-II {#sec-appendix-II}
+
+Appendix-II
+
+The analysis will generally be conducted in the following steps:
+
+-   Trend analysis (visualization)
+    -   Overview visualization
+    -   Integrative visualization
+    -   Assessment of covariates
+-   Quantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation
+    -   Statistical modeling
+    -   Empirical modeling
+
+
+
+
+I have a github account on AZ/azu-alexion, and want to connect to US SCP Rstudio, i.e. https://rstudio.us.scp.astrazeneca.net/. Here is what I did:
+step 1: create SSH key in Rstudio, from options/Git/SVN/Create SSH Key, and then copy the SSH
+
+step 2: create an empty repository in github with a readme file;
+
+step 3: add the SSH key under my github account, in settings/SSH and GPG keys/New SSH Key
+
+step 4: clone the empty repository from github to my US SCP Rstudio session, It gave me the following errors:
+
+“ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.”
+
+By searching, I understand it is probably related to the issue with proxy since I am working at home, the port 22 has been blocked by firewall. I tried all the methods listed at
+https://stackoverflow.com/questions/15589682/how-to-fix-ssh-connect-to-host-github-com-port-22-connection-timed-out-for-g/52817036#52817036
+
+but all not working, as shown below:
+
+ssh -T -p 443 git@ssh.github.com
+ssh: connect to host ssh.github.com port 443: Connection timed out
+
+Any clues how to move forward?
+
+I have no issues with legacy SCP, https://rstudio.se.scp.astrazeneca.net/, connection to github is fine.
+
+Thank you so much!
+
+Best,
+
+Feng

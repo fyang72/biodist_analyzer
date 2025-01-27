@@ -1,0 +1,94 @@
+ 
+
+# in R-4.3.1
+install.packages("remotes")
+
+library(pacman)
+library(renv)
+renv::init()
+
+library(pacman)
+p_load(haven, readxl, readr, here, scales ) 
+p_load(quarto,  dplyr, tidyr, ggprism)  # ROCit,
+pak::pack(glue, tidyverse, janitor, ggpubr, mvtnorm, survminer )
+library(remotes)
+
+pak::pak(c("haven", "readxl", "readr", "here", "scales"))
+pak::pak(c("quarto", "dplyr", "tidyr", "ggprism")) 
+pak::pak(c("glue", "tidyverse", "janitor", "ggpubr"))
+
+remotes::install_github("metrumresearchgroup/mrgmisc")
+remotes::install_github("metrumresearchgroup/mrggsave")
+remotes::install_github("metrumresearchgroup/pmplots")
+remotes::install_github("metrumresearchgroup/yspec")
+remotes::install_github("cran/DoseFinding")
+install.packages("DoseFinding", dependencies =TRUE)
+
+if (!require("BiocManager", quietly = TRUE))  install.packages("BiocManager")
+BiocManager::install("ComplexHeatmap")
+
+
+
+
+remotes::install_github("Novartis/xgxr")        # not sucessful     # DescTools  expm
+
+ 
+ drc
+- lazyeval
+- pheatmap
+- predict3d
+- pryr
+- table1
+- ttt
+ 
+ 
+ 
+ library(utils)
+#library(azcore)
+#library(mrgsolve)
+library(yspec)
+library(pmplots)
+library(mrggsave)
+library(mrgmisc)
+ 
+library(quarto)
+library(renv)
+library(magrittr)
+library(ggplot2)
+library(haven)
+library(readxl)
+library(readr)
+library(here)
+library(scales)
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+
+
+library(ggthemes)
+library(ggprism)
+library(ggpubr)
+
+library(glue)
+library(gridExtra)
+  
+ 
+library(janitor) 
+library(circlize)   # for color selection
+#library(ROCit)
+  
+library(mvtnorm)
+library(DoseFinding)  
+
+library(ComplexHeatmap)
+library(xgxr) 
+
+library(table1)
+  
+    
+library(survminer)
+
+
+
+
+pak::pak(c("ggthemes", "table1", "survminer"))

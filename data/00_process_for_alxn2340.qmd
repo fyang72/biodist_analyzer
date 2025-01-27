@@ -1,0 +1,1373 @@
+---
+title: "Workflow Template Supporting Gene/cell Therapy for Pharmacology, Toxicity, and Biodistribution in Preclinical Species"  
+author: 
+  - Alexion CPSS (DSU)
+date: '2024-07-30'
+css: styles.css
+output: 
+  html_document: 
+    css: styles.css
+      
+format: 
+  html:
+    #page-layout: custom
+    toc: true
+    toc-depth: 3
+    toc-title: "Contents"    
+    number-sections: true
+    
+    grid:
+      sidebar-width: 50px
+      body-width: 2000px
+      margin-width: 250px
+      gutter-width: 1.5rem
+ 
+execute: 
+  eval: true 
+  echo: false
+  warning: false
+  error: false
+  message: false
+  include: true
+
+server: shiny
+---
+
+```{r}
+#| echo: false
+#| context: setup
+
+# https://stackoverflow.com/questions/75204803/quarto-r-set-max-height-for-text-output-or-figures  # most relevant
+
+# https://stackoverflow.com/questions/36421231/r-markdown-output-size
+# https://bookdown.org/yihui/rmarkdown/shiny-embedded.html
+# https://quarto.org/docs/interactive/shiny/running.html
+
+# Scale and size of plot in RStudio shiny, haven't test yet, 08-19-2024
+# https://stackoverflow.com/questions/17838709/scale-and-size-of-plot-in-rstudio-shiny
+# https://stackoverflow.com/questions/17838709/scale-and-size-of-plot-in-rstudio-shiny
+
+```
+
+Workflow template for preclinical biodistribution/shedding/genomic data analysis. More to be included.
+
+to do list: \* re-install all R package within this project \* how about merge 2 timepoints into one scatter plot? \* how about merge the non-GLP monkey data which has the lower dose levels? \* how about plot histopath vs dose, similar as 2) \* how about plot histopath vs the scaled transgene expression in all relevant organs? the goal is to identify a cut-theshold for dose selection \* how about also plot the absolute target conc from the mouse KO experiment
+
+-   the goal is to identify a therapeutic dose range for gene therapy
+
+```{r qmd-setup}
+#| label: setup-for-qmd
+#| context: setup
+
+### Libraries ----------------------------
+# devtools::install_github("metrumresearchgroup/mrgmisc")
+rm(list=ls())
+
+# tools
+library(quarto)
+library(renv)
+library(magrittr)
+library(ggplot2)
+library(haven)
+library(readxl)
+library(readr)
+library(here)
+library(scales)
+library(ggthemes)
+library(gridExtra)
+library(tidyverse)
+library(here)
+library(dplyr)
+library(tidyr)
+
+# analysis
+library(ggprism)
+library(yspec)      
+library(pmplots)
+library(glue)
+library(mrgmisc)  
+library(mrggsave)
+
+library(DoseFinding)
+library(ComplexHeatmap)
+library(ROCit)
+
+#library(ggpubr)    # can't install
+#library(xgxr)   # can't install
+
+HOME = getwd()
+source(here::here(HOME, "_common.R"))
+
+# ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+# ✖ readr::col_factor() masks scales::col_factor()
+# ✖ dplyr::combine()    masks gridExtra::combine()
+# ✖ purrr::discard()    masks scales::discard()
+# ✖ tidyr::extract()    masks magrittr::extract()
+# ✖ dplyr::filter()     masks stats::filter()
+# ✖ dplyr::lag()        masks stats::lag()
+# ✖ purrr::set_names()  masks magrittr::set_names()
+
+# ggplot settings
+#xgx_theme_set()
+options(mrggsave.dir = here("deliv/figure"), mrg.script = "app.qmd")
+options(dplyr.summarise.inform = TRUE)
+
+HOME = getwd()
+data_dir <- here::here(HOME, "data/source/ALXN2340-GLP-MKY/")
+status = "DRAFT"  #flag for labeling figures as draft
+
+```
+
+# Introduction
+
+how to correlate? btween all levels? target tissues (brain and heart)
+
+how to translate to human? scale to human using protein only
+
+increasing dose, linear increase in transgene protein?
+
+very important to establish the relationship in preclinical setting, not possible in human
+
+DOSE ---\> VGC (DNA) ---\> mRNA ---\> PGRN(protein) ---\> efficacy/safety (HISTOPATH) in the context of multiple organ
+
+Stepwise approach \* Visualization \* Quantification
+
+-   from per-analyte, simple analysis to integrative analysis (across analytes), to exposure/response (E/R) analysis, to dose selection (from both efficacy and safety point-of-view)
+
+-   from per-timepoint, to time-dependent analysis (across multiple timepoint)
+
+-   from vgc, mRNA, PRGN, HISTOPATH, to ADA and NAB,
+
+-   from analysis \<---\> data specification to "lock down" a stable data specificaton for all gene therapy program (at least 2350, 2340, 1850)
+
+-   from the analsyis to deliverary (in Quarto/shiny), and layout the report structure (introduction, methodology, results (including data QC), conclusion and appendix).
+
+-   carefully design the shiny options (how many options the end-users have to re-draw the figure/tables)
+
+-   review Irin/Yaping's scripts
+
+-   for Quantify predictors/response, Linear Regression\
+    https://www.dataquest.io/blog/statistical-learning-for-predictive-modeling-r/ https://www.analyticsvidhya.com/blog/2020/12/predicting-using-linear-regression-in-r/
+
+-   what are the executive summary of the analysis
+
+    -   most importantly, it is the dose selection;
+    -   predictive concentration threshold for dose selection;
+    -   how vgc is distributed in body
+    -   etc.
+
+```{r}
+#| label: load-dataset
+#| context: setup
+
+data_dir = paste0(HOME, "/data/source/ALXN2340-GLP-MKY/")
+ 
+spec_location <- here(data_dir, "preclinical2.yml")
+spec <- ys_load(spec_location) %>% ys_namespace("plot")
+ 
+library(readr)
+dat0 <- readr::read_csv(paste0(data_dir, "/output/glp_exam.csv"))
+colnames(dat0) <- toupper(colnames(dat0))
+
+dat0 <- dat0 %>% 
+  dplyr::rename(
+    STUDYID = STUDY_ID, 
+    SUBJECT = SUBJECT, 
+    SEX = GENDER, 
+    
+    PARAMCD_GROUP = TEST,
+    PARAMCD = TESTCD, 
+    MATRIX = BIOLOGICAL_MATRIX, 
+    MATRIXCD = TISDETAIL,
+    
+    ATPT = TIME_POINT, 
+ 
+    AVAL = DV, 
+    AVALU =DV_UNIT, 
+    BLQ = BLQ, 
+    
+    ADA = ADA, 
+    NAB = NAB_PREDOSE, 
+    HISTOPTH = HISTOPATH,   #  max 8 characters
+    
+    ARM = DOSEGRP, 
+    #ARMN = GROUP, 
+    DOSE = DOSE.E12.VG.KG, 
+    
+    PFNO = PFNO, 
+    ORDER = ORDER, 
+    CAT2 = CAT2  # NOT SURE
+  ) %>% 
+  
+  mutate(
+    TIME = ATPT,   # not in numeric
+    AVAL = as.numeric(AVAL), 
+    PARAMCD_GROUP = ifelse(PARAMCD_GROUP %in% "D4-PGRN", "PGRN", PARAMCD_GROUP),
+    TISSUE = ifelse(PARAMCD %in% c("vgc", "mRNA"),  "Whole", TISSUE), 
+    MATRIX = ifelse(MATRIX %in% "Lungs" & PARAMCD %in% "mRNA", "Lung", MATRIX)
+    )
+
+  #dat0 %>% pull(MATRIX) %>% unique()  %>% sort() #
+ 
+dat0 <- dat0 %>% 
+  mutate(MATRIX_GROUP = case_when(
+    stringr::str_detect(MATRIX, "Brain") ~ "Brain", 
+    stringr::str_detect(MATRIX, "Dorsal Root Ganglion") ~ "Dorsal Root Ganglion", 
+    stringr::str_detect(MATRIX, "Liver") ~ "Liver", 
+    stringr::str_detect(MATRIX, "Spinal Cord") ~ "Spinal Cord", 
+    stringr::str_detect(MATRIX, "Heart") ~ "Heart", 
+    stringr::str_detect(MATRIX, "Testis") | stringr::str_detect(MATRIX, "Ovary")  ~ "Testis or Ovary", 
+    TRUE ~ MATRIX
+    )
+  )
+
+readr::write_csv(dat0, file=here(HOME, "data", "derived", "alxn2340_biodistribution_data2.csv"))
+
+# dat0 %>% filter(TISSUE=="Brain", ORDER=="Primary") %>% pull(MATRIX) %>% unique()
+# "Amygdala"          "Hippocampus"       "Thalamus"          "Frontal Cortex"    "Temporal Cortex"   "Entorhinal Cortex"
+
+# dat0 %>% filter(MATRIX_GROUP=="Spinal Cord") %>% pull(MATRIX) %>% unique()
+
+
+# Order MATRIX ------------------
+all_matrix <- dat0 %>%  pull(MATRIX) %>% unique()
+primary_brain_matrix <- dat0 %>% filter(TISSUE=="Brain", ORDER=="Primary") %>% pull(MATRIX) %>% unique()
+spinal3 <- dat0 %>% filter(MATRIX_GROUP=="Spinal Cord") %>% pull(MATRIX) %>% unique()
+
+secondary_brain_matrix <- dat0 %>% filter(TISSUE=="Brain", ORDER=="Secondary") %>% pull(MATRIX) %>% unique() %>% sort()
+secondary_brain_matrix_without_spinal3 <- setdiff(secondary_brain_matrix, spinal3) %>% sort()
+
+others <- setdiff(all_matrix, c(primary_brain_matrix,  secondary_brain_matrix_without_spinal3, spinal3))  %>% sort()
+
+dat0 <- dat0 %>% 
+  mutate(
+    MATRIX = ordered(MATRIX, levels=c(primary_brain_matrix, secondary_brain_matrix_without_spinal3,  spinal3,  others ))
+  )
+
+# order MATRIX_GROUP  ----------
+all_matrix_group <- dat0 %>%  pull(MATRIX_GROUP) %>% unique()
+others_by_group <- setdiff(all_matrix_group, c(primary_brain_matrix, "Spinal Cord")) %>% sort()
+dat0 <- dat0 %>% 
+  mutate(
+    MATRIX_GROUP = ordered(MATRIX_GROUP, levels=c(primary_brain_matrix,  "Spinal Cord", others_by_group))
+  )
+
+
+# test:    "vgc"     "PGRN"    "mRNA"    "D4-PGRN"
+# testcd:  "vgc"     "EVV"     "LPA"    "mRNA"   "delta4"
+# dat %>% filter(test)
+
+dat0 <- dat0 %>% 
+  yspec_add_factors(spec, STUDYID, ARM, DOSE, PARAMCD, SEX, ATPT, BLQ, TISSUE) #%>%  # Refactor table for plots   
+  
+dat0 <- dat0 %>% 
+  mutate(
+    ARM_f = ordered(ARM, levels=dat0$ARM_f %>% levels()),     ############################bug
+    ATPT_f = ordered(ATPT, levels=dat0$ATPT_f %>% levels()), ################################## bug
+    HISTOPTH = #as.character(as.integer(HISTOPTH)) # 
+      ifelse(HISTOPTH %in% c("1", "2", "3"), HISTOPTH, 0)     #  "." "0" "2" "1" "3"    # undeteched or missing 
+    ) 
+
+# dat0 %>% 
+#   distinct(TISSUE, PARAMCD, PARAMCD_GROUP) %>% 
+#   arrange(TISSUE, PARAMCD_GROUP, PARAMCD)  %>% 
+#   as.data.frame() 
+#    
+primary_matrix_lst <- 
+  dat0 %>% distinct(TISSUE,   MATRIX, ORDER) %>% 
+  filter(TISSUE == "Brain", ORDER == "Primary") %>% pull(MATRIX)
+  
+secondary_matrix_lst <- 
+  dat0 %>% distinct(TISSUE,   MATRIX, ORDER) %>% 
+  filter(TISSUE == "Brain", ORDER == "Secondary") %>% pull(MATRIX)
+  
+dat0 <- dat0 %>% 
+  mutate(
+    ORDER = case_when(
+       MATRIX %in% c(primary_matrix_lst) ~ "Primary",
+       MATRIX %in% c(secondary_matrix_lst) ~ "Secondary", 
+       TRUE ~ "Other"), 
+    ORDER = ordered(ORDER, levels = c("Primary", "Secondary", "Other" ))
+  )
+
+dat0 <- dat0 %>%  
+  mutate(
+    AVAL = as.numeric(AVAL),
+    MATRIX = as.character(MATRIX),
+    TISSUE = ordered(TISSUE, levels = c("Whole", "Brain", "CSF", "Liver", "Serum")), 
+    PARAMCD  = ordered(PARAMCD , levels = c("vgc", "mRNA" ,   "LPA" ,    "EVV" ,    "delta4"))
+    ) 
+
+dat0 <- dat0 %>% 
+  mutate(
+    NAB_NUM = case_when(
+      NAB %in% "<5"  ~ 0, 
+      NAB %in% "5"  ~ 5, 
+      NAB %in% "20"  ~ 20, 
+      NAB %in% ">40"  ~ 40, 
+      TRUE ~ NA
+    )
+  ) %>% 
+  dplyr::select(-NAB) %>% 
+  dplyr::rename(NAB = NAB_NUM)
+
+
+readr::write_csv(dat0, file=here(HOME, "data", "derived", "alxn2340_biodistribution_data.csv"))
+
+
+ # dat0 <- dat0 %>% 
+ #    filter(
+ #      ATPT_f != "Pretest",            ########################################
+ #      !str_detect(ARM_f, "0 vg/kg")   ########################################
+ #    )
+
+```
+
+# Summary of population and samples
+
+## Quality check
+
+https://r-charts.com/correlation/heat-map-ggplot2/
+
+```{r}
+#| eval: false
+
+
+which_tissue = "Whole"
+which_paramcd = "vgc"
+#which_paramcd = "mRNA"
+
+which_timepoint = "Week 26/27"
+janitor_cutoff = 0.6
+
+df <- dat0 %>%
+  filter(ARM != "2e+13 vg/kg (IS-)", 
+         ATPT %in% c(which_timepoint),
+         PARAMCD %in% c(which_paramcd ))  %>%
+  select(SUBJECT, SEX, DOSE, MATRIX, PARAMCD, AVAL, HISTOPTH) %>% # , HISTOPTH) %>%
+
+  mutate(AVAL = as.numeric(AVAL),
+         HISTOPTH = as.numeric(HISTOPTH),
+         HISTOPTH = ifelse(HISTOPTH %in% c(NA, 0), "", HISTOPTH)
+         )
+
+  #df <- df %>% pivot_wider(id_cols=c("SUBJECT", "DOSE", "SEX"), names_from=MATRIX, values_from = AVAL)
+ 
+# Gray cell <LLOQ : <10    
+# no samples collected:   white cell
+# text in each cell represents histopath readout ("no" means no histopath sample collected)
+  
+ggplot(df %>% mutate(LAVAL = log(AVAL)), aes(x = MATRIX, , y = as.factor(SUBJECT), fill = LAVAL)) +
+  geom_tile(color = "black") +
+  scale_fill_gradient2(low = "#075AFF",
+                       mid = "#FFFFCC",
+                       high = "#FF0000") +
+  geom_text(aes(label = round(LAVAL, 1)), color = "white", size = 3) +
+  theme_prism2() + 
+  theme(legend.position="bottom", legend.box="vertical")  +
+  theme(axis.text.x = element_text(size=10, angle = 45, hjust = 1, vjust=1, face="plain")) +  # 	Font face ("plain", "italic", "bold", "bold.italic")
+  theme(legend.title = element_text())  
+  #coord_fixed()
+
+
+
+
+
+ 
+# Gray cell <LLOQ : <10    
+# no samples collected:   white cell
+# text in each cell represents histopath readout ("no" means no histopath sample collected)
+  
+
+  library(ComplexHeatmap)
+  library(janitor)
+
+
+  which_tissue = "Whole"
+  which_paramcd = "vgc"
+  #which_paramcd = "mRNA"
+  
+  which_timepoint = "Week 26/27"
+  janitor_cutoff = 0.6
+  dose_unit = "*E12 vg/kg"
+
+dat <- dat0 %>% 
+  filter(ARM != "2e+13 vg/kg (IS-)") %>% 
+  mutate(MATRIX = as.character(MATRIX)) %>% 
+  dplyr::arrange(DOSE, MATRIX)
+
+  df <- dat %>% 
+    filter(ATPT %in% c(which_timepoint), 
+           PARAMCD %in% c(which_paramcd ))  %>% 
+    select(SUBJECT, SEX, DOSE, MATRIX, PARAMCD, AVAL, HISTOPTH) %>% # , HISTOPTH) %>% 
+   
+    mutate(AVAL =  log(as.numeric(AVAL)), 
+           HISTOPTH = as.numeric(HISTOPTH), 
+           HISTOPTH = ifelse(HISTOPTH %in% c(NA, 0), "", HISTOPTH) #, 
+           #SUBJECT = paste0(SUBJECT, "(", base::substr(SEX, 1, 1), ")")
+           ) 
+  # df <- bind_rows(df %>% select(-DOSE), 
+  #                 df %>% select(-AVAL) %>% dplyr::rename(AVAL=DOSE) %>% mutate(MATRIX="Dose") %>% distinct(SUBJECT, SEX, MATRIX, PARAMCD, .keep_all=TRUE))
+  
+  df1 <- df %>% pivot_wider(id_cols=c("SUBJECT", "DOSE", "SEX"), names_from=MATRIX, values_from = AVAL)  # , "HISTOPTH"
+  df2 <- df %>% pivot_wider(id_cols=c("SUBJECT", "DOSE", "SEX"), names_from=MATRIX, values_from = HISTOPTH)  # , "HISTOPTH"
+  
+  
+  df1 <- df1 %>% janitor::remove_empty(which = "cols", cutoff=janitor_cutoff)
+  df2 <- df2 %>% select(colnames(df1)) %>% select(-SUBJECT, -DOSE, -SEX)
+  
+  # subject level information 
+  subj_lst <-  df1 %>% pull(SUBJECT)  # paste0(df$SUBJECT, "(", DOSE, ")")
+  dose_lst <- df1 %>% pull(DOSE)
+  sex_lst <- df1 %>% pull(SEX)
+  
+  df1 <- df1 %>% select(-SUBJECT, -DOSE, -SEX) %>% as.matrix() 
+  rownames(df1) <- subj_lst
+  
+  # max histogram
+  hist_max <- dat %>% 
+      filter(ATPT %in% c(which_timepoint), 
+           PARAMCD %in% c(which_paramcd ))  %>% 
+    mutate(HISTOPTH = as.numeric(HISTOPTH)) %>% group_by(SUBJECT) %>% summarise(Max_HIST = max(HISTOPTH))  %>% pull(Max_HIST)
+  
+  set.seed(123)
+  library(circlize)   # for color selection
+  #tt  = df1 %>% scale() %>% as.data.frame()
+  ht <- Heatmap(
+    df1 , # %>% base::scale(), 
+    cluster_rows = FALSE, 
+    cluster_columns = FALSE, 
+    
+    row_split =  factor(paste0(dose_lst, dose_unit), levels=c(paste0(dose_lst %>% sort(), dose_unit)) %>% unique()),
+          row_names_gp = gpar(fontsize = 12), 
+          column_names_rot = 45,  #	Rotation of column titles.)       
+          show_row_dend = FALSE, 
+          cluster_row_slices = FALSE, 
+          
+          heatmap_legend_param = list(
+            title = paste0("normalized ", which_paramcd),  
+            #at = c(-4, 0, 4), 
+            direction = "horizontal", 
+            legend_width = unit(4, "cm")
+          ), 
+          
+          top_annotation = HeatmapAnnotation(
+            Type = data.frame(MATRIX = df1%>% colnames()) %>% 
+              left_join(dat %>% distinct(MATRIX, ORDER), by="MATRIX") %>% 
+              pull(ORDER), #t1[df1%>% colnames()],  
+            which = c("column"), 
+            col= list(Type = c("Primary" ="#6d405d", "Secondary"  = "#093b6d", "Other"  = "gray")), #  "#6d405d", "#093b6d",
+            #name= "sfs",  
+            #annotation_name_side = "top", 
+            show_annotation_name = TRUE
+            ), 
+          
+          right_annotation = HeatmapAnnotation(
+            Sex = sex_lst,  
+            `Dose(xE12 vg/kg)` = dose_lst,
+            Max.histopath = hist_max, # rep(c(0, 1, 2, 3), 3),
+            which = c("row"), 
+            annotation_legend_param  = list(legend_direction = "horizontal", direction = "horizontal"), # legend_direction = c("vertical", "horizontal"),
+            col= list(Sex = c("Male" = "#2f71fd", "Female"  = "#f98068" ), 
+                      `Dose(xE12 vg/kg)` = colorRamp2(c(6, 20, 50), c("tan","orange",  "brown")), 
+                      Max.histopath = colorRamp2(c( 1, 2, 3), c("gray90", "gray50", "gray10")) 
+                    )  # c("6" = "gray90", "20" = "gray50", "50" = "gray20"))
+            ), 
+          
+   
+           cell_fun = function(j, i, x, y, width, height, fill) 
+          { 
+             grid.text(df2[i, j], x, y, gp = gpar(fontsize = 12))  
+          }
+           
+  )
+  
+  
+  draw(ht, 
+     padding = unit(c(12, 20, 20, 20), "mm"), 
+     heatmap_legend_side = "top" 
+     ) ##
+   
+
+
+```
+
+## Results
+
+## Biodistribution
+
+Biodistribution and shedding studies are instrumental for developing adeno-associated virus (AAV)-based gene therapies. The main objectives of these studies are to investigate where and in what form the vector is present within the body and whether measurable amounts are disseminated into the environment. In this chapter, we describe polymerase chain reaction (PCR)-based bioanalytical methods that measure AAV vector DNA in tissues and biological fluids. Considerations related to choosing real time vs. digital PCR platforms, principles of method development, key performance characteristics, and data reporting formats are presented. We also introduce and discuss a novel immunocapture-based PCR method for ultra-sensitive detection of intact AAV capsids. from https://onlinelibrary.wiley.com/doi/epdf/10.1002/9781119852810.ch7
+
+```{r functions-for-biodistribution}
+#| context: setup
+#| eval: true 
+  
+# barplot_for_biodistribution ----------------------------
+##' df = dataframe for plotting
+##' spec = data specification from yaml file
+##' .param = parameter to be used on x axis (default = PARAM or PARAM_GROUP)
+##' .aval = analysis value to be used on y axis (default = AVAL)
+##' .id = id to identify an individual subject  
+##' .time = time point for the sample collection  
+##' status = draft or final version of the plot
+ 
+barplot_for_biodistribution2 = function(
+    df,  spec,  
+    
+    .xmatrix = MATRIX, 
+    .yaval = AVAL, 
+    .param = PARAMCD, 
+    .id = ID,
+    .facet = PARAMCD,
+    .fill = ARM_f,  
+    .histopath = HISTOPTH, 
+    
+    fill_legend_txt = "Treatement Arm:",
+    histopah_legend_txt = "Histopath",
+    status = "DRAFT"  #flag for labeling figures as draft
+) {
+    
+  aval_txt <- cement({{.yaval}})
+  my_label <- yspec::ys_get_short(spec, short_max = Inf, title_case = TRUE)
+  my_unit <- yspec::ys_get_unit(spec, short_max = Inf, title_case = TRUE)
+  ylab_txt <- glue::glue(my_label[[aval_txt]], xunit=mrgmisc::parens(my_unit[[aval_txt]]))
+   
+  
+  # https://stackoverflow.com/questions/52506296/ggplot-geom-point-position-jitterdodge-not-working-when-color-specified
+  p <-  
+    ggplot(df, aes(x = {{.xmatrix}}, y = {{.yaval}}, fill = {{.fill}}, group = {{.fill}})) +
+    geom_bar(
+      position = "dodge", width = 0.8, stat = "summary", fun = "mean",
+      color = "black", linewidth = .8
+    ) +
+    scale_fill_manual(values = color.scheme.certara[3:length(color.scheme.certara)]) + # gg_color_hue(n=12)) + 
+    
+    # scale_color_discrete( c("gray", "blue", "cyan"), 
+    #                      labels = c("Young Adult", "Older Adult", "sfsf")) +
+    stat_summary(
+      fun.data = mean_sdl, geom = "errorbar", color = "black",
+      position = position_dodge(0.8), width = 0.2, linewidth = 0.8
+    ) +
+    geom_point( aes(color={{.histopath}}, size={{.histopath}}),   # 
+                position = position_jitterdodge(0.3, dodge.width = .8),
+                alpha = 0.8#, 
+                #show.legend = FALSE
+    ) + 
+    scale_color_manual(values = c("gray", "blue", "cyan", "red", "gray90")) +    # for 0, 1, 2, 3, NA
+    scale_size_manual(values = c(1, 2, 3, 4, 5)) + 
+     
+    scale_y_log10() + 
+    #scale_color_brewer(palette = "Set1") +   # , name = "color_legend_name") +
+    #facet_wrap(~TIME, nrow=2)+ theme_bw() +
+    
+    labs(x="", y= "", fill = fill_legend_txt, color= histopah_legend_txt, size=histopah_legend_txt) + 
+    
+    theme_prism2() + 
+    theme(legend.position="bottom", legend.box="vertical")  +
+    theme(axis.text.x = element_text(size=10, angle = 45, hjust = 1, vjust=1, face="plain")) +  # 	Font face ("plain", "italic", "bold", "bold.italic")
+    theme(legend.title = element_text())  
+    
+    #facet_grid(cols = vars(ARM_f), scales = "free") +
+    #facet_wrap(as.formula(paste("~", cement({{.param}}))), ncol=1, scales="free_y")
+  
+    facet_txt = cement({{.facet}})
+    if (!is.null(facet_txt)) {
+      p = p + facet_wrap(as.formula(paste("~", facet_txt)), ncol=1, scales="free_y")
+    }
+    
+    # if (!is.null(status)) { 
+    #   p = p + xgxr::xgx_annotate_status(status) 
+    # }
+
+  # 
+  # library(plotly) 
+  # add_aes <- function (mapping, ...) {
+  #   new_aes <- structure(append(mapping, as.list(match.call()[-(1:2)])), class = "uneval")
+  #   ggplot2:::rename_aes(new_aes)
+  # }
+  
+  #fig$mapping = add_aes(fig$mapping, label=SUBJECT)  
+  
+  # boxplot for DOSE vs HISTOPTH
+  # fig <-  ggplot(df, aes(x = HISTOPTH, y = DOSE, fill=DOSE)) +
+  #   geom_boxplot()
+  
+  
+  p
+}
+
+```
+
+```{r functions-for-heatmap}
+#| context: setup
+#| eval: true 
+ 
+
+my_pheatmap <- function(dat) { 
+##########
+# https://stackoverflow.com/questions/38727324/adding-a-dendrogram-to-a-ggplot2-heatmap
+# https://stackoverflow.com/questions/15505607/diagonal-labels-orientation-on-x-axis-in-heatmaps
+# https://www.datanovia.com/en/lessons/heatmap-in-r-static-and-interactive-visualization/
+# https://stackoverflow.com/questions/36421231/r-markdown-output-size
+#   
+  
+  df <- dat %>% 
+    filter(ATPT %in% c("Week 26/27"), 
+           PARAMCD %in% "mRNA")  %>% 
+    select(SUBJECT, SEX, DOSE, MATRIX, PARAMCD, AVAL) %>% # , HISTOPTH) %>% 
+   
+    mutate(AVAL = as.numeric(AVAL), 
+           SUBJECT = paste0(SUBJECT, "(", DOSE, ", ", SEX, ")")
+           ) %>% 
+    select(-DOSE) %>% 
+    pivot_wider(id_cols=c("SUBJECT"), names_from=MATRIX, values_from = AVAL)  # , "HISTOPTH"
+  
+  df_histopath <- dat %>% 
+    filter(ATPT %in% c("Week 26/27"), 
+           PARAMCD %in% "mRNA")  %>% 
+    select(SUBJECT, SEX, DOSE, MATRIX, PARAMCD,   HISTOPTH) %>% # , HISTOPTH) %>% 
+   
+    mutate(HISTOPTH = as.character(HISTOPTH), 
+           HISTOPTH = ifelse(HISTOPTH=="0", "", HISTOPTH), 
+           SUBJECT = paste0(SUBJECT, "(", DOSE, ", ", SEX, ")")
+           ) %>% 
+    select(-DOSE) %>% 
+    pivot_wider(id_cols=c("SUBJECT"), names_from=MATRIX, values_from = HISTOPTH)  # , "HISTOPTH"
+  
+  library(janitor)
+  df <- df %>% janitor::remove_empty(which = "cols", cutoff=0.6)
+  df_histopath <- df_histopath  %>% select(colnames(df))
+   #df_histopath[df_histopath==0] = ""
+    # mutate(
+    #   across(everything(), ~replace_na(.x, 10^50))
+    # )
+  
+  
+  # https://stackoverflow.com/questions/45576805/how-to-replace-all-na-in-a-dataframe-using-tidyrreplace-na
+  # select(1:32)   %>%
+  #   filter(if_any(everything(), ~!is.na(.)))   # https://stackoverflow.com/questions/41609912/remove-rows-where-all-variables-are-na-using-dplyr
+  # filter(!across(everything(), is.na))
+  
+  # 6503  has 3 histopath
+  
+  #df <- df %>% select(-4)
+  df1 <- df %>%  select(-SUBJECT)  %>% as.matrix()
+  rownames(df1) <- df$SUBJECT # paste0(df$SUBJECT, "(", DOSE, ")")
+  
+  df_histopath1 <- df_histopath %>% select(-SUBJECT) %>% as.matrix()
+  rownames(df_histopath1) <- df_histopath$SUBJECT # paste0(df$SUBJECT, "(", DOSE, ")")
+  
+  
+  library(pheatmap)
+  pheatmap::pheatmap(df1  %>% scale() , Rowv = TRUE, Colv = TRUE, angle_col = 45, na_col="white" , 
+                     display_numbers =  df_histopath1, 
+                     number_color = "blue", 
+                     fontsize_number = 15
+                     )
+
+}
+
+##########################################################
+my_heatmap <- function(df0, which_tissue, which_paramcd, which_timepoint,  
+                       cluster_rows = TRUE,  
+                       cluster_columns = TRUE, 
+                       log_all_scale = FALSE, 
+                       column_wise_scale = TRUE, 
+                       row_wise_scale = FALSE,
+                       janitor_cutoff = 0.6, 
+                       dose_unit = "xE12 vg/kg"
+                       )  {
+  #BiocManager::install("ComplexHeatmap")
+
+# https://jokergoo.github.io/ComplexHeatmap-reference/book/a-single-heatmap.html
+# https://jokergoo.github.io/ComplexHeatmap-reference/book/legends.html
+# https://stackoverflow.com/questions/52259684/r-complexheatmap-relocate-and-resize-legend-from-grid-text   # add grid_text
+  #ht_global_opt(heatmap_legend_title_gp = gpar(fontsize = 5, fontface = "bold"), heatmap_legend_labels_gp = gpar(fontsize = 5), heatmap_column_names_gp = gpar(fontsize = 5))
+##########################################################
+ 
+  
+  library(ComplexHeatmap)
+  library(janitor)
+  
+ 
+  
+  df <- df0 %>% 
+    filter(TISSUE %in% which_tissue, 
+           ATPT %in% c(which_timepoint), 
+           PARAMCD %in% c(which_paramcd ))  %>% 
+    select(SUBJECT, SEX, ARM_f, DOSE, MATRIX, PARAMCD, AVAL, HISTOPTH) %>% # , HISTOPTH) %>% 
+   
+    mutate(AVAL = as.numeric(AVAL), 
+           #HISTOPTH = as.numeric(HISTOPTH)#, 
+           HISTOPTH = ifelse(HISTOPTH %in% c(0), "", as.character(HISTOPTH)) #, 
+           #SUBJECT = paste0(SUBJECT, "(", base::substr(SEX, 1, 1), ")")
+           ) 
+  
+  if (log_all_scale) {df <- df %>% mutate(AVAL = log(AVAL))  }
+  
+  # df <- bind_rows(df %>% select(-DOSE), 
+  #                 df %>% select(-AVAL) %>% dplyr::rename(AVAL=DOSE) %>% mutate(MATRIX="Dose") %>% distinct(SUBJECT, SEX, MATRIX, PARAMCD, .keep_all=TRUE))
+  
+  df1 <- df %>% pivot_wider(id_cols=c("SUBJECT", "ARM_f", "DOSE", "SEX"), names_from=MATRIX, values_from = AVAL)  # , "HISTOPTH"
+  df2 <- df %>% pivot_wider(id_cols=c("SUBJECT", "ARM_f", "DOSE", "SEX"), names_from=MATRIX, values_from = HISTOPTH)  # , "HISTOPTH"
+  df2[is.na(df2)] = "no"
+  
+  df1 <- df1 %>% janitor::remove_empty(which = "cols", cutoff=janitor_cutoff)
+  df2 <- df2 %>% select(colnames(df1)) %>% select(-SUBJECT, -ARM_f, -DOSE, -SEX)
+  
+  # subject level information 
+  subj_lst <-  df1 %>% pull(SUBJECT)  # paste0(df$SUBJECT, "(", DOSE, ")")
+  dose_lst <- df1 %>% pull(DOSE)
+  arm_f_lst <- df1 %>% pull(ARM_f)
+  sex_lst <- df1 %>% pull(SEX)
+  
+  df1 <- df1 %>% select(-SUBJECT, -ARM_f, -DOSE, -SEX) %>% as.matrix() 
+  rownames(df1) <- subj_lst
+  
+  # max histogram
+  hist_max <- df %>% 
+      #filter(ATPT %in% c(which_timepoint), 
+          # PARAMCD %in% c(which_paramcd ))  %>% 
+    mutate(HISTOPTH = as.numeric(HISTOPTH)) %>% 
+    group_by(SUBJECT) %>% 
+    summarise(Max_HIST = max(HISTOPTH, na.rm=TRUE))  %>% 
+    pull(Max_HIST)
+  
+  set.seed(123)
+  library(circlize)   # for color selection
+  #tt  = df1 %>% scale() %>% as.data.frame()
+  
+  if (column_wise_scale)  {df1 <-  df1 %>% base::scale()}
+  if (row_wise_scale) {df1 <- t(t(df1) %>% base::scale())}
+  
+  ht <- Heatmap(
+    df1, 
+    cluster_rows = cluster_rows,  
+    cluster_columns = cluster_columns, 
+    
+    row_split =  factor(arm_f_lst, levels=df0$ARM_f %>% levels()), #factor(paste0(dose_lst, dose_unit), levels=c(paste0(dose_lst %>% unique() %>% sort(), dose_unit))),
+          row_names_gp = gpar(fontsize = 12), 
+          column_names_rot = 45,  #	Rotation of column titles.)       
+          show_row_dend = FALSE, 
+          cluster_row_slices = FALSE, 
+          
+          heatmap_legend_param = list(
+            title = paste0("scaled ", which_paramcd, "(", paste0(which_tissue, collapse=" "), ")"),  
+            #at = c(-4, 0, 4), 
+            direction = "horizontal", 
+            legend_width = unit(4, "cm")
+          ), 
+          
+          top_annotation = HeatmapAnnotation(
+            Type = data.frame(MATRIX = df1%>% colnames()) %>% 
+              left_join(df0 %>% distinct(MATRIX, ORDER), by="MATRIX") %>% 
+              pull(ORDER), #t1[df1%>% colnames()],  
+            which = c("column"), 
+            col= list(Type = c("Primary" ="#6d405d", "Secondary"  = "#093b6d", "Other"  = "gray")), #  "#6d405d", "#093b6d",
+            #name= "sfs",  
+            #annotation_name_side = "top", 
+            show_annotation_name = TRUE
+            ), 
+          
+          right_annotation = HeatmapAnnotation(
+            Sex = sex_lst,  
+            `Dose(xE12 vg/kg)` = dose_lst,
+            Max.histopath = hist_max, # rep(c(0, 1, 2, 3), 3),
+            which = c("row"), 
+            annotation_legend_param  = list(legend_direction = "horizontal", direction = "horizontal"), # legend_direction = c("vertical", "horizontal"),
+            col= list(Sex = c("Male" = "#2f71fd", "Female"  = "#f98068" ), 
+                      `Dose(xE12 vg/kg)` = colorRamp2(c(6, 20, 50), c("tan","orange",  "brown")), 
+                      Max.histopath = colorRamp2(c( 1, 2, 3), c("gray90", "gray50", "gray10")) 
+                    )  # c("6" = "gray90", "20" = "gray50", "50" = "gray20"))
+            ), 
+          
+   
+           cell_fun = function(j, i, x, y, width, height, fill) 
+          { 
+             grid.text(df2[i, j], x, y, gp = gpar(fontsize = 12))  
+          }
+           
+  )
+  
+
+  
+  return(ht)
+}
+
+
+```
+
+### Bar Chart for biodistribution
+
+<!-- {.unnumbered} -->
+
+See below for a bar Chart for biodistribution of different organs stratify by Group and Timepoint \[Vector DNA\]
+
+Progranulin protein (PGRN) Progranulin (PGRN)
+
+```{r}
+
+dat0 %>% 
+  distinct(TISSUE, PARAMCD, PARAMCD_GROUP) %>% 
+  arrange(TISSUE, PARAMCD_GROUP, PARAMCD)  %>% 
+  as.data.frame()  #%>% 
+  #xtable()  
+  
+```
+
+```{r}
+#| eval: false 
+  
+  # dat %>% 
+  #   filter(TISSUE %in% c(NA, "Brain") ) %>% 
+  #   filter(PARAMCD == "vgc", MATRIX_GROUP%in% "Spinal Cord") %>%
+  #   filter(HISTOPTH  %in% c(1, 2, 3)) %>% 
+  #   group_by(TISSUE, PARAMCD, MATRIX_GROUP, MATRIX, ARM, DOSE,  HISTOPTH) %>% 
+  #   summarise(N = length(unique(SUBJECT))) %>%   # filter(HISTOPTH %in% 1)   %>% summary(ARM) 
+  #   arrange(PARAMCD, MATRIX, DOSE, ARM, HISTOPTH) %>% 
+  #   as.data.frame()
+  # 
+  # 
+  # matrix_lst <- dat %>% filter(HISTOPTH >0) %>% pull(MATRIX) %>% unique()
+  # others <- setdiff(matrix_lst, c(primary_brain_matrix,  spinal3)) %>% sort()
+  # 
+  # df <- dat %>%   
+  #   #filter(MATRIX_GROUP %in% "Spinal Cord",   PARAMCD == "vgc") %>% 
+  #   filter(ATPT %in% c("Week 26/27"))  %>% 
+  #   filter(MATRIX  %in% c(primary_brain_matrix,  spinal3, others))  #%>% 
+  #   #filter(HISTOPTH  %in% c(1, 2, 3))
+    
+# TISSUE: "Brain" "CSF"   "Liver" "Serum"
+# MATRIX: 
+# PARAMCD: 
+# ARM
+# TIMEPOINT: 
+
+
+df <- dat0 %>% 
+  filter(PARAMCD %in% c("vgc", "EVV", "LPA", "mRNA", "delta4"), TISSUE %in% c("Whole", "Brain")) %>%   # mRNA") %>%    LPA 
+  #mutate(PARAMCD = ordered(PARAMCD , levels=rev(c("vgc", "mRNA", "EVV", "LPA", "delta4"))))   %>%  # "PGRN", "D4-PGRN")))   %>% 
+  arrange(DOSE, ORDER, MATRIX) %>%    #filter(!ARM  %in% "2e+13 vg/kg (IS-)" )  %>% 
+  dplyr::filter(
+    !as.integer(ARM_f) %in% c(1,2), 
+    !ARM  %in% "2e+13 vg/kg (IS-)", 
+    ORDER %in% c("Primary", "Secondary")
+    )
+
+df <- df %>% 
+  mutate(
+    PARAMCD = ordered(PARAMCD, levels=rev(df$PARAMCD %>% levels() )), 
+    MATRIX = ordered(MATRIX, levels = df$MATRIX %>% unique())
+  )
+dat$ARM_f %>% levels()
+dat$ARM %>% unique()
+
+
+matrix_lst <- dat %>% filter(HISTOPTH >0) %>% pull(MATRIX) %>% unique()
+others <- setdiff(matrix_lst, c(primary_brain_matrix,  spinal3)) %>% sort()
+
+df <- df %>%   
+  #filter(MATRIX_GROUP %in% "Spinal Cord",   PARAMCD == "vgc") %>% 
+  filter(ATPT %in% c("Week 26/27"))  #%>% 
+  #filter(MATRIX  %in% c(primary_brain_matrix,  spinal3, others)) 
+
+barplot_for_biodistribution2(
+    df,  spec,  
+    
+    .xmatrix = MATRIX, 
+    .yaval = AVAL, 
+    .param = PARAMCD, 
+    .id = ID,
+    .facet = PARAMCD,
+    .fill = ARM_f,  
+    .histopath = HISTOPTH, 
+    
+    fill_legend_txt = "Treatement Arm:",
+    histopah_legend_txt = "Histopath:",
+    status = "DRAFT"  #flag for labeling figures as draft
+)
+
+
+
+
+  
+  
+  
+  # 
+  # 
+  # library(ggplot2)
+  # 
+  # set.seed(123)
+  # 
+  # ACC3 <- data.frame(
+  #   Condition = sample(c("Absent", "Present"), 100, replace = TRUE),
+  #   Group = sample(c("Young Adult", "Older Adult"), 100, replace = TRUE),
+  #   accuracy = runif(100, 90, 110)
+  # )
+  # 
+  # ACC3$Condition <- factor(ACC3$Condition, c("Absent", "Present"))
+  # ACC3$Group <- factor(ACC3$Group, c("Young Adult", "Older Adult"))
+  # 
+  # ggplot(ACC3, aes(fill = Group, y = accuracy, x = Condition)) +
+  #   geom_bar(
+  #     position = "dodge", width = 0.8, stat = "summary", fun = "mean",
+  #     color = "black", linewidth = .8
+  #   ) +
+  #   facet_grid(cols = vars(Condition), scales = "free") +
+  #   scale_color_discrete(labels = c("Young Adult", "Older Adult")) +
+  #   stat_summary(
+  #     fun.data = mean_sdl, geom = "errorbar", color = "black",
+  #     position = position_dodge(0.8), width = 0.2, linewidth = 0.8
+  #   ) +
+  #   geom_point(
+  #     position = position_jitterdodge(0.3, dodge.width = .8),
+  #     alpha = 0.8
+  #   )
+  # 
+  # 
+  # 
+  
+   
+   
+
+
+
+ 
+```
+
+:::: panel-tabset
+#### Regular plot
+
+```{r}
+#| label: fig-dummary-for-test
+#| fig-cap-location: top
+#| fig-cap: sfsfsfsfsfgsgsgdgdsgfdsf
+#| fig-width: 8
+#| fig-height: 12 
+ ggplot(mtcars, aes(x=mpg, y=cyl)) + geom_point()
+
+
+```
+
+#### Shiny app
+
+<!-- # TISSUE: "Brain" "CSF"   "Liver" "Serum" -->
+
+<!-- # MATRIX:  -->
+
+<!-- # PARAMCD:  -->
+
+<!-- # ARM -->
+
+<!-- # TIMEPOINT:  -->
+
+::: {layout="[ [1, 1], [1, 1], [1] ]"}
+```{r}
+#| context: render 
+ selectInput("which_tissue", label="Which Tissue (multiple): ", c(dat0$TISSUE_f %>% levels()), multiple = TRUE, selected=c("Whole", "Brain"))
+```
+
+```{r}
+#| context: render
+ selectInput("which_matrix", "Which Biological Matrix (multiple):", c("All", dat0$MATRIX%>% levels()), multiple=TRUE, selected="All") 
+```
+
+```{r}
+#| context: render
+ selectInput("which_paramcd", "Which Analyte (multiple):", c(dat0$PARAMCD %>% unique() %>% sort()), multiple=TRUE, selected=c("vgc", "mRNA")) 
+```
+
+```{r}
+#| context: render 
+ selectInput("which_doses", label="Which Dose(multiple): ", c("All", dat0$ARM_f %>% levels()), multiple = TRUE, selected="All")
+```
+
+```{r}
+#| context: render
+  timepoint_options <- c(dat0$TIME %>% unique() %>% sort())
+  selectInput("which_timepoint", "Which Time Point:", timepoint_options, multiple = FALSE, selected=timepoint_options %>% first()) 
+```
+
+```{r}
+#| context: render
+#| label: fig-barplot-88
+#| fig-cap-location: top
+#| fig-width: 8
+#| fig-height: 12 
+#| 
+#| 
+
+
+#| class-output: output
+
+ plotOutput("bar_plot",  width = "100%")
+```
+:::
+
+```{r}
+#| context: server
+
+output$bar_plot <- renderPlot({
+        
+  mydata <- dat0 #%>% 
+    # filter(
+    #   ATPT_f != "Pretest",            ########################################
+    #   !str_detect(ARM_f, "0 vg/kg")   ########################################
+    # )
+  
+  
+  # which_tissue
+   #if (input$which_tissue == "All")  {
+     #mydata <- mydata
+   #} else { 
+     mydata <- mydata %>% dplyr::filter(TISSUE %in% input$which_tissue)
+   #}  
+  
+  # which_matrix
+   if (input$which_matrix == "All")  {
+     mydata <- mydata
+   } else { 
+     mydata <- mydata %>% dplyr::filter(MATRIX %in% input$which_matrix)
+   }
+  
+  # which_paramcd
+     mydata <- mydata %>% dplyr::filter(PARAMCD %in% input$which_paramcd)
+     
+  # which_doses
+   if ("All" %in% input$which_doses )  {
+     mydata <- mydata
+   } else { 
+     mydata <- mydata %>% dplyr::filter(ARM_f %in% input$which_doses)
+   }
+  
+  
+  # which_timepoint
+   if ("All" %in% input$which_timepoint)  {
+     mydata <- mydata
+   } else { 
+     mydata <- mydata %>% dplyr::filter(ATPT_f %in% input$which_timepoint)
+   }
+  
+     
+  barplot_for_biodistribution2(
+    mydata,  spec,  
+    
+    .xmatrix = MATRIX, 
+    .yaval = AVAL, 
+    .param = PARAMCD, 
+    .id = ID,
+    .facet = PARAMCD,
+    .fill = ARM_f,  
+    .histopath = HISTOPTH, 
+    
+    fill_legend_txt = "Treatement Arm:",
+    histopah_legend_txt = "Histopath:",
+    status = "DRAFT"  #flag for labeling figures as draft
+)
+
+  # # boolean_grouped
+  # if (input$boolean_grouped == "Yes")  { 
+  # barplot_for_biodistribution(
+  #    mydata, 
+  #    spec, 
+  #   .param = PARAM_GROUP, 
+  #   .aval = AVAL, 
+  #   .id = ID,
+  #   .time = TIME,
+  #   .arm = ARM_f, 
+  #   status = status
+  #   )
+  # } else {
+  # barplot_for_biodistribution(
+  #    mydata, 
+  #    spec, 
+  #   .param = PARAM, 
+  #   .aval = AVAL, 
+  #   .id = ID,
+  #   .time = TIME,
+  #   .arm = ARM_f, 
+  #   status = status
+  #   )
+  #   
+  # }
+        
+}, height = 800 )
+
+```
+::::
+
+\newpage
+
+\pagebreak
+
+{{< pagebreak >}}
+
+### Heatmap for biodistribution
+
+The value of center determines how column centering is performed. If center is a numeric-alike vector with length equal to the number of columns of x, then each column of x has the corresponding value from center subtracted from it. If center is TRUE then centering is done by subtracting the column means (omitting NAs) of x from their corresponding columns, and if center is FALSE, no centering is done.
+
+The value of scale determines how column scaling is performed (after centering). If scale is a numeric-alike vector with length equal to the number of columns of x, then each column of x is divided by the corresponding value from scale. If scale is TRUE then scaling is done by dividing the (centered) columns of x by their standard deviations if center is TRUE, and the root mean square otherwise. If scale is FALSE, no scaling is done.
+
+```{r}
+#| eval: false 
+
+which_tissue <- "Whole"
+
+which_paramcd = "vgc"
+#which_paramcd = "mRNA"
+
+which_timepoint = "Week 26/27"
+janitor_cutoff = 0.6
+
+df0 <- dat0 %>%  filter(ARM != "2e+13 vg/kg (IS-)")    
+
+ 
+# Log scaled, but without clustering (the most plain version for QC purpose, janitor_cutoff = 0.0001)
+df <-   dat0 %>%  dplyr::arrange(DOSE, MATRIX)   # note using da0
+
+ht <- my_heatmap(df, which_tissue, which_paramcd, which_timepoint, 
+                 cluster_rows = FALSE,  
+                 cluster_columns = FALSE, 
+                 
+                 log_all_scale = TRUE, 
+                column_wise_scale = FALSE, 
+                row_wise_scale = FALSE,
+                
+                # if = 1, meaning only keep columns (MATRIX/Organ) that has all valid entries, (not a single NA) 
+                janitor_cutoff = 0.0001,     # threshold to throw away organ (Matrix) due to NA
+                dose_unit = "xE12 vg/kg")
+
+draw(ht,  
+     padding = unit(c(15, 30, 20, 50), "mm"),    # bottom left, top, right
+     heatmap_legend_side = "top" 
+     ) ##
+
+
+# Log scaled, but without clustering (plain version for QC purpose)
+df <-   df0 %>%  dplyr::arrange(DOSE, ORDER, MATRIX) 
+ht <- my_heatmap(df, which_tissue, which_paramcd, which_timepoint, 
+                 cluster_rows = FALSE,  
+                 cluster_columns = FALSE, 
+                 
+                 log_all_scale = TRUE, 
+                column_wise_scale = FALSE, 
+                row_wise_scale = FALSE,
+                
+                # if = 1, meaning only keep columns (MATRIX/Organ) that has all valid entries, (not a single NA) 
+                janitor_cutoff = 0.0001,     # threshold to throw away organ (Matrix) due to NA
+                dose_unit = "xE12 vg/kg")
+
+draw(ht,  
+     padding = unit(c(15, 30, 20, 50), "mm"),    # bottom left, top, right
+     heatmap_legend_side = "top" 
+     ) ##
+
+  
+# Log scaled, but with clustering    
+df <- df0  
+ht <- my_heatmap(df, which_tissue, which_paramcd, which_timepoint, 
+                 cluster_rows = TRUE,  
+                 cluster_columns = TRUE, 
+                 
+                 log_all_scale = TRUE, 
+                column_wise_scale = TRUE, 
+                row_wise_scale = FALSE,
+                
+                janitor_cutoff = 0.6, 
+                dose_unit = "xE12 vg/kg")
+
+draw(ht,  
+     padding = unit(c(15, 30, 20, 50), "mm"),    # bottom left, top, right
+     heatmap_legend_side = "top" 
+     ) ##
+   
+
+# column_wise_scale
+df <- df0   
+draw(my_heatmap(df, which_tissue, which_paramcd, which_timepoint, 
+                cluster_rows = TRUE,  
+                cluster_columns = TRUE, 
+                
+                log_all_scale = FALSE, 
+                column_wise_scale=TRUE, 
+                row_wise_scale = FALSE,
+                
+                janitor_cutoff = 0.6, 
+                dose_unit = "xE12 vg/kg"), 
+     
+     padding = unit(c(12, 30, 20, 20), "mm"), 
+     heatmap_legend_side = "top" 
+     ) ##
+   
+# row_wise_scale
+df <- df0   
+draw(my_heatmap(df, which_tissue, which_paramcd, which_timepoint, 
+                cluster_rows = TRUE,  
+                cluster_columns = TRUE, 
+                
+                log_all_scale = FALSE, 
+                column_wise_scale=FALSE, 
+                row_wise_scale = TRUE,
+                
+                janitor_cutoff = 0.6, 
+                dose_unit = "xE12 vg/kg"), 
+     
+     padding = unit(c(12, 30, 20, 20), "mm"), 
+     heatmap_legend_side = "top" 
+     ) ##
+   
+```
+
+### across analyte comparison
+
+```{r}
+
+
+
+
+ 
+
+ 
+draw_multipanel_heatmap <- function(dat0, which_tissue, which_paramcd, which_timepoint)  { 
+  df0 <- dat0 %>%  
+    filter(ARM != "2e+13 vg/kg (IS-)")   %>% 
+    filter(ORDER %in%  c("Primary", "Secondary") | MATRIX %in% "Liver Right Lateral Lobe") %>% 
+    arrange(DOSE, ORDER, MATRIX)
+      
+  #df <-   df0  #%>%  dplyr::arrange(DOSE, MATRIX)  
+  ht <- my_heatmap(df0, which_tissue, which_paramcd, which_timepoint, 
+                   cluster_rows = TRUE,  
+                   cluster_columns = TRUE, 
+                   
+                   log_all_scale = TRUE, 
+                  column_wise_scale = FALSE, 
+                  row_wise_scale = FALSE,
+                  
+                  # if = 1, meaning only keep columns (MATRIX/Organ) that has all valid entries, (not a single NA) 
+                  janitor_cutoff = 0.6,     # threshold to throw away organ (Matrix) due to NA
+                  dose_unit = "xE12 vg/kg")
+  
+  draw(ht,  
+       padding = unit(c(15, 30, 20, 50), "mm"),    # bottom left, top, right
+       heatmap_legend_side = "top" 
+       ) ##
+
+}
+
+
+which_tissue <- "Whole" 
+which_paramcd = "vgc"  
+which_timepoint = "Week 26/27"
+janitor_cutoff = 0.6
+
+draw_multipanel_heatmap(dat0, which_tissue="Whole", which_paramcd="vgc", which_timepoint= "Week 26/27") 
+ 
+draw_multipanel_heatmap(dat0, which_tissue="Whole", which_paramcd="mRNA", which_timepoint= "Week 26/27") 
+ 
+draw_multipanel_heatmap(dat0, which_tissue="Brain", which_paramcd="LPA", which_timepoint= "Week 26/27") 
+ 
+
+
+
+draw_multipanel_heatmap <- function(dat0, which_tissue, which_paramcd, which_timepoint)  { 
+  df0 <- dat0 %>%  
+    filter(ARM != "2e+13 vg/kg (IS-)")   %>% 
+    #filter(ORDER %in%  c("Primary", "Secondary") | MATRIX %in% "Liver Right Lateral Lobe") %>% 
+    filter(ORDER %in% "Other") %>% 
+    arrange(DOSE, ORDER, MATRIX)
+      
+  #df <-   df0  #%>%  dplyr::arrange(DOSE, MATRIX)  
+  ht <- my_heatmap(df0, which_tissue, which_paramcd, which_timepoint, 
+                   cluster_rows = FALSE,  
+                   cluster_columns = FALSE, 
+                   
+                   log_all_scale = FALSE, 
+                  column_wise_scale = TRUE, 
+                  row_wise_scale = FALSE,
+                  
+                  # if = 1, meaning only keep columns (MATRIX/Organ) that has all valid entries, (not a single NA) 
+                  janitor_cutoff = 0.0001,     # threshold to throw away organ (Matrix) due to NA
+                  dose_unit = "xE12 vg/kg")
+  
+  draw(ht,  
+       padding = unit(c(15, 30, 20, 50), "mm")#,    # bottom left, top, right
+       #heatmap_legend_side = "top" 
+       ) ##
+
+}
+ 
+dat0 %>% 
+  filter(!TISSUE %in% c("Brain", "Whole")) %>% 
+  distinct(TISSUE, MATRIX, ORDER, PARAMCD, ARM) %>% 
+  arrange(TISSUE,ORDER, PARAMCD)  %>% 
+  as.data.frame()  #%>% 
+  #xtable()  
+  
+
+draw_multipanel_heatmap(dat0, which_tissue="CSF", which_paramcd="LPA", which_timepoint= "Week 26/27")
+
+draw_multipanel_heatmap(dat0, which_tissue="Liver", which_paramcd="LPA", which_timepoint= "Week 26/27")
+
+draw_multipanel_heatmap(dat0, which_tissue="Serum", which_paramcd="LPA", which_timepoint= "Week 26/27")
+
+```
+
+```{r}
+
+# assess across-analyte by a single heatmap
+
+df0 <- dat0 %>%  
+    filter(ARM != "2e+13 vg/kg (IS-)")   %>% 
+    filter(ORDER %in%  c("Primary", "Secondary") | MATRIX %in% "Liver Right Lateral Lobe") %>% 
+    arrange(DOSE, ORDER, MATRIX, SUBJECT)  %>% 
+  mutate(SUBJECT =paste0(SUBJECT, "-", PARAMCD))
+
+which_tissue <- "Whole" 
+which_paramcd = c("vgc", "mRNA")
+which_timepoint = "Week 26/27"
+janitor_cutoff = 0.6
+
+  #df <-   df0  #%>%  dplyr::arrange(DOSE, MATRIX)  
+  ht <- my_heatmap(df0, which_tissue, which_paramcd, which_timepoint, 
+                   cluster_rows = TRUE,  
+                   cluster_columns = TRUE, 
+                   
+                   log_all_scale = TRUE, 
+                  column_wise_scale = FALSE, 
+                  row_wise_scale = FALSE,
+                  
+                  # if = 1, meaning only keep columns (MATRIX/Organ) that has all valid entries, (not a single NA) 
+                  janitor_cutoff = 0.6,     # threshold to throw away organ (Matrix) due to NA
+                  dose_unit = "xE12 vg/kg")
+  
+  draw(ht,  
+       padding = unit(c(15, 30, 20, 50), "mm"),    # bottom left, top, right
+       heatmap_legend_side = "top" 
+       ) ##
+
+
+
+
+```
+
+# Study 22GR007 - 1-Month (Single-Dose) Intravenous Injection Exploratory Toxicity and BioDistrb Study of PF-07911383 in Cynomolgus Monkeys.pdf
+
+Gene therapy using recombinant adeno-associated virus (AAV) has been linked with histopathological findings in dorsal root ganglion neurons in preclinical studies using nonhuman primates (Hordeaux et al, 2020).
+
+transgene mRNA expression of PF-07911383 was comparable
+
+PF-07911383 was able to produce quantifiable levels of human progranulin protein in CSF of both animals (15-40 ng/mL) at 2x1013 vg/kg and in the female at 5x1012 vg/kg.
+
+human progranulin protein was detected at variable levels in all areas of interest in the brain sections of animals administered PF-07911383 at 2x1013 vg/kg and in some areas at 5x1012 vg/kg
+
+In addition, human progranulin protein expression was not detected in the liver of any animal in this study. The protein levels corresponded with detectable progranulin immunohistochemical staining in various parts of the brain in animals administered PF-07911383, and with more widespread detection of progranulin mRNA (by ISH) in animals administered PF-07911383
+
+# Safety profile
+
+Microscopic Examination
+
+# Tissue and Subsites
+
+# CONCLUSION
+
+Intravenous administration of PF-07910985 or PF-07911383 at up to 2x1013 vg/kg was tolerated and associated with minor changes in cytokines and clinical chemistry and with microscopic findings in dorsal root and trigeminal ganglia known to be associated with AAV administration in nonhuman primates. Overall, PF-07911383 was demonstrated to be a brain penetrant vector capable of delivering human ProgranulinΔ3 cDNA to broader brain regions and at higher VGC levels than PF-07910985.

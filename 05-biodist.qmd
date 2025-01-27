@@ -1,0 +1,851 @@
+# Biodistribution Data Analysis {#sec-biodist-analysis}
+
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+load("./data/dat0_0118.RData")  # dat0, spec4matrix 
+
+```
+
+Biodistribution and shedding studies are instrumental for developing adeno-associated virus (AAV)-based gene therapies. These studies play a crucial role in understanding the distribution and persistence of the viral vector within the body, as well as its potential dissemination into the environment.
+
+The main objectives of biodistribution studies are to investigate where and in what form the vector is present within various tissues and biological fluids, and to determine whether measurable amounts of the vector are shed into the environment. Typically, polymerase chain reaction (PCR)-based bioanalytical methods are employed to measure AAV vector DNA in tissues and biological fluids. These methods provide sensitive and specific quantification of the vector, enabling researchers to assess the biodistribution profile and shedding patterns of the AAV vector.
+
+In this analysis, we present the visualization of biodistribution and shedding data through various techniques, including scatter plots, line plots, bar plots, and heatmaps, to address the relevant questions.
+
+## Overall
+As shown in @tbl-summary-dose-group, the summary of dose groups and associated number of subjects is provided. The barplot representation of overall data is visualized in @fig-barplot-overall.
+
+```{r}
+#| label: tbl-summary-dose-group
+#| tbl-cap: Summary of Dose Groups in Study xxxx
+#| tbl-cap-location: top
+#install.packages("kableExtra")
+library(kableExtra)
+library(knitr)
+
+dat0 %>% 
+group_by(GROUP, GROUP_f, DOSE_f, SEX_f) %>% 
+dplyr::summarise(N = unique(USUBJID)%>% length())  %>% 
+  knitr::kable() %>% 
+  kableExtra::kable_styling(position = "left")  #%>%  
+  # kableExtra::pack_rows(index = summary_data$GROUP) %>% 
+  # kableExtra::pack_rows(index = summary_data$GROUP_f) 
+
+
+
+
+
+```
+
+```{r}
+#| label: function-for-barplot
+#| echo: false
+#| fig-cap: |
+#|   Although the input sources dataset can vary, the analysis set of datasets remains relatively stable #|   for conducting subsequent analyses.
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A diagram displaying the derivation of analysis set on which analysis will be conducted.  
+#| fig-width: 8
+#| fig-height: 15  
+ 
+
+
+my_barplot = function(
+    df,    
+     facet_by = "PARAMCD"
+) {
+  
+  # https://stackoverflow.com/questions/52506296/ggplot-geom-point-position-jitterdodge-not-working-when-color-specified
+  p <-  
+    ggplot(df, aes(x = MATRIXCD, y = AVAL, fill = GROUP_f, group = GROUP_f)) +
+    geom_bar(
+      position = "dodge", width = 0.8, stat = "summary", fun = "mean",
+      color = "black", linewidth = .8
+    ) +
+    scale_fill_manual(values = color.scheme.certara[3:length(color.scheme.certara)]) + # gg_color_hue(n=12)) + 
+    
+    # scale_color_discrete( c("gray", "blue", "cyan"), 
+    #                      labels = c("Young Adult", "Older Adult", "sfsf")) +
+    stat_summary(
+      fun.data = mean_sdl, geom = "errorbar", color = "black",
+      position = position_dodge(0.8), width = 0.2, linewidth = 0.8
+    ) +
+    
+    #scale_color_manual(values = c("gray", "blue", "cyan", "red", "gray90")) +    # for 0, 1, 2, 3, NA
+    #scale_size_manual(values = c(1, 2, 3, 4, 5)) + 
+    
+    scale_y_log10() + 
+    #scale_color_brewer(palette = "Set1") +   # , name = "color_legend_name") +
+    #facet_wrap(~TIME, nrow=2)+ theme_bw() +
+    
+    labs(x="", y= "Expression Levels") + # , fill = fill_legend_txt, color= histopah_legend_txt, size=histopah_legend_txt) + 
+    
+    theme_prism2() + 
+    theme(legend.position="bottom", legend.box="vertical")  +
+    theme(axis.text.x = element_text(size=10, angle = 45, hjust = 1, vjust=1, face="plain")) +  # 	Font face ("plain", "italic", "bold", "bold.italic")
+    theme(legend.title = element_text())  
+  
+  #facet_grid(cols = vars(ARM_f), scales = "free") +
+  #facet_wrap(as.formula(paste("~", cement({{.param}}))), ncol=1, scales="free_y")
+   
+   p = p + facet_wrap(as.formula(paste("~", facet_by)), ncol=1, scales="free_y")
+   p
+ 
+   
+}   
+
+```
+
+```{r}
+#| label: fig-barplot-overall
+#| echo: false
+#| fig-cap: |
+#|   Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx. 
+#| fig-width: 8
+#| fig-height: 15  
+ 
+ 
+###############################################
+# Run barplot 
+###############################################
+ 
+  PARAMCD_filter = c("VGC_MTH1", "RNA_MTH1", "EVV", "LPA" )
+
+  df = dat0   %>% #filter(!GROUP %in% c(1, 2))
+  mutate(AVAL = as.numeric(AVAL))  %>% 
+  filter(PARAMCD %in%  PARAMCD_filter)    #  "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
+   
+  my_barplot(df, facet_by = "PARAMCD") 
+
+  # my_barplot(
+  # df, 
+  # facet_by = "PARAMCD")  + 
+  #  facet_grid(vars(PARAMCD), vars(TISSUECD), scales="free_x")
+  
+  # theme(
+  #   text = element_text(size = 12),  # Adjust text size
+  #   axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1),
+  #   legend.position = "bottom",
+  #   legend.box = "vertical"
+  # )
+
+
+  # my_barplot(
+  # df %>% filter(TISSUECD %in% c("BR", "SC", "DRG", "LIV")), 
+  # facet_by = "PARAMCD")  + 
+  #  facet_grid(vars(PARAMCD), vars(TISSUECD), scales="free_x")
+    
+# note for all biological matrix
+a_matrix_lst <- df %>% #filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter    #, ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+```{r}
+#| label: fig-barplot-key-regions
+#| echo: false
+#| fig-cap: |
+#|   Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Key Tissues in Study xxx.
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across Biological Matrix in Key Tissues in Study xxx. 
+#| fig-width: 8
+#| fig-height: 15  
+ 
+  PARAMCD_filter = c("VGC_MTH1", "RNA_MTH1", "EVV", "LPA" )
+  TISSUECD_filter = c("BR", "SC")
+
+  df = dat0   %>% #filter(!GROUP %in% c(1, 2))
+  mutate(AVAL = as.numeric(AVAL))  %>% 
+  filter(PARAMCD %in%  PARAMCD_filter) %>%   #  "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
+   filter(TISSUECD %in%  TISSUECD_filter)
+   
+
+library(ggh4x)    
+  my_barplot(
+    df, 
+    facet_by = "PARAMCD")  + 
+     facet_grid(vars(PARAMCD), vars(TISSUE), scales="free_x") + 
+     labs(fill = "Treatment") + 
+     ggh4x::force_panelsizes(cols = c(1, 0.3))  
+     
+# note for all biological matrix
+a_matrix_lst <- df %>% #filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter    #, ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+## Viral Shedding {#sec-viral-shedding-analysis}
+
+The viral shedding data is visualized in @fig-viral-shedding.
+
+```{r }
+#| label: fun-viral-shedding
+#| 
+#' Plot Viral Shedding Data
+#'
+#' This function generates a plot for viral shedding data based on specified filters and parameters.
+#'
+#' @param data A data frame containing the viral shedding data. The data frame should include the following columns:
+#'   - `ATPT` (numeric or character): Time point for the x-axis.
+#'   - `ATPT_f` (factor or character): Time point factor to filter the data.
+#'   - `AVAL` (numeric): The value to be plotted.
+#'   - `GROUP_f` (factor or character): Group factor for faceting the plot.
+#'   - `PARAMCD` (character): Parameter code to filter the data. 
+#'   - `USUBJID` (character): Unique subject identifier.
+#' @param PARAMCD_filter A character string specifying the parameter code to filter the data. Default is "PK".
+#' @param ATPT_f_filter A vector specifying the time points to filter the data. Default is unique values of `ATPT_f` in the data.
+#' @param y_scale_log10 A logical value indicating whether to use a log10 scale for the y-axis. Default is TRUE.
+#'
+#' @return A ggplot object representing the viral shedding data plot.
+#'
+#' @import dplyr
+#' @import ggplot2
+#' @import ggprism
+#'
+#' @examples
+#' \dontrun{
+#'   # Example usage:
+#'   plot_virial_shedding_data(data = my_data, PARAMCD_filter = "PK", ATPT_f_filter = c("Day 1", "Day 2"), y_scale_log10 = TRUE)
+#' }
+#'
+#' @export
+ 
+ plot_viral_shedding_data <- function(data, 
+                      PARAMCD_filter = "PK", 
+                      ATPT_f_filter = unique(data$ATPT_f),     
+                      y_scale_log10 = TRUE) {
+  
+  # The `df` variable is an internal working data frame used within each function.
+
+  df <- data %>%  
+    filter(PARAMCD == PARAMCD_filter) %>% 
+    filter(ATPT_f %in% ATPT_f_filter) %>% 
+    mutate(AVAL = as.numeric(AVAL)) %>% 
+    drop_na(AVAL)  # Remove rows with NA in AVAL
+  
+    # Determine the range of the x-axis based on the filtered data
+    x_limits <- range(df$ATPT, na.rm = TRUE)
+
+  p <- ggplot(data = df, aes(x = ATPT, y = AVAL)) +
+    geom_line(aes(group = USUBJID), color = rgb(0.5, 0.5, 0.5), size = 1, alpha = 0.3) + 
+    geom_point() + 
+    ggprism::theme_prism() +
+    labs(
+      x = "Time Point (Hrs)", 
+      y = "Value"#, 
+      #title = paste("Plot for PARAMCD:", PARAMCD_filter)
+    )    # Add labels and title
+  
+  if (y_scale_log10) {
+    p <- p + scale_y_log10()
+  }
+  
+  p <- p + 
+    facet_wrap(~GROUP_f) + 
+    ggplot2::xlim(x_limits)  # Set x-axis limits based on the filtered data
+  
+  return(p)
+}
+
+
+
+#install.packages("testthat")
+#library(testthat)
+
+```
+
+```{r}
+#| label: fig-viral-shedding
+#| echo: false
+#| fig-cap: |
+#|   Kinetics of Viral Shedding Data in Study xxxx 
+#| fig-cap-location: top
+#| fig-alt: |
+#|   xxxxxd.  
+#| fig-width: 8
+#| fig-height: 15  
+
+
+#testthat::test_dir("tests/testthat")
+
+plot_viral_shedding_data(
+  dat0 %>% filter(!GROUP %in% c(1, 2)), 
+  PARAMCD_filter = "PK"
+)  #+ theme_prism2()
+
+ 
+
+```
+
+## VGC Data {#sec-vgc-analysis}
+
+```{r}
+#| label: fig-boxplot-vgc
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of VGC Biodistribution Data Measured at Interim Necropsy Week 6 in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC data measured at interim necropsy week 6 in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+
+
+library(ggpubr)
+library(scales)
+
+data = dat0 %>% 
+  filter(TISSUE=="Brain", PARAMCD=="VGC_MTH1") %>% 
+  mutate(AVAL = as.numeric(AVAL))
+ 
+fig = data %>% 
+        ggpubr::ggboxplot(
+          x="MATRIXCD", 
+          y="AVAL",
+                xlab="",
+                title=("VGC Distribution in Key Brain Regions"), 
+                color="GROUP_f",
+                outlier.shape = NA,
+                size=0.2, width=0.6,
+                add = c("jitter"),  
+                add.params = list(size = 1.2, position = position_jitterdodge(jitter.width = 0.3, dodge.width = 0.6)),
+                caption= "Animal 6001 removed due to high predose NAb titer.") + 
+    scale_y_continuous("VGC (cp/\u00B5g)", limits = c(0,2500000), labels = scientific_format()) +
+    facet_wrap(~ATPT_f, scales = "free_x", nrow = 2) + 
+    #scale_color_manual(values=as.vector(glasbey(20))) +
+    theme_prism() + 
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=0.5),
+          legend.text = element_text(size=9))
+
+fig
+
+
+```
+
+
+```{r}
+#| label: function-for-heatmap
+#| echo: false
+
+
+
+ # Have a dataset (dat0) with columns of "STUDYID USUBJID GROUP   SEX MATRIX  ATPT SAMPID PARAMCD AVAL   LLOQ MATRIXCD TISSUECD  DOSE GROUP_f  SEX_f  ATPT_f". 
+ # If a column variable ending with "_f", then it means it is a factor. 
+ # 
+ # Please create a function of heatmap using the following scripts as the starting point, with the features of 
+ # 1) using ComplexHeatmap::Heatmap function
+ # 2) be able to split the row (subject) using its associated GROUP; and add annotation to each subject with SEX, GROUP, etc.
+ # 3) be able to split the column (MATRIXCD) using its associated TISSUE type;  and add annotation to each MATRIXCD with TISSUE. 
+ # 4) be able to scale(t(tdata)) or not
+ # 5) be able to cluster the row and columns
+ #  
+
+   
+
+  #' Create a custom heatmap
+  #'
+  #' This function generates a heatmap using the ComplexHeatmap package, with options for filtering, scaling, and annotating the data.
+  #'
+  #' @param data A data frame containing the data to be visualized. The data frame must include the following columns:
+  #'   - `ATPT` (numeric or character): Time point for the x-axis.
+  #'   - `ATPT_f` (factor or character): Time point factor to filter the data.
+  #'   - `AVAL` (numeric): The value to be plotted.
+  #'   - `GROUP_f` (factor or character): Group factor for faceting the plot.
+  #'   - `MATRIXCD` (factor or character): Biological matrix in biodistribution data
+  #'   - `PARAMCD` (character): Parameter code to filter the data. 
+  #'   - `USUBJID` (character): Unique subject identifier.
+  #' @param ATPT_f_filter A character vector specifying the filter for the ATPT_f column. Default is "Terminal Necropsy Weeks 26/27".
+  #' @param PARAMCD_filter A character vector specifying the filter for the PARAMCD column. Default is "VGC_MTH1".
+  #' @param scale_data A logical value indicating whether to scale the data. Default is FALSE.
+  #' @param col_scheme A color mapping function created by colorRamp2 for the heatmap. Default is colorRamp2(c(0, 5, 10), c("blue", "white", "red")).
+  #' @param na_threshold A numeric value specifying the threshold for removing rows and columns with too many NAs. Default is 0.5.
+  #' @param cluster_rows A logical value indicating whether to cluster rows. Default is FALSE.
+  #' @param cluster_columns A logical value indicating whether to cluster columns. Default is FALSE.
+  #'
+  #' @return A heatmap object created by the ComplexHeatmap package.
+  #'
+  #' @examples
+  #' \dontrun{
+  #' create_heatmap(data, ATPT_f_filter = "Terminal Necropsy Weeks 26/27", PARAMCD_filter = "VGC_MTH1")
+  #' }
+  #'
+  #' @import ComplexHeatmap
+  #' @import dplyr
+  #' @import tidyr
+  #' @import RColorBrewer
+  #' @import grDevices
+  #' @export
+   
+# Define the custom heatmap function
+create_heatmap <- function(data, 
+                           ATPT_f_filter = "Terminal Necropsy Weeks 26/27", 
+                           PARAMCD_filter = "VGC_MTH1", 
+                           scale_data = FALSE, 
+                           col_scheme = colorRamp2(c(0, 5, 10), c("blue", "white", "red")),
+                           na_threshold = 0.5, 
+                           cluster_rows = FALSE, 
+                           cluster_columns = FALSE) {
+  
+
+library(ComplexHeatmap)
+library(dplyr)
+library(tidyr)
+library(RColorBrewer)
+library(grDevices) # For colorRampPalette()
+
+  # The `df` variable is an internal working data frame used within each function.
+
+  # Prepare the data for heatmap
+  #----------------------------------------
+  df <- data %>%
+    dplyr::filter(
+      ATPT_f %in% ATPT_f_filter,         # Filter by ATPT_f
+      PARAMCD %in% PARAMCD_filter        # Filter by PARAMCD
+    ) %>%
+    dplyr::mutate(
+      AVAL = log10(as.numeric(AVAL))     # Log-transform AVAL
+    ) %>%
+    pivot_wider(
+      id_cols = c("USUBJID"),
+      names_from = c("MATRIXCD"),
+      names_sep = "-",  
+      values_from = "AVAL"
+    ) %>%
+    tidyr::unite(ID, USUBJID:USUBJID)  # Create rownames for heatmap
+   
+  # Remove rows with too many NAs (e.g., >50% missing)
+  df <- df[rowMeans(is.na(df)) <= na_threshold, ]
+  
+  # Remove columns with too many NAs (e.g., >50% missing)
+  df <- df[, colMeans(is.na(df)) <= na_threshold]
+     
+  # Extract rownames and convert to matrix
+  rownames_df <- df$ID
+  df <- df %>% select(-ID) %>% as.matrix()
+  rownames(df) <- rownames_df
+  
+  # Optionally scale the data
+  if (scale_data) {
+    df <- t(scale(t(df)))
+  }
+  
+  # Prepare the annotations
+  #----------------------------------------
+  
+  # Prepare row annotations (for subjects)
+  row_annotations <- data %>% 
+    dplyr::select(USUBJID, GROUP, SEX_f) %>%  
+    dplyr::distinct() %>%
+    dplyr::filter(USUBJID %in% rownames(df)) %>%
+    dplyr::mutate(USUBJID0 = USUBJID) %>% 
+    tidyr::separate(USUBJID, into=c("USUBJID", "PARAMCD"), sep = "-")  %>% 
+    column_to_rownames("USUBJID0")
+  
+  row_anno <- rowAnnotation(
+      GROUP = row_annotations$GROUP,
+      SEX = row_annotations$SEX_f,
+      col = list(
+        GROUP = structure(brewer.pal(n = length(unique(row_annotations$GROUP)), "Set3"), 
+                          names = unique(row_annotations$GROUP)),
+        SEX = structure(c("blue", "pink"), names = c("Male", "Female"))  # unique(row_annotations$SEX_f) %>% levels()) # Example for Male/Female
+      ), 
+      annotation_name_gp = gpar(fontsize = 5),  # Adjust annotation text size
+      annotation_legend_param = list(
+      GROUP = list(
+        title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+        labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
+      ), 
+      SEX = list(
+        title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+        labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
+      )
+      
+  )
+    )
+  
+  # Prepare column annotations (for MATRIXCD)
+  column_annotations <- data %>%
+    dplyr::select(MATRIXCD, TISSUECD) %>%
+    dplyr::distinct() %>%
+    dplyr::filter(MATRIXCD %in% colnames(df)) %>%
+    dplyr::mutate(
+      MATRIXCD = ordered(MATRIXCD, levels=colnames(df))
+    ) %>% 
+    dplyr::arrange(MATRIXCD) %>% 
+    column_to_rownames("MATRIXCD")
+  
+# Generate a dynamic color palette for TISSUECD
+  unique_tissues <- unique(column_annotations$TISSUECD)
+  tissue_colors <- structure( 
+    colorRampPalette(brewer.pal(9, "Set1"))(length(unique_tissues)), # Dynamically generate colors
+    names = unique_tissues
+  )
+  
+  col_anno <- HeatmapAnnotation(
+    TISSUE = column_annotations$TISSUECD,
+    col = list(
+      TISSUE = tissue_colors  # Map TISSUECD to colors
+    ), 
+    annotation_name_gp = gpar(fontsize = 5),  # Adjust annotation text size
+    annotation_legend_param = list(
+    TISSUE = list(
+      title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+      labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
+    )
+  )
+  ) 
+  
+  # Create the heatmap
+  # ---------------------
+  ht <- ComplexHeatmap::Heatmap(
+    df,
+    col = col_scheme, 
+    column_names_rot = 45,       # Rotate column names
+    name = "Value",              # Legend title
+    cluster_rows = cluster_rows, # Cluster rows
+    cluster_columns = cluster_columns, # Cluster columns
+    top_annotation = col_anno,   # Add column annotations
+    left_annotation = row_anno,  # Add row annotations 
+    row_split = row_annotations %>%  dplyr::select(GROUP),  # Split rows by GROUP
+    column_split = column_annotations$TISSUECD, # Split columns by TISSUE
+
+    width = unit(15, "cm"),  # Adjust width
+    height = unit(9, "cm"),  # Adjust height
+    row_names_gp = gpar(fontsize = 5),  # Adjust row names text size
+    column_names_gp = gpar(fontsize = 5),  # Adjust column names text size
+
+    row_title_gp = gpar(fontsize = 4),  # Adjust row split label text size
+    column_title_gp = gpar(fontsize = 4),  # Adjust column split label text size
+    heatmap_legend_param = list(
+      title = "Value",
+      title_gp = gpar(fontsize = 6),
+      labels_gp = gpar(fontsize = 4)
+    ), 
+
+   row_gap = unit(.25, "mm"),  # Adjust the size of splitting lines
+   column_gap = unit(0.25, "mm")
+  )
+  
+  # Draw the heatmap
+  #draw(ht, padding = unit(c(10, 15, 10, 10), "mm"), merge_legend = TRUE) # Adjust padding
+   draw(ht, padding = unit(c(0.5, 0.5, 0.5, 0.5), "mm"), merge_legend = TRUE) # Adjust padding
+  
+}
+
+```
+
+```{r}
+#| label: fig-heatmap-vgc-wk6
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of VGC Biodistribution Data Measured at Interim Necropsy Week 6 in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC data measured at interim necropsy week 6 in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+
+###############################################
+# Run heatmap 
+###############################################
+ 
+# [1] "D1: 24HR"                      "D1: 6HR"                       "D1: Predose"                   
+# "Day 14"                        "Day 3"                         "Day 8"             
+# [7] "Interim Necropsy Week 6"       "Pretest"                       "Terminal Necropsy Weeks 26/27"
+
+tdata = dat0 %>% filter(!GROUP %in% c(1, 2)) 
+
+biodist_value <- tdata %>% 
+  filter(
+    PARAMCD %in% "VGC_MTH1" #, 
+    #ATPT_f %in% "Terminal Necropsy Weeks 26/27"
+  ) %>% 
+  pull(AVAL) %>% as.numeric() %>% log10()
+
+biodist_min <- min(biodist_value, na.rm=TRUE) 
+biodist_max <- max(biodist_value, na.rm=TRUE)
+biodist_median <- median(biodist_value, na.rm=TRUE)
+
+ATPT_f_filter = "Interim Necropsy Week 6";
+PARAMCD_filter = c("VGC_MTH1")
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter, 
+  PARAMCD_filter = PARAMCD_filter, # , "RNA_MTH1"), 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = FALSE       # Whether to cluster columns
+)
+ 
+```
+
+```{=html}
+<!-- Here is a footnote reference,[^1] and another.[^longnote]
+[^1]: Here is the footnote.
+[^longnote]: Here's one with multiple blocks. -->
+```
+
+```{r}
+#| label: fig-heatmap-vgc-wk26
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of VGC Biodistribution Data Measured at Terminal Necropsy Weeks 26/27 in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC biodistribution data measured at terminal necropsy weeks 26/27 in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+ 
+
+ATPT_f_filter = "Terminal Necropsy Weeks 26/27";
+PARAMCD_filter = c("VGC_MTH1")
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter, 
+  PARAMCD_filter = PARAMCD_filter, # , "RNA_MTH1"), 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = FALSE       # Whether to cluster columns
+)
+
+# note for all biological matrix
+a_matrix_lst <- dat0 %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter    #, ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+## RNA Data {#sec-rna-analysis}
+
+```{r}
+#| label: fig-heatmap-rna-wk6
+#| echo: false
+#| fig-cap: "Heatmap Representation of RNA Biodistribution Data Measured at Interim Necropsy Week 6"
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of RNA biodistribution data measured at Interim Necropsy Week 6 in Study xxxx.  
+#| fig-width: 8
+#| fig-height: 15 
+
+biodist_value <- tdata %>% 
+  filter(
+    PARAMCD %in% "RNA_MTH1"  
+  ) %>% 
+  pull(AVAL) %>% as.numeric() %>% log10()
+
+biodist_min <- min(biodist_value, na.rm=TRUE) 
+biodist_max <- max(biodist_value, na.rm=TRUE)
+biodist_median <- median(biodist_value, na.rm=TRUE)
+ 
+ATPT_f_filter = "Interim Necropsy Week 6";
+PARAMCD_filter = c("RNA_MTH1")
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter, 
+  PARAMCD_filter = PARAMCD_filter, 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = FALSE       # Whether to cluster columns
+)
+ 
+```
+
+```{r}
+#| label: fig-heatmap-rna-wk26
+#| echo: false
+#| fig-cap: "Heatmap Representation of RNA Biodistribution Data Measured at Terminal Necropsy Weeks 26/27"
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of RNA biodistribution data measured at Terminal Necropsy Weeks 26/27 in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+#|
+ATPT_f_filter = "Terminal Necropsy Weeks 26/27";
+PARAMCD_filter = c("RNA_MTH1")
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter, 
+  PARAMCD_filter = PARAMCD_filter, 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = FALSE       # Whether to cluster columns
+)
+
+# note for all biological matrix
+a_matrix_lst <- dat0 %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter  # , ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+## Protein EVV Data {#sec-protein-evv-analysis}
+
+```{r}
+#| label: fig-heatmap-protein-evv-wk6
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of Protein EVV Biodistribution Data Measured at Interim Necropsy Week 6.
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap Representation of RNA Biodistribution Data Measured at Interim Necropsy Week 6.  
+#| fig-width: 8
+#| fig-height: 15 
+
+
+# 3003        3     1 Brain, White Matter  4368 <NA>   LPA     132.76                NA WM       BR           6 Low + IS Male  Terminal Necropsy Weeks 26/27
+
+
+PARAMCD_filter = "EVV"
+ATPT_f_filter = "Interim Necropsy Week 6"
+
+biodist_value <- tdata %>% 
+  filter(
+    PARAMCD %in% PARAMCD_filter 
+  ) %>% 
+  pull(AVAL) %>% as.numeric() %>% log10()
+
+biodist_min <- min(biodist_value, na.rm=TRUE) 
+biodist_max <- max(biodist_value, na.rm=TRUE)
+biodist_median <- median(biodist_value, na.rm=TRUE)
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter,  # "Interim Necropsy Week 6"  
+  PARAMCD_filter = PARAMCD_filter,   # "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = TRUE,         # Whether to cluster rows
+  cluster_columns = TRUE       # Whether to cluster columns
+)
+
+
+
+```
+
+
+
+```{r}
+#| label: fig-heatmap-protein-evv-wk26
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of Protein EVV Biodistribution Data Measured at Terminal Necropsy Weeks 26/27.
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap Representation of RNA Biodistribution Data Measured at Terminal Necropsy Weeks 26/27.  
+#| fig-width: 8
+#| fig-height: 15 
+
+PARAMCD_filter = "EVV"
+ATPT_f_filter = "Terminal Necropsy Weeks 26/27"
+
+biodist_value <- tdata %>% 
+  filter(
+    PARAMCD %in% PARAMCD_filter  # , ATPT_f %in% ATPT_f_filter
+    #ATPT_f %in% "Terminal Necropsy Weeks 26/27"
+  ) %>% 
+  pull(AVAL) %>% as.numeric() %>% log10()
+
+biodist_min <- min(biodist_value, na.rm=TRUE) 
+biodist_max <- max(biodist_value, na.rm=TRUE)
+biodist_median <- median(biodist_value, na.rm=TRUE)
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter,  # "Interim Necropsy Week 6"  
+  PARAMCD_filter = PARAMCD_filter,   # "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = TRUE,         # Whether to cluster rows
+  cluster_columns = TRUE       # Whether to cluster columns
+)
+
+
+# note for all biological matrix
+a_matrix_lst <- dat0 %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter  # , ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::

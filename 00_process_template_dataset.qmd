@@ -1,0 +1,444 @@
+# Process input datasets
+
+```{r}
+#| results: "asis"
+#| echo: false
+#| warning: false
+#| error: false
+#| message: false
+#| include: true
+
+
+HOME = getwd() # "/home/kwqz358/01_alxn_projects/cpss-dsu-toxbiodist-analyzer/"
+source(paste0(HOME, "/_common.R"))
+
+data_dir <- here::here(HOME, "data")
+status = "DRAFT"  #flag for labeling figures as draft
+
+inFile <- "data_template_based_on_20424913 - 20502226 Biodistribution Tables (ID 5879653)_Review_2025-01-18.xlsx"
+
+selected_vars <- c("STUDYID", "USUBJID", "GROUP", "SEX", "MATRIX", "ATPT", "SAMPID", "PARAMCD", "AVAL", "LLOQ")
+
+```
+
+## Loading all raw datasets
+
+```{r}
+#| results: "asis"
+#| echo: false
+ 
+#-----------------------------
+# spec4matrix
+#-----------------------------
+spec4matrix = read_xlsx(path = here::here(data_dir, inFile), sheet = "Matrix" ) %>% 
+  dplyr::rename(
+    #MATRIXID = `CRL ID`, 
+    MATRIX = `Biological Matrix`, 
+    TISSUE = Tissue, 
+    MATRIXCD = `Biological Matrix Short`, 
+    TISSUECD = `Tissue Short`
+  )
+colnames(spec4matrix) <- colnames(spec4matrix) %>% stringr::str_to_upper()    # stringr::str_to_title
+
+
+spec4matrix[duplicated(spec4matrix$MATRIX), ]
+
+spec4matrix[duplicated(spec4matrix$MATRIXCD), ]
+
+#-----------------------------
+# dat_shedding     
+#-----------------------------
+dat_PK = read_xlsx(
+  path = here::here(data_dir, inFile), 
+  sheet = "Shedding", 
+  range = "A5:N592")   
+
+colnames(dat_PK) <- colnames(dat_PK) %>% stringr::str_to_upper()    # stringr::str_to_title
+  
+library(zoo)
+dat_PK = dat_PK %>% 
+  dplyr::rename(
+    USUBJID = SUBJECT,
+    MATRIX = `BIOLOGICAL MATRIX`, 
+    GROUP = GROUP, 
+    SEX = SEX,
+    ATPT = `TIME POINT`, 
+    LLOQ = `LLOQ (CP/RXN)`, 
+    AVAL = `SAMPLE CONC.\r\n(CP/ΜL)`
+  )  %>% 
+  
+  dplyr::mutate(
+   STUDYID = as.character("XXXXXX"), 
+   USUBJID = as.character(USUBJID),
+   GROUP = zoo::na.locf(GROUP,  fromLast=FALSE), 
+   GROUP = as.integer(GROUP), 
+   SEX = zoo::na.locf(SEX,  fromLast=FALSE), 
+   SEX = as.integer(factor(SEX, levels=c("Male", "Female"))),   # Male=1, Female=2
+   MATRIX = zoo::na.locf(MATRIX,  fromLast=FALSE), 
+   ATPT = zoo::na.locf(ATPT,  fromLast=FALSE), 
+   ATPT = case_when(
+     ATPT == "Pretest" ~ -3,   # arbitrary
+     ATPT == "D1: Predose" ~ 0,  
+     ATPT == "D1: 6HR" ~ 6, 
+     ATPT == "D1: 24HR" ~ 24,   
+     ATPT == "Day 3" ~ 48, 
+     ATPT == "Day 8"  ~ 168,  
+     ATPT == "Day 14"  ~ 312, 
+     ATPT == "Interim Necropsy Week 6"  ~ 1008,
+     ATPT == "Terminal Necropsy Weeks 26/27"  ~ 4368, 
+     TRUE ~ NA
+   ) %>% as.integer(),
+   
+   SAMPID = NA, 
+   PARAMCD = "PK"
+   )    
+  
+# "Feces"  "PBMC"   "Saliva" "Serum"  "Urine" 
+dat_PK = dat_PK %>% 
+  mutate(
+    MATRIX = case_when(
+      #MATRIX == "Serum" ~ "Serum, Protein", 
+      TRUE ~ MATRIX
+    )
+  )
+  
+dat_PK <- dat_PK %>%  dplyr::select(all_of(selected_vars))
+ 
+mylst <- dat_PK$MATRIX %>% unique() 
+mylst[which(!mylst %in% spec4matrix$MATRIX)]          # "Brain, Frontal Cortex"     "Brain, Grey Matter Cortex"  not fit
+
+
+
+#-----------------------------
+# dat_biodist_VGC 
+#----------------------------- 
+dat_VGC = read_xlsx(
+  path = here::here(data_dir, inFile), 
+  sheet = "Biodistribution (DNA)", 
+  range = "A5:M1554")  
+
+colnames(dat_VGC) <- colnames(dat_VGC) %>% stringr::str_to_upper()    # stringr::str_to_title
+
+library(zoo)
+dat_VGC  <- dat_VGC  %>% 
+ 
+  dplyr::rename(
+    MATRIX = `BIOLOGICAL MATRIX`, 
+    USUBJID = SUBJECT, 
+    SAMPID = `CUSTOM ID`, 
+    GROUP = GROUP, 
+    ATPT = `TIME POINT`   , 
+    SEX = SEX, 
+    #LLOQ = `LLOQ (CP/RXN)`, 
+    
+    VGC_MTH1 = `SAMPLE CONCENTRATION (CP/ΜG, VG/UG GENOMIC DNA)`, 
+    VGC_MTH2 = `SAMPLE CONCENTRATION (VG/HAPLOID- NORMALIZED TO MFTFRC)`
+  )  %>% 
+  
+  mutate(
+   STUDYID = as.character("XXXXXX"), 
+   USUBJID = as.character(USUBJID),
+    MATRIX = zoo::na.locf(MATRIX,  fromLast=FALSE), 
+    GROUP = zoo::na.locf(GROUP,  fromLast=FALSE), 
+    GROUP = as.integer(GROUP), 
+    ATPT = zoo::na.locf(ATPT,  fromLast=FALSE), 
+    ATPT = case_when(
+     ATPT == "Pretest" ~ -3,   # arbitrary
+     ATPT == "Interim Necropsy Week 6"  ~ 1008,
+     ATPT == "Terminal Necropsy Weeks 26/27/28"  ~ 4368,   #  NOTE!  "Terminal Necropsy Weeks 26/27/28"  vs "Terminal Necropsy Weeks 26/27"
+     TRUE ~ NA
+   ) %>% as.integer(),
+    SEX = zoo::na.locf(SEX,  fromLast=FALSE), 
+    SEX = as.integer(factor(SEX, levels=c("Male", "Female"))),   # Male=1, Female=2
+    LLOQ = NA
+   ) %>% 
+  
+  dplyr::select(STUDYID, USUBJID, GROUP, SEX, MATRIX, ATPT, SAMPID, VGC_MTH1, VGC_MTH2, LLOQ) %>% 
+  pivot_longer(cols=c("VGC_MTH1", "VGC_MTH2"), names_to = "PARAMCD", values_to = "AVAL") 
+
+dat_VGC <- dat_VGC %>% 
+  mutate(
+    MATRIX = case_when(
+       MATRIX ==  "Adernal Gland"   ~   "Adrenal Gland" ,          # TYPO############################################                                  
+       MATRIX ==  "Amygdala"         ~        "Brain, Amygdala"   ,                                   
+       MATRIX ==  "Bone Marrow, Femur"     ~      "Bone Marrow, Femur"  ,                                
+       MATRIX ==  "Caudate Nucleus Right"     ~     "Brain, Caudate Nucleus" ,                               
+       MATRIX ==  "Cerebellum"               ~       "Brain, Cerebellum"     ,                           
+       MATRIX ==  "Cerebral Cortex (Frontal) Grey Matter – Superficial (Right)"  ~  "Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial, Right",
+       MATRIX ==  "Cerebral Cortex Grey Matter (Temporal) – Superficial (Right)" ~  "Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial, Right",
+       MATRIX ==  "Cerebral Cortex Grey Matter- Superficial Right"           ~      "Brain, Cerebral Cortex, Grey Matter, Superficial, Right",
+       MATRIX ==  "Cerebral White Matter Deep Right"      ~          "Brain, Cerebral White Matter, Deep, Right" ,                    
+       MATRIX ==  "Cerebral White Matter Superficial Right"    ~     "Brain, Cerebral White Matter, Superficial, Right" ,                
+       MATRIX ==  "Corpus Callosum"               ~                    "Brain, Corpus Callosum",                            
+       MATRIX ==  "Dorsal Root Ganglion Cervical"    ~      "Dorsal Root Ganglion, Cervical",                          
+      MATRIX ==  "Dorsal Root Ganglion Lumbar"     ~      "Dorsal Root Ganglion, Lumbar" ,                            
+      MATRIX ==  "Dorsal Root Ganglion Sacral"     ~       "Dorsal Root Ganglion, Sacral",                         
+      MATRIX ==  "Dorsal Root Ganglion Thoracic"   ~        "Dorsal Root Ganglion, Thoracic",                       
+      MATRIX ==  "Entorhinal Cortex"            ~           "Brain, Entorhinal Cortex" ,                       
+      MATRIX ==  "Ganglion Trigeminal"        ~              "Ganglion, Trigeminal" ,                     
+      MATRIX ==  "Heart Ventricle-Right"      ~              "Heart, Right Ventricle" ,                      
+      MATRIX ==  "Hippocampus (Right)"        ~              "Brain, Hippocampus, Right" ,                       
+      MATRIX ==  "Hypothalamus Right"         ~              "Brain, Hypothalamus, Right" ,                      
+      MATRIX ==  "Kidney"                     ~                 "Kidney",                     
+      MATRIX ==  "Liver Right Lateral Lobe"       ~            "Liver, Right Lateral Lobe" ,                    
+      MATRIX ==  "Lung"                          ~                 "Lung" ,                
+      MATRIX ==  "Muscle"                        ~                  "Muscle" ,               
+      MATRIX ==  "Nerve"                         ~                  "Nerve" ,              
+      MATRIX ==  "Ovary"                          ~                  "Ovary" ,              
+      MATRIX ==  "Pancreas"                       ~               "Pancreas"  ,                                                   
+      MATRIX ==  "Spinal Cord Cervical"           ~              "Spinal Cord, Cervical" ,                   
+      MATRIX ==  "Spinal Cord Lumbar"             ~               "Spinal Cord, Lumbar" ,                 
+      MATRIX ==  "Spinal Cord Sacral"              ~               "Spinal Cord, Sacral" ,               
+      MATRIX ==  "Spinal Cord Thoracic"             ~                "Spinal Cord, Thoracic" ,             
+      MATRIX ==  "Spleen"                          ~              "Spleen",                  
+      MATRIX ==  "Testis"                         ~               "Testis" ,                 
+      MATRIX ==  "Thalamus (Right)"               ~              "Brain, Thalamus, Right", 
+      TRUE ~ "NA"
+    )
+  ) %>%  
+  mutate(
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -5)=="Right", stringr::str_sub(MATRIX, 1, -8), MATRIX), 
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -4)=="Left", stringr::str_sub(MATRIX, 1, -7), MATRIX)  
+  )
+ 
+dat_VGC <- dat_VGC %>%  dplyr::select(all_of(selected_vars))
+ 
+mylst <- dat_VGC$MATRIX %>% unique() 
+mylst[which(!mylst %in% spec4matrix$MATRIX)]          # "Brain, Frontal Cortex"     "Brain, Grey Matter Cortex"  not fit
+
+
+
+
+#-----------------------------
+# dat_biodist_RNA  
+#-----------------------------
+
+dat_RNA = read_xlsx(
+  path = here::here(data_dir, inFile), 
+  sheet = "Biodistribution (RNA)", 
+  range = "A5:N1061")
+
+colnames(dat_RNA) <- colnames(dat_RNA) %>% stringr::str_to_upper()    # stringr::str_to_title
+
+library(zoo)
+dat_RNA  <- dat_RNA  %>% 
+  dplyr::rename(
+    MATRIX = `BIOLOGICAL MATRIX`, 
+    USUBJID = SUBJECT, 
+    SAMPID = `CUSTOM ID`, 
+    GROUP = GROUP, 
+    ATPT = `TIME POINT`   , 
+    SEX = SEX, 
+    #LLOQ = `LLOQ (CP/RXN)`, 
+    
+    RNA_MTH1 = `RNA RELATIVE EXPRESSION (PRIMERS BGH PROBE / MFHPRT PROBE)`, 
+    RNA_MTH2 = `RNA RELATIVE EXPRESSION (PRIMERS BGH PROBE / MFGRN PROBE)`
+  )  %>% 
+  
+  mutate(
+    STUDYID = as.character("XXXXXX"), 
+    USUBJID = as.character(USUBJID),
+    MATRIX = zoo::na.locf(MATRIX,  fromLast=FALSE), 
+    GROUP = zoo::na.locf(GROUP,  fromLast=FALSE), 
+    GROUP = as.integer(GROUP), 
+    ATPT = zoo::na.locf(ATPT,  fromLast=FALSE), 
+    ATPT = case_when(
+     ATPT == "Pretest" ~ -3,   # arbitrary
+     ATPT == "Interim Necropsy Week 6"  ~ 1008,
+     ATPT == "Terminal Necropsy Weeks 26/27/28"  ~ 4368,   #  NOTE!  "Terminal Necropsy Weeks 26/27/28"  vs "Terminal Necropsy Weeks 26/27"
+     TRUE ~ NA
+     ) %>% as.integer(),
+    SEX = zoo::na.locf(SEX,  fromLast=FALSE), 
+    SEX = as.integer(factor(SEX, levels=c("Male", "Female"))),   # Male=1, Female=2
+    LLOQ = NA
+   ) %>% 
+
+  dplyr::select(STUDYID, USUBJID, GROUP, SEX, MATRIX, ATPT, SAMPID, RNA_MTH1, RNA_MTH2, LLOQ) %>% 
+  
+  pivot_longer(cols=c("RNA_MTH1", "RNA_MTH2"), names_to = "PARAMCD", values_to = "AVAL") 
+ 
+dat_RNA <- dat_RNA %>% 
+  mutate(
+    MATRIX = case_when(
+       MATRIX ==  "Adrenal Gland"   ~   "Adrenal Gland" ,                                        
+       MATRIX ==  "Amygdala"         ~        "Brain, Amygdala"   ,                                   
+       MATRIX ==  "Bone Marrow, Femur"     ~      "Bone Marrow, Femur"  ,                                
+       MATRIX ==  "Caudate Nucleus Right"     ~     "Brain, Caudate Nucleus" ,                               
+       MATRIX ==  "Cerebellum"               ~       "Brain, Cerebellum"     ,                           
+       MATRIX ==  "Cerebral Cortex (Frontal) Grey Matter – Superficial (Right)"  ~  "Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial, Right",
+       MATRIX ==  "Cerebral Cortex Grey Matter (Temporal) – Superficial (Right)" ~  "Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial, Right",
+       MATRIX ==  "Cerebral Cortex Grey Matter- Superficial Right"          ~      "Brain, Cerebral Cortex, Grey Matter, Superficial, Right",
+       MATRIX ==  "Cerebral White Matter Deep Right"      ~          "Brain, Cerebral White Matter, Deep, Right" ,                    
+       MATRIX ==  "Cerebral White Matter Superficial Right"    ~     "Brain, Cerebral White Matter, Superficial, Right" ,                  
+       MATRIX ==  "Corpus Callosum"               ~                    "Brain, Corpus Callosum",                            
+       MATRIX ==  "Dorsal Root Ganglion Cervical"    ~      "Dorsal Root Ganglion, Cervical",                          
+      MATRIX ==  "Dorsal Root Ganglion Lumbar"     ~      "Dorsal Root Ganglion, Lumbar" ,                            
+      MATRIX ==  "Dorsal Root Ganglion Sacral"     ~       "Dorsal Root Ganglion, Sacral",                         
+      MATRIX ==  "Dorsal Root Ganglion Thoracic"   ~        "Dorsal Root Ganglion, Thoracic",                       
+      MATRIX ==  "Entorhinal Cortex"            ~           "Brain, Entorhinal Cortex" ,                       
+      MATRIX ==  "Ganglion Trigeminal"        ~              "Ganglion, Trigeminal" ,                     
+      MATRIX ==  "Heart Ventricle-Right"      ~              "Heart, Right Ventricle" ,                      
+      MATRIX ==  "Hippocampus (Right)"        ~              "Brain, Hippocampus, Right" ,                       
+      MATRIX ==  "Hypothalamus Right"         ~              "Brain, Hypothalamus, Right" ,                      
+      MATRIX ==  "Kidney"                     ~                 "Kidney",                     
+      MATRIX ==  "Liver Right Lateral Lobe"       ~            "Liver, Right Lateral Lobe" ,                    
+      MATRIX ==  "Lung"                          ~                 "Lung" ,                
+      MATRIX ==  "Muscle"                        ~                  "Muscle" ,               
+      MATRIX ==  "Nerve"                         ~                  "Nerve" ,              
+      MATRIX ==  "Ovary"                          ~                  "Ovary" ,              
+      MATRIX ==  "Pancreas"                       ~               "Pancreas"  ,                                                   
+      MATRIX ==  "Spinal Cord Cervical"           ~              "Spinal Cord, Cervical" ,                   
+      MATRIX ==  "Spinal Cord Lumbar"             ~               "Spinal Cord, Lumbar" ,                 
+      MATRIX ==  "Spinal Cord Sacral"              ~               "Spinal Cord, Sacral" ,               
+      MATRIX ==  "Spinal Cord Thoracic"             ~                "Spinal Cord, Thoracic" ,             
+      MATRIX ==  "Spleen"                          ~              "Spleen",                  
+      MATRIX ==  "Testis"                         ~               "Testis" ,                 
+      MATRIX ==  "Thalamus (Right)"               ~              "Brain, Thalamus, Right", 
+    
+      MATRIX ==  "Cerebral Cortex (Frontal) Grey Matter - Superficial (Right)"     ~         "Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial, Right", 
+      MATRIX ==  "Cerebral Cortex Grey Matter - Superficial (Right)"               ~        "Brain, Cerebral Cortex, Grey Matter, Superficial, Right",
+      MATRIX ==  "Cerebral Cortex Grey Matter (Temporal) - Superficial (Right)"     ~         "Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial, Right",
+      MATRIX ==  "Cerebral White Matter - Deep (Right)"            ~      "Brain, Cerebral White Matter, Deep, Right" ,           
+      MATRIX ==  "Cerebral White Matter - Superficial (Right)"    ~     "Brain, Cerebral White Matter, Superficial, Right" ,            
+      MATRIX ==  "Heart Ventricle Free Wall (Right)"       ~            "Heart, Ventricular Free Wall"  ,         
+      MATRIX ==  "Hypothalamus (Right)"                   ~           "Brain, Hypothalamus", 
+      MATRIX ==  "Liver Lateral Lobe (Right)"            ~         "Liver, Right Lateral Lobe",                              
+      MATRIX ==  "Lungs"                                 ~       "Lung",                                        
+      MATRIX ==  "Muscle Skeletal Bicep Femoris"        ~        "Muscle, Skeletal, Biceps Femoris" ,                         
+      MATRIX ==  "Nerve Trigeminal"         ~              "Nerve, Trigeminal",
+
+
+
+      TRUE ~ "NA"
+    )
+  ) %>% 
+  
+  mutate(
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -5)=="Right", stringr::str_sub(MATRIX, 1, -8), MATRIX), 
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -4)=="Left", stringr::str_sub(MATRIX, 1, -7), MATRIX)  
+  )
+dat_RNA <- dat_RNA %>%  dplyr::select(all_of(selected_vars))
+
+mylst <- dat_RNA$MATRIX %>% unique() 
+mylst[which(!mylst %in% spec4matrix$MATRIX)]          # "Brain, Frontal Cortex"     "Brain, Grey Matter Cortex"  not fit
+ 
+
+#-----------------------------
+# dat_protein_PGRN_brain  
+#-----------------------------
+
+dat_PGRN_brain = read_xlsx(
+  path = here::here(data_dir, inFile), 
+  sheet = "PGRN Brain",  
+  range = "A5:V614")
+
+colnames(dat_PGRN_brain) <- colnames(dat_PGRN_brain) %>% stringr::str_to_upper()    # stringr::str_to_title
+
+
+# dat_PGRN_brain %>% distinct(CRL, MATRIX) %>% mutate(CRLN =  readr::parse_number(CRL))  %>%    arrange(CRLN) %>% as.data.frame()
+
+library(zoo)
+dat_PGRN_brain  <- dat_PGRN_brain  %>% 
+  dplyr::rename(
+    MATRIX = `BIOLOGICAL MATRIX`, 
+    TISSUE = TISSUE, 
+    USUBJID = SUBJECT,  
+   # GROUP = GROUP, 
+    ATPT = `TIME POINT`   , 
+   # SEX = SEX, 
+    #LLOQ = `LLOQ (CP/RXN)`,  
+
+    EVV = `TOTAL EVV PEPTIDE  (NG/ML)`,  # BQL for EVV is 0.98 ng/mL	
+    #AVAL = `TOTAL EVV PEPTIDE  (NG)`, 
+    #AVAL = `TOTAL EVV PEPTIDE  (NG/MG)`, 
+    LPA = `HUMAN LPA PEPTIDE (NG/ML)`     # BQL for LPA is 1.95 ng/mL	
+  )   
+  
+#################################
+dat_PGRN_brain <- dat_PGRN_brain %>% 
+  mutate(MATRIX = case_when(
+    CRL == "BR10"  ~  "Brain, Cerebral White Matter, Superficial", 
+    CRL == "BR12"  ~   "Brain, Cerebral White Matter, Deep", 
+    TRUE ~ MATRIX
+  ))
+#################################
+
+dat_PGRN_brain  <- dat_PGRN_brain  %>% 
+  dplyr::select(USUBJID, TISSUE, MATRIX, ATPT, EVV, LPA ) %>% #  GROUP, SEX,  SAMPID,  LLOQ
+  
+  pivot_longer(cols=c("EVV", "LPA"), names_to = "PARAMCD", values_to = "AVAL")  %>% 
+  
+  mutate(
+    STUDYID = as.character("XXXXXX"), 
+    USUBJID = as.character(USUBJID),
+    ATPT = case_when(
+     ATPT == "Pretest" ~ -3,   # arbitrary
+     ATPT == "Wk 6"  ~ 1008,
+     ATPT %in% c("Wk 26", "Wk 26/27")  ~ 4368,
+     ATPT == "Wk 28"  ~ 4704,                     #  NOTE!  "Terminal Necropsy Weeks 26/27/28"  vs "Terminal Necropsy Weeks 26/27"
+     TRUE ~ NA
+     ) %>% as.integer(),
+    SAMPID = NA, 
+    LLOQ = NA
+  )   %>% 
+  left_join(
+    dat_VGC %>% distinct(STUDYID, USUBJID, GROUP, SEX), 
+    by=c("STUDYID", "USUBJID")
+  )
+
+dat_PGRN_brain <- dat_PGRN_brain %>% 
+  mutate(
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -5)=="Right", stringr::str_sub(MATRIX, 1, -8), MATRIX), 
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -4)=="Left", stringr::str_sub(MATRIX, 1, -7), MATRIX)  
+  ) %>% 
+
+  mutate(MATRIX = case_when(
+    MATRIX  == "Brain, Frontal Cortex"    ~ "Brain, Cerebral Cortex, Frontal", 
+    MATRIX  == "Brain, Grey Matter Cortex" ~ "Brain, Cerebral Cortex, Grey Matter",
+    MATRIX  == "Brain, Temporal Cortex"  ~ "Brain, Cerebral Cortex, Temporal",
+    
+    TRUE ~ MATRIX
+  )) 
+
+
+dat_PGRN_brain <- dat_PGRN_brain %>%  dplyr::select(all_of(selected_vars))
+ 
+
+mylst <- dat_PGRN_brain$MATRIX %>% unique() 
+mylst[which(!mylst %in% spec4matrix$MATRIX)]          # "Brain, Frontal Cortex"     "Brain, Grey Matter Cortex"  not fit
+ 
+############################################
+dat0 = bind_rows(dat_PK, dat_VGC, dat_RNA, dat_PGRN_brain) 
+
+mylst <- dat0$MATRIX %>% unique() 
+mylst[which(!mylst %in% spec4matrix$MATRIX)]          # "Brain, Frontal Cortex"     "Brain, Grey Matter Cortex"  not fit
+ 
+
+dat0 <- dat0 %>%  
+  left_join(spec4matrix %>% distinct(MATRIX, MATRIXCD, TISSUE, TISSUECD), by="MATRIX") %>% 
+  mutate(
+    DOSE = case_when(
+      GROUP == 1  ~ 0, 
+      GROUP == 2  ~ 0, 
+      GROUP == 3  ~ 6,  # E12 vg/kg
+      GROUP == 4  ~ 20, # E12 vg/kg
+      GROUP == 5  ~ 20, # E12 vg/kg 
+      GROUP == 6  ~ 50, # E12 vg/kg 
+      TRUE ~ NA
+    )
+  )  
+
+
+spec_location <- here(data_dir, "biodist-spec-2025-01-18.yml")
+spec <- ys_load(spec_location) %>% ys_namespace("plot")
+
+dat0 <- dat0 %>% 
+    yspec_add_factors(spec, GROUP, SEX, DOSE, ATPT ) #%>%  # Refactor table for plots 
+
+
+
+
+save(dat0, spec4matrix, file="./data/dat0_0118.RData" )
+
+
+```

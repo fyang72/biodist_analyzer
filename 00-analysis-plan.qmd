@@ -1,0 +1,415 @@
+---
+title: "Analysis Plan for Toxicity and Biodistribution Analysis Workflow"
+author: "ToxBioDist (TBD) Analyzer Core Development Team"
+
+format:
+  docx:
+    toc: true
+    number-sections: false
+    #reference-doc: lib/poppk01_45.docx 
+    
+crossref:
+  fig-title: "**Figure**"
+  tbl-title: "**Table**"  
+
+link-citations: true
+linkcolor: blue
+
+editor: visual
+---
+
+<!-- LIST OF ABBREVIATIONS AND DEFINITIONS OF TERMS -->
+
+# INTRODUCTION
+
+This pre-clinical analysis plan (PAP) describes the analysis methods and data presentation to be used for the analysis and summarization of GLP/Non-GLP toxicity and biodistribution study in immunosuppressed and non-immunosuppressed cynomolgus monkeys, named as "ToxBioDist (TBD) Analyzer".
+
+The goal is to develop an integrative analysis workflow tailored to the unique challenges posed by data generated for genomic medicine, due to its multi-dimensional nature, i.e. across a number of platforms including vector genome copies (VGCs), mRNA, protein, and a wide range of responses. This workflow encompasses data structure standardization, quality checks, visualization of multi-dimensional data, identification of sources of variation, and quantification of exposure-response relationships, supporting posology assessments for pre-clinical to clinical program transitions. Specifically, this workflow is expected to be instrumental in analyzing biodistribution, expression of VGCs and mRNA, response, and toxicity, supporting the development of multiple programs.
+
+# BACKGROUND
+
+With the recent acquisitions of genomic and cell therapy programs, Alexion CPSS designed and implemented a framework and an ops model for innovating toxicology and pathology expertise, building a state-of-the-art Quantitative Systems Modeling platform, providing immunogenicity sciences stewardship and leveraging the Data Sciences Unit for conducting risk: benefit and posology assessments for pre-clinical to clinical program transitions while collaborating with key stakeholders across Research and DRS organizations. This new framework expanded CPSS early-stage involvement, with minimal FTE increment, from CSID to TSID on programs and platform discovery projects to drive input in study designs, data structure standardization, quality checks, visualization of multi-dimensional unstructured data, identification of sources of variation, interpretation of NOAEL and safety margin estimations.
+
+Alexion CPSS was able to meaningfully impact programs strategically at early stages and on into further stages including pre-IND. Proficiencies were developed with interpretation of in situ hybridization, immunohistochemistry, digital pathology, and evaluations of biodistribution and protein expression of vector genome copies (VGCs). Unique approaches to data visualization and interpretation were developed for biodistribution, expression of VGCs and mRNA, and toxicology study findings including histopathology. Our developed proficiencies and unique approaches have been demonstrated in moving our pipeline forward and addressing relevant agency questions effectively (e.g., ALXN2330, ALXN2340 and ALXN2350). The result was a strengthened focus on the 5Rs at the time of TSID (or earlier) continuing into later development.
+
+# ANALYSIS OBJECTIVE(S)
+
+The primary objective of this analysis is to provide an integrative analysis workflow tailored to support genomic medicine, with the goals of (but not limited to):
+
+-   Evaluate the toxicity and biodistribution of study drugs
+
+<!-- *   Delineate the level of protein restoration necessary to achieve efficacy in mouse model of disease -->
+
+-   Determine the maximal tolerated dose or minimal efficacious dose in NHP treated with AAV
+
+-   Assess the impacts of potential covariates
+
+<!-- # if applicable, Identify proteomics biomarkers for efficacy and safety in patients, if available. -->
+
+The data types considered in this analysis include, but are not limited to:
+
+-   From blood samples
+    -   anti-AAV9 neutralizing antibody analysis
+    -   anti-BAG3 antibody analysis
+    -   viral shedding (biofluid samples)
+    -   biodistribution (Vector genome copies (VGCs), mRNA, Transgene protein in blood and tissue)
+    -   cytokine, and
+    -   complement analysis
+-   Assessment of toxicity was based on
+    -   mortality,
+    -   clinical observations,
+    -   body weights,
+    -   qualitative food consumption,
+    -   ophthalmic observations,
+    -   electrocardiographic (ECG) measurements,
+    -   echocardiogram measurements, and
+    -   clinical and anatomic pathology
+-   Other response data
+    -   Respiratory data
+    -   Clinical Laboratory Data
+
+# MATERIALS AND DATA
+
+## Overview of Study Data Included in the Analysis
+
+<!-- The primary source data utilized to develop the 'ToxBioDist (TBD) Analyzer' is derived from ALXN2350 (BAG3) Study 22LJ065. This study, titled "A Single Dose Intravenous Injection Toxicity and Biodistribution Study of PF-07842199 in both Immunosuppressed and Non-Immunosuppressed Cynomolgus Monkeys, with a 6- or 13-Week Observation Period", aimed to evaluate the toxicity and biodistribution of PF-07842199 following a single dose administered via intravenous (slow bolus) injection to immunosuppressed or non-immunosuppressed monkeys. -->
+
+Sponsor Reference No: 24021, titled "A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey". The objectives of this study are to determine the biodistribution and expression of AAV9 capsid variants, and potential toxicity after administration of single dose intravenous bolus injection to cynomolgus monkeys.
+
+More specifically, the objective of this study is to evaluate novel engineered AAV capsids that are believed to transduce the central nervous system or skeletal muscles with superior potency and selectivity compared to wild type AAVs. The transgenes used are encoding for wild type Glucocerebrosidase protein or a truncated version of muscle blind under control of neuronal promoter or skeletal muscle promoters, respectively. This would allow for robust expression in CNS or skeletal muscle tissues to assess selectivity of targeting.
+
+The study design is provided below:
+
+![](images/study_design3_noval_capsid.PNG)
+
+Note, CNS capsids (Group 2, 3 and 4), muscle capsids (Group 5 and 6)
+
+**Background**
+
+From: Tabet, Ricardos [ricardos.tabet\@alexion.com](mailto:ricardos.tabet@alexion.com){.email} Date: Sunday, 1 December 2024 at 22:29 To: Arevalo, Mabel [mabel.arevalo\@alexion.com](mailto:mabel.arevalo@alexion.com){.email} Cc: Yang, Feng [Feng.Yang\@alexion.com](mailto:Feng.Yang@alexion.com){.email}, Huichalaf, Claudia [claudia.huichalaf\@alexion.com](mailto:claudia.huichalaf@alexion.com){.email}, Howard, Samantha [samantha.howard\@alexion.com](mailto:samantha.howard@alexion.com){.email}, Wu, Yuhong [Yuhong.Wu\@alexion.com](mailto:Yuhong.Wu@alexion.com){.email}, Chen, Jun [jun.chen\@alexion.com](mailto:jun.chen@alexion.com){.email} Subject: Re: Capsid work_NHP biodistribution data analysis by CPQP Hi Mabel,
+
+Thank you for connecting us with the QP colleagues. Regarding the biodistribution of the ongoing study, it will be tiered based on expected tropism of the capsid. Team will share with you shortly the list of the selected tissues and projected timeline (by Friday). We will start gathering data starting feb 2025. We are using excel tables for the format (we can provide with templates from former studies)
+
+We will have vector genome copies in two different ways of normalization (vg/ug gDNA and vg/haploid), transgene RNA expression (transgene RNA normalized to housekeeping gene like HPRT and also normalized to the endogenous target such as GBA or MBNL1) and we will have also transgene protein which would be quantified by mass spec or Wes. Beside biochemistry, we will be also be doing staining to determine \# of cells transduced or % area.
+
+*We are looking as first path is to compare to AAV9 and define how much transduction/overexpression we are getting in key areas and off-target such as Liver and DRG (any detargeting). Data generated here will be helpful in selection of the capsids for other CNS programs.*
+
+This will be followed by program specific modeling starting with the selected payload in support of GBA-PD and DM1 programs. The idea would be to compare to the endogenous levels of the corresponding transgene as first and compare to levels obtained by competitions if available and also to the endogenous human levels in target tissues. Each payload has it is unique MOA with one having a miRNA to target KD of SNCA (GBA-PD program) and the other one an auto-regulation mechanism that reduce RNA and protein levels when it becomes too much (DM1 program). So we will be looking into these parameters as well. We will take overall outcome to define doses for DRF and GLP studies. To do so, we will have to integrate data from the mouse models that were already generated in house. Can we please start doing so that we have the model in place from efficacy perspective? Once we define what is needed for GBA-PD and DM1 programs, We would like to project doses for dose range finding studies / GLP.
+
+Thank you for your help,
+
+Best regards, Ricardos
+
+## Dataset Preparation
+
+### Source Data
+
+During the course of a toxicity and biodistribution study, preliminary datasets will be initially transferred to the designated analysis lead, who will perform the analysis based on the template provided by 'ToxBioDist (TBD) Analyzer'. Subsequently, SEND datasets will be integrated and the analysis will be updated. SEND, an acronym for Standard for Exchange of Nonclinical Data, providing a standardized framework for presenting nonclinical data.
+
+The source data encompasses dosing information, viral shedding, vector genome copies (VGC), mRNA, protein, electrocardiogram (ECG) values, histopathologic findings, demographics, clinical laboratory values, and other covariate information collected in the Study.
+
+### Data specification
+
+Data specifications are a set of guidelines that outline how to convey data and ensure it is consistent and comprehensive. The following requirements should be considered:
+
+-   accommodate the ALXN2340 and ALXN2350, if possible, also include PKP2
+-   merge shredding, VGC, mRNA, protein data into one unified data structure
+-   add ADA data, both ADA per subject, and time-dependent ADA;
+-   add baseline weight and time-varied weight (mainly need SEND data)
+-   add key Lab info (from SEND data), what Labs to include may depend on the programs, could be baseline or time-varied.
+-   we also need to standardize the NAMING CONVENTION for all the MATRIX name, refer to the SEND data
+-   for AVAL (Analysis value), we may need to calculate BL, CHG, PCHG, etc.
+-   what are the analysis unit for each AVAL?
+-   must be arranged by study, dose group, subject, time, event/observations (prefer in the order of shedding, vgc, mRNA, protein, efficacy and toxicity)
+-   if missing variables (for example, weight, histopath), leave them "NA" as a placeholder. Let the script to handle for these missing variables.
+-   accommodate SEND format as much as possible (such as variable name, etc), using ALXN2350 SEND
+-   add toxicity data (such as histopath data)
+-   make the main data structure/variables as numerical as possible, (leave the meta info to YML using yspec package)
+-   using yspec package, as highly suggested, as this is the format that the popPK/PD analysis that Metrum/AZ are using.
+
+### Data Programming and Quality Control
+
+Assembly of the biodistribution datasets and others will be performed using R version 4.1.0 or later or Statistical Analysis System (SAS®) Version 9.3 or later. Software version numbers will be documented in the report.
+
+Procedures include dataset creation, dataset quality control (QC) review, and preparation of submission-ready datasets (if required). If datasets are modified over the course of the analysis, the file name of each version of the dataset will be unique.
+
+In preparing the analysis set of data, the following requirements should be considered:
+
+-   prepare scripts to process the raw data in excel and merge all (shredding, VGC, mRNA, protein, histopath, ADA, meta info, weight, lab info) into one?
+-   generate the data based on SEND format (Using ALXN2350 data)
+-   how to identify missing/abnormal/grouping error in the preliminary data just created?
+-   how to identify the outliers, using visualization and followed by a quantitative way?
+-   by what criteria we can call such a dataset is QC'd, and ready for subsequent analysis. (align with data specification, consistency with study design and naming convention)
+-   during the QC steps, we may need to generate a lot of plots and identify the outliers, could we make it dynamic using shiny?
+
+### Evaluable Subjects
+
+The analysis population for this analysis will include all subjects who received at least one dose of study drug, VCA control, with or without immunosuppressantand, have at least one valid measurements from Day -1 and on-treatment measurement. All filters will be listed when a particular analysis is applied upon a sub-population.
+
+### Handling of Missing and/or Incomplete Data
+
+Data analyses will be performed only on observed data. Any concentration or measurements that cannot be uniquely and unequivocally attributed to a particular time point will be treated as incomplete data. Incomplete data will be excluded from analysis data sets.
+
+Measurement below the lower assay limit of quantitation (BLQ) will be set to LOOQ/2, and missing data or not recorded samples will be treated as "NA".
+
+Any outliers will be identified, and their handling will be agreed upon by Core Development Team and discussed and documented in the report.
+
+### Software
+
+All visualization and statistical analyses will be performed using R and/or SAS. Software version numbers will be documented in the report.
+
+# METHODS
+
+Data Visualization and Statistical Analysis
+
+The analysis will generally be conducted in the following steps:
+
+-   Trend analysis (visualization)
+    -   Overview visualization
+    -   Integrative visualization
+    -   Assessment of covariates
+-   Quantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation
+    -   Statistical modeling
+    -   Empirical modeling
+
+## Anti-AAV Neutralizing Antibody Analysis
+
+For sample collection and handling, as well as sample analysis of anti-AAV neutralizing antibody, please refer to the relevant section in the report.
+
+Appropriate analysis will be conducted to assess a) incidence of anti-AAV neutralizing antibody (NAb) during the course of the study, b) dose-dependent NAb titer, and c) identify the sources of variation such as immunosuppressants.
+
+It may includes but not limited to:
+
+-   **Overview of the data:** Heatmap will be used to identify any missing data, outliers, and consistency in constructing the analysis set of the data. Each row represents each subject, and each column is for each timepoint on which anti-AAV neutralizing antibody is collected.
+
+-   **Incidence Table:** Incidence table of anti-AAV neutralizing antibody (NAb) will be created. Dose-dependency and the impact of immunosuppressants will be assessed.
+
+-   **Dose-dependent NAb titer:** Dose-dependent NAb titer and the impact of imunosuppressants will be assessed. Correlation plots, box plots, if appropriate, will be generated
+
+-   **Optional Statistical Modeling:** If included, NAb titer vs. dose will be captured by a linear model, with an assessment of relevant covariates.
+
+## Anti-Target Protein Antibody Analysis
+
+For sample collection and handling, as well as sample analysis of anti-tartget protein antibody, please refer to the relevant section in the report.
+
+Similar approach will be adopted for anti-tartget protein antibody, as previously planned for anti-AAV neutralizing antibody analysis.
+
+## Viral Shedding Analysis
+
+For sample collection and handling, as well as sample analysis of viral shedding, please refer to the relevant section in the report.
+
+The following plots will be created to assess dose-dependency, capture the relationship between dose, PK, PD, and responses, and identify the sources of variation in multiple sites (Whole Blood, Plasma, Feces, Saliva, and Urine), including, but not limited to:
+
+-   **Overview of the data:** Heatmap or other plots will be used to identify any missing data, outliers, and consistency in constructing the analysis set of the data.
+
+-   **Individual Spaghetti Plots:** Individual spaghetti plots over time within each treatment group and each site, stratified by relevant covariates such as gender, immunosuppressants, ADA, etc.
+
+-   **Mean Concentrations vs. Time:** mean concentrations over time, stratified by treatment groups, each site, and relevant covariates
+
+-   **Dose-Normalized Concentration-Time Profiles:** Both individual and mean plots for dose-normalized concentration-time profiles across treatment groups and sites can help in assessing the impact of dose on concentration over time
+
+-   **Multi-Panel Individual Plots:** Including individual plots for PK, PD, response, and toxicity events in a multi-panel format can provide a holistic view of the data, allowing for comparisons and identification of any correlations or patterns across these different parameters.
+
+-   **Optional Scatterplot:** If included, the scatterplot of concentration vs. dose stratified by each time point, with a linear model fitting, can offer insights into the relationship between concentration and dose at different time points, helping to assess the dose-dependency of the response.
+
+-   **Optional Creative Heatmap/Barplot/Other Plots:** If included, creative heatmap, barplot or other plots will be explored to best visualize the viral shedding data at multiple sites of Whole Blood, Plasma, Feces, Saliva, and Urine.
+
+-   **Optional Statistical Modeling:** If included, concentration vs. dose will be captured by a linear/nonlinear model, with an assessment of relevant covariates.
+
+## Vector Genome Content and Transgene mRNA Expression Analysis
+
+For sample collection and handling, as well as sample analysis of viral shedding, please refer to the relevant section in the report.
+
+The following plots will be created to assess a) biodistribution, b) dose-dependency, c) dynamic of expression, d) the relationship between dose, PK, PD, and responses, and e) identify the sources of variation in multiple sites.
+
+It may include, but not limited to:
+
+-   **Overview of the data:** Heatmap or other plots will be used to identify any missing data, outliers, and consistency in constructing the analysis set of the data.
+
+-   **Heatmap/Barplot/Other Plots:** Creative heatmap, barplot or other plots will be explored to best visualize the VGC and mRNA data at multiple sites.
+
+-   **Statistical Modeling:** Scaled expression levels vs. dose will be captured by a linear/nonlinear model, with an assessment of relevant covariates.
+
+If applicable, the analysis for VGC, mRNA and transgene proteins will be combined to provide a holistic view of the data, allowing for comparisons and identification of any correlations or patterns across these different platforms.
+
+Both Human-specific and conserved total protein concentrations will be analyzed in transgene protein biodistribution tissue samples collected from heart, liver, spleen, DRG and spinal cord after single IV injection of vehicle or study drug to cynomolgus monkeys.
+
+The following EDA figures/tables should be generated.
+
+**Figures: First path analysis** is to compare to AAV9 and define how much transduction/overexpression we are getting in key areas and off-target such as Liver and DRG (any detargeting). Data generated here will be helpful in selection of the capsids for other CNS programs.
+
+Vehicle Control vs AAV(a) AAV9v2-GBA386, AAV(c) AAV9v2+JBC-GBA386, and AAV(d) AAV9dQ+JBC-GBA386; \[CNS capsids\]
+
+Vehicle Control vs AAV9-DM1, and Gcap-106v2-DM1; \[muscle capsids\]
+
+at dose level of 2e13 vg/kg Dose concentration: 1E+13 vg/mL
+
+*Figure: Heatmap or barplot for overview of individual VGC, mRNA and Protein or combined*
+
+Figure structure: \* May subset for Group 2, 3, and 4 \[CNS capsids\], and Group 5 and 6 \[muscle capsids\] \* May use the raw value, normalized value (relative to the preset)\
+\* Note, vector genome copies in two different ways of normalization (vg/ug gDNA and vg/haploid), transgene RNA expression (transgene RNA normalized to housekeeping gene like HPRT and also normalized to the endogenous target such as GBA or MBNL1). \* We will have also transgene protein which would be quantified by mass spec or Wes.
+
+-   May need to merge with old capsid of ALXN2340 (GLP study) for comparison
+
+*Figure: Assess mRNA/VGC expression efficiency* Each payload has it is unique MOA with one having a miRNA to target KD of SNCA (GBA-PD program) and the other one an auto-regulation mechanism that reduce RNA and protein levels when it becomes too much (DM1 program).
+
+Ket points: Normalized mRNA/VGC to assess expression efficiency, and compare to the vehicle control, and old capsid, or competitors
+
+*Figure: Dose-Dependence in Key Regions in Transduction and Human Protein Expression in Cynomolgus Monkeys* Not relevant in this capsid study
+
+## Inlife Evaluations
+
+### Animal Fate
+
+Swimlanes-like plots will be created to assess the animal fate, with attentions to dose-dependent assessment and correlation with potential covariates.
+
+### Clinical Observations
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+### Veterinary Treatments
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+### Ophthalmic Examinations
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+### Body Weights
+
+The following plots will be created to assess dose-dependency, capture the relationship between dose, body weight, and responses, and identify the sources of variation, including, but not limited to:
+
+-   **Overview of the data:** Heatmap or other plots will be used to identify any missing data, outliers, and consistency in constructing the analysis set of the data.
+
+-   **Individual Spaghetti Plots:** Individual spaghetti plots over time within each treatment group, stratified by relevant covariates such as gender, immunosuppressants, ADA, etc.
+
+-   **Mean Concentrations vs. Time:** mean body weight over time, stratified by treatment groups, and relevant covariates
+
+-   **Optional Creative Heatmap/Barplot/Other Plots:** If included, creative heatmap, barplot or other plots will be explored to best visualize body weight data
+
+-   **Optional Statistical Modeling:** If included, body weight vs. dose will be captured by a linear/nonlinear model, with an assessment of relevant covariates.
+
+### Qualitative Food Consumption
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+### Respiratory Assessments
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+### Electrocardiographic Examinations
+
+### Echocardiogram Examinations
+
+## Cytokine and Complement Analysis
+
+<!-- Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version. -->
+
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+ 
+
+tabl <- "
+| Group No.	    | Immunosuppression        regimen                        | 	Males	|  Females  |
+|---------------|:-------------------------------------------------------:|--------:|----------:|
+| 1	            | (0 vg/kg, no immunosuppressants)	                      |    4    |  	4       |
+| 2	            | (0 vg/kg, methylprednisolone, rapamycin, rituximab)     |	   4	  |   4       |
+| 3	            | (3e13 vg/kg, methylprednisolone, rapamycin)	            |	   4	  |   4       |
+| 4	            | (1.5e14 vg/kg, no immunosuppressants)	                  |	   4	  |   4       |
+| 5	            | (1.5e14 vg/kg, methylprednisolone, rapamycin)	          |	   3	  |   4       |
+| 6	            | (1.5e14 vg/kg, methylprednisolone, rapamycin, rituximab)|	   NA	  |   4	      | 
+| 7	            | (4e14 vg/kg, methylprednisolone, rapamycin)	            |	   3	  |   4       |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+**Treatment group comparisons**
+
+-   Group \[3,5,7\]: assess dose-dependent response at the dose among 3e13, 1.5e14, and 4e14 vg/kg, at the same immunosuppressant condition (methylprednisolone+ rapamycin)
+
+-   
+
+    ## Group \[4,5,6\]:
+
+    -   
+
+-   Group \[1, 4\]: assess the impacts after introducing a low-dose at the condition of "no immunosuppressants"
+
+-   Group \[2, 6\]: assess the impacts after introducing a low-dose at the condition of "triple immunosuppressants (methylprednisolone, rapamycin, rituximab)"
+
+**From subject characteristics's perspective** \* Assess whether the response is associated with subject characteristics such as weight, gender,
+
+**From Analyte's perspective**
+
+-   Create sub-analysis for cytokines panel, complement panel, or both panels
+-   How can we identify a list of analytes that exhibit differentiation under perturbation? using clustering on analyte
+-   Are there any discernible patterns in the behavior of these differentiated analytes?
+-   If differentiation is observed, how can we determine the onset time, intensity, steady-state, and duration of the response for these analytes?
+-   Is the response dose-dependent under similar conditions? If so, is it linear or nonlinear?
+-   Does the response depend on virus-concentration? If so, is it linear or nonlinear? If nonlinear, any threshold identified?
+
+## Clinical Laboratory Evaluations
+
+Clinical laboratory evaluations Lab data for clinical pathology, hematology and coagulation results, clinical chemistry results, and urinalysis results will be analyzed in a similar way. The following plots will be created to assess: a) dose-dependency, b) dynamics of lab readouts, e) the relationship between dose, PK, PD, and responses, and d) identify the sources of variation in multiple sites.
+
+It may include, but not limited to:
+
+-   **Overview of the data:** Heatmap or other plots will be used to identify any missing data, outliers, and consistency in constructing the analysis set of the data.
+
+-   **Heatmap/Barplot/Other Plots:** Creative heatmap, barplot or other plots will be explored to best visualize lab data.
+
+-   **Statistical Modeling:** Scaled lab readout vs. dose will be captured by a linear/nonlinear model, with an assessment of relevant covariates.
+
+## Terminal Evaluations
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+### Organ Weights
+
+The following plots will be created to assess b) dose-dependency, b) the relationship between dose, PK, PD, and responses, and c) identify the sources of variation in multiple sites.
+
+It may include, but not limited to:
+
+-   **Overview of the data:** Heatmap or other plots will be used to identify any missing data, outliers, and consistency in constructing the analysis set of the data.
+
+-   **Heatmap/Barplot/Other Plots:** Creative heatmap, barplot or other plots will be explored to best visualize organ weights at multiple sites.
+
+-   **Statistical Modeling:** Organ weights vs. dose will be captured by a linear/nonlinear model, with an assessment of relevant covariates.
+
+If applicable, the analysis for VGC, mRNA, transgene proteins and organ weights will be combined to provide a holistic view of the data, allowing for comparisons and identification of any correlations or patterns across these different platforms.
+
+Interim Euthanasia Terminal Euthanasia
+
+### Macroscopic Observations
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+### Microscopic Observations
+
+For sample collection and handling, as well as histopathologic grading, please refer to the relevant section in the study report.
+
+The following plots will be created to assess b) dose-dependency, b) the relationship between dose, PK, PD, and responses, and c) identify the sources of variation in multiple sites.
+
+It may include, but not limited to:
+
+-   **Overview of the data:** Heatmap or other plots will be used to identify any missing data, outliers, and consistency in constructing the analysis set of the data.
+
+-   **Heatmap/Barplot/Other Plots:** Creative heatmap, barplot or other plots will be explored to best visualize histopathological findings at multiple sites.
+
+-   **Statistical Modeling:** Histopathological findings vs. dose will be captured by a linear/nonlinear model, with an assessment of relevant covariates.
+
+If applicable, the analysis for VGC, mRNA, transgene proteins and histopathological findings will be combined to provide a holistic view of the data, allowing for comparisons and identification of any correlations or patterns across these different platforms.
+
+## RNA Scope In Situ Hybridization (ISH) Analysis
+
+Narrative analysis is considered appropriate; therefore, visualization and further analysis will be skipped at this version.
+
+-   Digital Image Analysis
+-   Light Microscopic Evaluation
+
+## Integrated Summary and Discussion
+
+# QUALITY CONTROL
+
+## QC Procedures
+
+Quality control (QC) procedures will be conducted in strict compliance with applicable Standard Operating Procedures (SOPs). Data handling, analyses, and the final report will undergo thorough review by relevant parties who were not directly involved in the respective tasks. Comprehensive documentation of all QC findings will be maintained.

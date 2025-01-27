@@ -1,0 +1,38 @@
+SETUP__:
+  lookup_file: [biodist-spec-lookup-2025-01-18.yml]
+  description: Dataset for preclinical datasets
+  sponsor: Alexion 
+  projectnumber: pilot
+  use_internal_db: true
+  character_last: true
+  comment_col: "C"
+  flags:
+    covariate: [SEX, GROUP]
+    #diagContCov: [AGE, WT, ALB, EGFR]
+    #diagCatCov: [STUDY, RF, CP, DOSE]
+ 
+STUDYID:
+USUBJID:
+SEX:
+
+GROUP:
+DOSE:
+
+PARAMCD:
+
+TISSUE: 
+MATRIX:
+MATRIXCD:
+
+ATPT: 
+
+AVAL:
+AVALU:
+BLQ: 
+MDV: 
+
+ADA:
+NAB:
+HISTOPTH:
+ 
+  

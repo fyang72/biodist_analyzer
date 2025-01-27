@@ -1,0 +1,50 @@
+# Analysis Objective(s) {#sec-objective .unnumbered}
+
+```{r}
+#| results: "asis"
+#| echo: false
+#| eval: true 
+#| warning: false
+#| error: false
+#| message: false
+#| include: true
+source("_common.R")
+```
+
+
+A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled "A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey". The objectives of this study are to determine the biodistribution and expression of AAV9 capsid variants, and potential toxicity after administration of a single dose intravenous bolus injection to cynomolgus monkeys.
+
+More specifically, the objective of this study is to evaluate novel engineered AAV capsids that are believed to transduce the central nervous system or skeletal muscles with superior potency and selectivity compared to wild type AAVs. The transgenes used encode for wild type Glucocerebrosidase protein or a truncated version of muscle blind under control of neuronal promoter or skeletal muscle promoters, respectively. This would allow for robust expression in CNS or skeletal muscle tissues to assess selectivity of targeting.
+
+
+
+<!-- 
+The primary objective of this analysis is to provide an integrative analysis workflow tailored to support genomic medicine, with the goals of (but not limited to):
+
+-   Evaluate the toxicity and biodistribution of study drugs
+
+-   Determine the maximal tolerated dose or minimal efficacious dose in NHP treated with AAV
+
+-   Assess the impacts of potential covariates
+
+The data types considered in this analysis include, but are not limited to:
+
+-   From blood samples
+    -   anti-AAV neutralizing antibody analysis
+    -   anti-target protein antibody analysis
+    -   viral shedding (biofluid samples)
+    -   biodistribution of vector genome copies (VGCs), mRNA, transgene protein in blood and tissue
+    -   cytokine, and
+    -   complement analysis
+-   Assessment of toxicity was based on
+    -   mortality,
+    -   clinical observations,
+    -   body weights,
+    -   qualitative food consumption,
+    -   ophthalmic observations,
+    -   electrocardiographic (ECG) measurements,
+    -   echocardiogram measurements, and
+    -   clinical and anatomic pathology
+-   Other response data
+    -   respiratory data
+    -   clinical Laboratory Data -->
