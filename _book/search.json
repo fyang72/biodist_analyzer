@@ -1,65 +1,5 @@
 [
   {
-    "objectID": "05-viral-shedding-vgc-mRNA-protein.html",
-    "href": "05-viral-shedding-vgc-mRNA-protein.html",
-    "title": "Viral/vgc/mRNA/protein",
-    "section": "",
-    "text": "Overall\nViral-shedding-vgc-mRNA-protein\nThe analysis will generally be conducted in the following steps:\nAs shown in Table @tab-summary-dose-group, the summary of dose groups is provided. The barplot representation of overall data is visualized in Figure Figure 1.\nThe viral shedding data is visualized in Figure Figure 3.\n#&gt; # A tibble: 12 × 5\n#&gt; # Groups:   GROUP, GROUP_f, DOSE_f [6]\n#&gt;   GROUP GROUP_f  DOSE_f SEX_f      N\n#&gt;   &lt;int&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;int&gt;\n#&gt; 1     1 VCA + IS 0      Male       5\n#&gt; 2     1 VCA + IS 0      Female     4\n#&gt; 3     2 VCA - IS 0      Male       4\n#&gt; 4     2 VCA - IS 0      Female     4\n#&gt; 5     3 Low + IS &lt;NA&gt;   Male       4\n#&gt; 6     3 Low + IS &lt;NA&gt;   Female     4\n#&gt; # ℹ 6 more rows\nFigure 1: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.\nFigure 2: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Key Tissues in Study xxx.",
-    "crumbs": [
-      "Viral/vgc/mRNA/protein"
-    ]
-  },
-  {
-    "objectID": "01-objective.html",
-    "href": "01-objective.html",
-    "title": "Analysis Objective(s)",
-    "section": "",
-    "text": "A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled “A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey”. The objectives of this study are to determine the biodistribution and expression of AAV9 capsid variants, and potential toxicity after administration of a single dose intravenous bolus injection to cynomolgus monkeys.\nMore specifically, the objective of this study is to evaluate novel engineered AAV capsids that are believed to transduce the central nervous system or skeletal muscles with superior potency and selectivity compared to wild type AAVs. The transgenes used encode for wild type Glucocerebrosidase protein or a truncated version of muscle blind under control of neuronal promoter or skeletal muscle promoters, respectively. This would allow for robust expression in CNS or skeletal muscle tissues to assess selectivity of targeting.",
-    "crumbs": [
-      "Analysis Objective(s)"
-    ]
-  },
-  {
-    "objectID": "02-intro.html",
-    "href": "02-intro.html",
-    "title": "Introduction",
-    "section": "",
-    "text": "This pre-clinical analysis describes the analysis methods and data presentation to be used for the analysis and summarization of GLP/Non-GLP toxicity and biodistribution study in immunosuppressed and non-immunosuppressed cynomolgus monkeys, named as “ToxBioDist (TBD) Analyzer”.\nThe goal is to develop an integrative analysis workflow tailored to the unique challenges posed by data generated for genomic medicine, due to its multi-dimensional nature, i.e. across a number of platforms including vector genome copies (VGCs), mRNA, protein, and a wide range of responses. This workflow encompasses data structure standardization, quality checks, visualization of multi-dimensional data, identification of sources of variation, and quantification of exposure-response relationships, supporting posology assessments for pre-clinical to clinical program transitions. Specifically, this workflow is expected to be instrumental in analyzing biodistribution, expression of VGCs and mRNA, response, and toxicity, supporting the development of multiple programs.\nWith the recent acquisitions of genomic and cell therapy programs, Alexion CPSS designed and implemented a framework and an ops model for innovating toxicology and pathology expertise, building a state-of-the-art Quantitative Systems Modeling platform, providing immunogenicity sciences stewardship and leveraging the Data Sciences Unit for conducting risk: benefit and posology assessments for pre-clinical to clinical program transitions while collaborating with key stakeholders across Research and DRS organizations. This new framework expanded CPSS early-stage involvement, with minimal FTE increment, from CSID to TSID on programs and platform discovery projects to drive input in study designs, data structure standardization, quality checks, visualization of multi-dimensional unstructured data, identification of sources of variation, interpretation of NOAEL and safety margin estimations.\nAlexion CPSS was able to meaningfully impact programs strategically at early stages and on into further stages including pre-IND. Proficiencies were developed with interpretation of in situ hybridization, immunohistochemistry, digital pathology, and evaluations of biodistribution and protein expression of vector genome copies (VGCs). Unique approaches to data visualization and interpretation were developed for biodistribution, expression of VGCs and mRNA, and toxicology study findings including histopathology. Our developed proficiencies and unique approaches have been demonstrated in moving our pipeline forward and addressing relevant agency questions effectively (e.g., ALXN2330, ALXN2340 and ALXN2350). The result was a strengthened focus on the 5Rs at the time of TSID (or earlier) continuing into later development.",
-    "crumbs": [
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "03-methods.html",
-    "href": "03-methods.html",
-    "title": "Materials and Methods",
-    "section": "",
-    "text": "Overview of Study Data Included in the Analysis\nA non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled “A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey”. The objectives of this study are to evaluate novel engineered AAV capsids that are believed to transduce the central nervous system or skeletal muscles with superior potency and selectivity compared to wild type AAVs. The transgenes used encode for wild type Glucocerebrosidase protein or a truncated version of muscle blind under control of neuronal promoter or skeletal muscle promoters, respectively. This would allow for robust expression in CNS or skeletal muscle tissues to assess selectivity of targeting.\nThe study design is provided below:\nGroups 2 to 4 are evaluating CNS capsids. Group 2 utilizes the established control capsid, whereas Groups 3 and 4 employ the new JBC capsids developed by JCR Pharmaceuticals. Notably, the capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant, which is anticipated to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3. Therefore, Groups 3 and 4 will be compared to Group 2 for CNS capsids.\nRegarding the DM1 capsids, Group 5 utilizes the established capsid, while Group 6 employs the new Gcap-106 capsid. Therefore, Group 6 (new) will be compared to Group 5 (old) for DM1 capsids.",
-    "crumbs": [
-      "Materials and Methods"
-    ]
-  },
-  {
-    "objectID": "03-methods.html#dataset-preparation",
-    "href": "03-methods.html#dataset-preparation",
-    "title": "Materials and Methods",
-    "section": "Dataset Preparation",
-    "text": "Dataset Preparation\n\nSource Data\nDuring the course of a toxicity and biodistribution study, preliminary datasets will be initially transferred to the designated analysis lead, who will perform the analysis based on the template provided by ‘ToxBioDist (TBD) Analyzer’. Subsequently, SEND datasets will be integrated and the analysis will be updated. SEND, an acronym for Standard for Exchange of Nonclinical Data, providing a standardized framework for presenting nonclinical data.\nThe source data encompasses dosing information, viral shedding, vector genome copies (VGC), mRNA, protein, electrocardiogram (ECG) values, histopathologic findings, demographics, clinical laboratory values, and other covariate information collected in the Study.\nThere could be two kind of source data:\n\nFrom preliminary excel-based dataset for early glimpse;\nFrom final SEND-based datasets\n\n\n\n\n\n\n\n\n\nFigure 1: Although the input sources dataset can vary, the analysis set of datasets remains relatively stable #| for conducting subsequent analyses.\n\n\n\n\n\nConsidering that SEND-based datasets usually come late, the key internal decisions will be made based on the preliminary excel-based dataset. Therefore, our focus of this workflow is for option 1).\nHowever, there is a possibility that agencies make requst the analysis, or we may need to defense our position (i.e dose selection). In such a case, the analysis needs to be refreshed based on SEND-dataset.\nThe specification of the analysis data will be based on yspec format, see xxx.yml. The source files will be based on excel data sheet, see the example data in the folder of ./data/source/.\n\n\nData Specification\nData specifications are a set of guidelines that outline how to convey data and ensure it is consistent and comprehensive. The following requirements should be considered:\n\naccommodate the ALXN2340 and ALXN2350, if possible, also include PKP2\nmerge shredding, VGC, mRNA, protein data into one unified data structure\nadd ADA data, both ADA per subject, and time-dependent ADA;\nadd baseline weight and time-varied weight (mainly need SEND data)\nadd key Lab info (from SEND data), what Labs to include may depend on the programs, could be baseline or time-varied.\nwe also need to standardize the NAMING CONVENTION for all the MATRIX name, refer to the SEND data\nfor AVAL (Analysis value), we may need to calculate BL, CHG, PCHG, etc.\nwhat are the analysis unit for each AVAL?\nmust be arranged by study, dose group, subject, time, event/observations (prefer in the order of shedding, vgc, mRNA, protein, efficacy and toxicity)\nif missing variables (for example, weight, histopath), leave them “NA” as a placeholder. Let the script to handle for these missing variables.\naccommodate SEND format as much as possible (such as variable name, etc), using ALXN2350 SEND\nadd toxicity data (such as histopath data)\nmake the main data structure/variables as numerical as possible, (leave the meta info to YML using yspec package)\nusing yspec package, as highly suggested, as this is the format that the popPK/PD analysis that Metrum/AZ are using.\n\n\n\nData Programming and Quality Control\nAssembly of the biodistribution datasets and others will be performed using R version 4.1.0 or later or Statistical Analysis System (SAS®) Version 9.3 or later. Software version numbers will be documented in the report.\nProcedures include dataset creation, dataset quality control (QC) review, and preparation of submission-ready datasets (if required). If datasets are modified over the course of the analysis, the file name of each version of the dataset will be unique.\nIn preparing the analysis set of data, the following requirements should be considered:\n\nprepare scripts to process the raw data in excel and merge all (shredding, VGC, mRNA, protein, histopath, ADA, meta info, weight, lab info) into one?\ngenerate the data based on SEND format (Using ALXN2350 data)\nhow to identify missing/abnormal/grouping error in the preliminary data just created?\nhow to identify the outliers, using visualization and followed by a quantitative way?\nby what criteria we can call such a dataset is QC’d, and ready for subsequent analysis. (align with data specification, consistency with study design and naming convention)\nduring the QC steps, we may need to generate a lot of plots and identify the outliers, could we make it dynamic using shiny?\n\n\n\nEvaluable Subjects\nThe analysis population for this analysis will include all subjects who received at least one dose of study drug, VCA control, with or without immunosuppressantand, have at least one valid measurements from Day -1 and on-treatment measurement. All filters will be listed when a particular analysis is applied upon a sub-population.\n\n\nHandling of Missing and/or Incomplete Data\nData analyses will be performed only on observed data. Any concentration or measurements that cannot be uniquely and unequivocally attributed to a particular time point will be treated as incomplete data. Incomplete data will be excluded from analysis data sets.\nMeasurement below the lower assay limit of quantitation (BLQ) will be set to LOOQ/2, and missing data or not recorded samples will be treated as “NA”.\nAny outliers will be identified, and their handling will be agreed upon by Core Development Team and discussed and documented in the report.\n\n\nSoftware\nAll visualization and statistical analyses will be performed using R and/or SAS. Software version numbers will be documented in the report.",
-    "crumbs": [
-      "Materials and Methods"
-    ]
-  },
-  {
-    "objectID": "03-methods.html#data-visualization-and-statistical-analysis",
-    "href": "03-methods.html#data-visualization-and-statistical-analysis",
-    "title": "Materials and Methods",
-    "section": "Data Visualization and Statistical Analysis",
-    "text": "Data Visualization and Statistical Analysis\nThe analysis will generally be conducted in the following steps:\n• Trend analysis (visualization) – Overview visualization – Integrative visualization – Assessment of covariates\n• Quantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation – Statistical modeling – Empirical modeling\n\nUse boxplot to illustrate the covariate effects i.e. x-axis show the covariate, y-axis show the analysis values. The analysis value can be scaled or not.\nA quantitative method is to use generalized linear model to classify the covariates, i.e. y=function(x) with a list of potential covariates",
-    "crumbs": [
-      "Materials and Methods"
-    ]
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "ToxBioDist (TBD) Analyzer",
@@ -80,63 +20,23 @@
     ]
   },
   {
-    "objectID": "05-viral-shedding-vgc-mRNA-protein.html#footnotes",
-    "href": "05-viral-shedding-vgc-mRNA-protein.html#footnotes",
-    "title": "Viral/vgc/mRNA/protein",
+    "objectID": "03-methods.html",
+    "href": "03-methods.html",
+    "title": "Materials and Methods",
     "section": "",
-    "text": "Here is the footnote.↩︎\nHere’s one with multiple blocks.↩︎",
+    "text": "Overview of Study Data Included in the Analysis\nA non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled “A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey”.\nThe study design is provided below:\nGroups 2 to 4 are evaluating CNS capsids. Group 2 utilizes the established control capsid, whereas Groups 3 and 4 employ the new JBC capsids developed by JCR Pharmaceuticals. Notably, the capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant, which is anticipated to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3. Therefore, Groups 3 and 4 will be compared to Group 2 for CNS capsids.\nRegarding the DM1 capsids, Group 5 utilizes the established capsid, while Group 6 employs the new Gcap-106 capsid. Therefore, Group 6 (new) will be compared to Group 5 (old) for DM1 capsids.",
     "crumbs": [
-      "Viral/vgc/mRNA/protein"
+      "Materials and Methods"
     ]
   },
   {
-    "objectID": "05-viral-shedding-vgc-mRNA-protein.html#sec-vgc-analysis",
-    "href": "05-viral-shedding-vgc-mRNA-protein.html#sec-vgc-analysis",
-    "title": "Viral/vgc/mRNA/protein",
-    "section": "VGC Data",
-    "text": "VGC Data\n\n\n\n\n\nFigure 4: Heatmap Representation of VGC Biodistribution Data Measured at Interim Necropsy Week 6 in Study xxxx.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 5: Heatmap Representation of VGC Biodistribution Data Measured at Terminal Necropsy Weeks 26/27 in Study xxxx.\n\n\n\n\n\n\n\n\n\n\nNote, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTRV = Heart, Right Ventricle; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS = Muscle; NRV = Nerve; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.",
-    "crumbs": [
-      "Viral/vgc/mRNA/protein"
-    ]
-  },
-  {
-    "objectID": "05-viral-shedding-vgc-mRNA-protein.html#sec-rna-analysis",
-    "href": "05-viral-shedding-vgc-mRNA-protein.html#sec-rna-analysis",
-    "title": "Viral/vgc/mRNA/protein",
-    "section": "RNA Data",
-    "text": "RNA Data\n\n\n\n\n\nFigure 6: Heatmap Representation of RNA Biodistribution Data Measured at Interim Necropsy Week 6\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 7: Heatmap Representation of RNA Biodistribution Data Measured at Terminal Necropsy Weeks 26/27\n\n\n\n\n\n\n\n\n\nNote, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTVFW = Heart, Ventricular Free Wall; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS-BF = Muscle, Skeletal, Biceps Femoris; NRV-TR = Nerve, Trigeminal; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.",
-    "crumbs": [
-      "Viral/vgc/mRNA/protein"
-    ]
-  },
-  {
-    "objectID": "05-viral-shedding-vgc-mRNA-protein.html#sec-protein-evv-analysis",
-    "href": "05-viral-shedding-vgc-mRNA-protein.html#sec-protein-evv-analysis",
-    "title": "Viral/vgc/mRNA/protein",
-    "section": "Protein EVV Data",
-    "text": "Protein EVV Data\n\n\n\n\n\nFigure 8: Although the input sources dataset can vary, the analysis set of datasets remains relatively stable #| for conducting subsequent analyses.",
-    "crumbs": [
-      "Viral/vgc/mRNA/protein"
-    ]
-  },
-  {
-    "objectID": "05-viral-shedding-vgc-mRNA-protein.html#overall",
-    "href": "05-viral-shedding-vgc-mRNA-protein.html#overall",
-    "title": "Viral/vgc/mRNA/protein",
+    "objectID": "01-objective.html",
+    "href": "01-objective.html",
+    "title": "Analysis Objective(s)",
     "section": "",
-    "text": "Note, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTRV = Heart, Right Ventricle; HRTVFW = Heart, Ventricular Free Wall; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS = Muscle; MUS-BF = Muscle, Skeletal, Biceps Femoris; NRV = Nerve; NRV-TR = Nerve, Trigeminal; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.\n\n\n\nNote, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; THAL = Brain, Thalamus.",
+    "text": "A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled “A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey”. The objectives of this study are to determine the biodistribution and expression of AAV9 capsid variants, and potential toxicity after administration of a single dose intravenous bolus injection to cynomolgus monkeys.\nMore specifically, the objective of this study is to evaluate novel engineered AAV capsids that are believed to transduce the central nervous system or skeletal muscles with superior potency and selectivity compared to wild type AAVs. The transgenes used encode for wild type Glucocerebrosidase protein or a truncated version of muscle blind under control of neuronal promoter or skeletal muscle promoters, respectively. This would allow for robust expression in CNS or skeletal muscle tissues to assess selectivity of targeting.",
     "crumbs": [
-      "Viral/vgc/mRNA/protein"
-    ]
-  },
-  {
-    "objectID": "05-viral-shedding-vgc-mRNA-protein.html#sec-viral-shedding-analysis",
-    "href": "05-viral-shedding-vgc-mRNA-protein.html#sec-viral-shedding-analysis",
-    "title": "Viral/vgc/mRNA/protein",
-    "section": "Viral Shedding",
-    "text": "Viral Shedding\n\n\n\n\n\nFigure 3: Kinetics of Viral Shedding Data in Study xxxx",
-    "crumbs": [
-      "Viral/vgc/mRNA/protein"
+      "Analysis Objective(s)"
     ]
   },
   {
@@ -144,59 +44,150 @@
     "href": "05-biodist.html",
     "title": "Biodistribution Data Analysis",
     "section": "",
-    "text": "Overall\nBiodistribution and shedding studies are instrumental for developing adeno-associated virus (AAV)-based gene therapies. These studies play a crucial role in understanding the distribution and persistence of the viral vector within the body, as well as its potential dissemination into the environment.\nThe main objectives of biodistribution studies are to investigate where and in what form the vector is present within various tissues and biological fluids, and to determine whether measurable amounts of the vector are shed into the environment. Typically, polymerase chain reaction (PCR)-based bioanalytical methods are employed to measure AAV vector DNA in tissues and biological fluids. These methods provide sensitive and specific quantification of the vector, enabling researchers to assess the biodistribution profile and shedding patterns of the AAV vector.\nIn this analysis, we present the visualization of biodistribution and shedding data through various techniques, including scatter plots, line plots, bar plots, and heatmaps, to address the relevant questions.\nAs shown in Table 1, the summary of dose groups and associated number of subjects is provided. The barplot representation of overall data is visualized in Figure 1.\nTable 1: Summary of Dose Groups in Study xxxx\n\n\n\n\n\n\nGROUP\nGROUP_f\nDOSE_f\nSEX_f\nN\n\n\n\n\n1\nVCA + IS\n0\nMale\n5\n\n\n1\nVCA + IS\n0\nFemale\n4\n\n\n2\nVCA - IS\n0\nMale\n4\n\n\n2\nVCA - IS\n0\nFemale\n4\n\n\n3\nLow + IS\n6e+13 vg/kg\nMale\n4\n\n\n3\nLow + IS\n6e+13 vg/kg\nFemale\n4\n\n\n4\nIntermediate + IS\n2.0e+14 vg/kg\nMale\n4\n\n\n4\nIntermediate + IS\n2.0e+14 vg/kg\nFemale\n4\n\n\n5\nIntermediate - IS\n2.0e+14 vg/kg\nMale\n4\n\n\n5\nIntermediate - IS\n2.0e+14 vg/kg\nFemale\n4\n\n\n6\nHigh + IS\n5.0e+14 vg/kg\nMale\n5\n\n\n6\nHigh + IS\n5.0e+14 vg/kg\nFemale\n5\nFigure 1: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.\nFigure 2: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Key Tissues in Study xxx.",
+    "text": "Biodistribution and shedding studies are instrumental for developing adeno-associated virus (AAV)-based gene therapies. These studies play a crucial role in understanding the distribution and persistence of the viral vector within the body, as well as its potential dissemination into the environment.\nThe main objectives of biodistribution studies are to investigate where and in what form the vector is present within various tissues and biological fluids, and to determine whether measurable amounts of the vector are shed into the environment. Typically, polymerase chain reaction (PCR)-based bioanalytical methods are employed to measure AAV vector DNA in tissues and biological fluids. These methods provide sensitive and specific quantification of the vector, enabling researchers to assess the biodistribution profile and shedding patterns of the AAV vector.\nIn this analysis, we present the visualization of biodistribution and shedding data through various techniques, including scatter plots, line plots, bar plots, and heatmaps, to address the relevant questions.",
     "crumbs": [
       "Biodistribution Data Analysis"
     ]
   },
   {
-    "objectID": "05-biodist.html#overall",
-    "href": "05-biodist.html#overall",
-    "title": "Biodistribution Data Analysis",
+    "objectID": "05B-viral-shedding.html",
+    "href": "05B-viral-shedding.html",
+    "title": "2  Viral Shedding",
+    "section": "",
+    "text": "The viral shedding data is visualized in Figure 2.1.\n\n\n\n\n\nFigure 2.1: Kinetics of Viral Shedding Data in Study xxxx",
+    "crumbs": [
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Viral Shedding</span>"
+    ]
+  },
+  {
+    "objectID": "05C-VGC.html",
+    "href": "05C-VGC.html",
+    "title": "3  VGC Data",
+    "section": "",
+    "text": "Figure 3.1: Boxplot Representation of VGC Biodistribution Data Measured Faceted by Time Points in Study xxxx.\n\n\n\n\n\n\n\n\n\n\nNote, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.\n\n\n\n\n\n\nFigure 3.2: Boxplot Representation of VGC Biodistribution Data Across Treatment Group, Faceted by Biological Matrix in Study xxxx.\n\n\n\n\n\n\n\n\n\n\nNote, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.\n\n\n\n\n\n\nFigure 3.3: Scatterplot Representation of VGC Biodistribution Data vs Dose Group in Brain Regions Across Treatment Group, Faceted by Biological Matrix and Time Points in Study xxxx.\n\n\n\n\n\n\n\n\n\n\nNote, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndose_f\nmatrixcd\ntissue\nn\ninterim_necropsy_week_6\nterminal_necropsy_weeks_26_27\nPCHG\n\n\n\n\n6e+13 vg/kg\nAMY\nBrain\n4\n220150.00\n114425.42\n-48.0239%\n\n\n6e+13 vg/kg\nCB\nBrain\n4\n22089.88\n13603.75\n-38.4164%\n\n\n6e+13 vg/kg\nCC\nBrain\n4\n66953.38\n124820.78\n86.4294%\n\n\n6e+13 vg/kg\nCCGM-FS\nBrain\n4\n194987.27\n157683.44\n-19.1314%\n\n\n6e+13 vg/kg\nCCGM-S\nBrain\n4\n257885.48\n253154.37\n-1.8346%\n\n\n6e+13 vg/kg\nCCGM-TS\nBrain\n4\n374358.44\n188108.89\n-49.7517%\n\n\n6e+13 vg/kg\nCN\nBrain\n4\n153192.45\n191139.21\n24.7706%\n\n\n6e+13 vg/kg\nCWM-D\nBrain\n4\n65472.20\n65712.14\n0.3665%\n\n\n6e+13 vg/kg\nCWM-S\nBrain\n4\n108040.55\n152057.01\n40.7407%\n\n\n6e+13 vg/kg\nEC\nBrain\n4\n345927.26\n196966.58\n-43.0613%\n\n\n6e+13 vg/kg\nHC\nBrain\n4\n100711.62\n101485.77\n0.7687%\n\n\n6e+13 vg/kg\nHT\nBrain\n4\n87800.14\n183333.73\n108.8080%\n\n\n6e+13 vg/kg\nTHAL\nBrain\n4\n95973.51\n117567.41\n22.4999%\n\n\n2.0e+14 vg/kg\nAMY\nBrain\n8\n386157.89\n397526.31\n2.9440%\n\n\n2.0e+14 vg/kg\nCB\nBrain\n8\n53845.00\n46709.38\n-13.2522%\n\n\n2.0e+14 vg/kg\nCC\nBrain\n8\n392337.76\n269264.59\n-31.3692%\n\n\n2.0e+14 vg/kg\nCCGM-FS\nBrain\n8\n601157.32\n386535.59\n-35.7014%\n\n\n2.0e+14 vg/kg\nCCGM-S\nBrain\n8\n646040.30\n426742.55\n-33.9449%\n\n\n2.0e+14 vg/kg\nCCGM-TS\nBrain\n8\n884421.68\n444418.09\n-49.7504%\n\n\n2.0e+14 vg/kg\nCN\nBrain\n8\n616878.24\n466193.90\n-24.4269%\n\n\n2.0e+14 vg/kg\nCWM-D\nBrain\n8\n321352.37\n212576.75\n-33.8493%\n\n\n2.0e+14 vg/kg\nCWM-S\nBrain\n8\n616383.24\n378487.67\n-38.5954%\n\n\n2.0e+14 vg/kg\nEC\nBrain\n8\n637099.26\n371508.42\n-41.6875%\n\n\n2.0e+14 vg/kg\nHC\nBrain\n8\n372758.44\n244699.71\n-34.3543%\n\n\n2.0e+14 vg/kg\nHT\nBrain\n8\n438210.34\n349623.97\n-20.2155%\n\n\n2.0e+14 vg/kg\nTHAL\nBrain\n8\n426111.21\n303338.96\n-28.8123%\n\n\n5.0e+14 vg/kg\nAMY\nBrain\n4\n844713.22\n429106.17\n-49.2010%\n\n\n5.0e+14 vg/kg\nCB\nBrain\n4\n49973.75\n27333.75\n-45.3038%\n\n\n5.0e+14 vg/kg\nCC\nBrain\n4\n262811.61\n554957.87\n111.1619%\n\n\n5.0e+14 vg/kg\nCCGM-FS\nBrain\n4\n668142.64\n704880.58\n5.4985%\n\n\n5.0e+14 vg/kg\nCCGM-S\nBrain\n4\n693368.49\n534290.58\n-22.9428%\n\n\n5.0e+14 vg/kg\nCCGM-TS\nBrain\n4\n1297255.65\n368383.49\n-71.6029%\n\n\n5.0e+14 vg/kg\nCN\nBrain\n4\n496929.25\n743194.59\n49.5574%\n\n\n5.0e+14 vg/kg\nCWM-D\nBrain\n4\n306246.40\n539770.91\n76.2538%\n\n\n5.0e+14 vg/kg\nCWM-S\nBrain\n4\n693765.81\n948706.85\n36.7474%\n\n\n5.0e+14 vg/kg\nEC\nBrain\n4\n611055.41\n466802.95\n-23.6071%\n\n\n5.0e+14 vg/kg\nHC\nBrain\n4\n433250.66\n442893.75\n2.2258%\n\n\n5.0e+14 vg/kg\nHT\nBrain\n4\n746659.09\n409663.81\n-45.1338%\n\n\n5.0e+14 vg/kg\nTHAL\nBrain\n4\n420623.45\n116825.12\n-72.2257%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 3.4: Heatmap Representation of VGC Biodistribution Data Measured at Terminal Necropsy Weeks 26/27 in Study xxxx.\n\n\n\n\n\n\n\n\n\n\nNote, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTRV = Heart, Right Ventricle; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS = Muscle; NRV = Nerve; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.",
+    "crumbs": [
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>VGC Data</span>"
+    ]
+  },
+  {
+    "objectID": "05D-mRNA.html",
+    "href": "05D-mRNA.html",
+    "title": "4  RNA Data",
+    "section": "",
+    "text": "Figure 4.1: Heatmap Representation of RNA Biodistribution Data Measured at Interim Necropsy Week 6\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 4.2: Heatmap Representation of RNA Biodistribution Data Measured at Terminal Necropsy Weeks 26/27\n\n\n\n\n\n\n\n\n\nNote, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTVFW = Heart, Ventricular Free Wall; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS-BF = Muscle, Skeletal, Biceps Femoris; NRV-TR = Nerve, Trigeminal; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.",
+    "crumbs": [
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>RNA Data</span>"
+    ]
+  },
+  {
+    "objectID": "05E-protein.html",
+    "href": "05E-protein.html",
+    "title": "5  Protein Data",
+    "section": "",
+    "text": "5.1 EVV Data\nFigure 5.1: Heatmap Representation of Protein EVV Biodistribution Data Measured at Interim Necropsy Week 6.\nFigure 5.2: Heatmap Representation of Protein EVV Biodistribution Data Measured at Terminal Necropsy Weeks 26/27.",
+    "crumbs": [
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Protein Data</span>"
+    ]
+  },
+  {
+    "objectID": "05E-protein.html#sec-protein-evv-analysis",
+    "href": "05E-protein.html#sec-protein-evv-analysis",
+    "title": "5  Protein Data",
+    "section": "",
+    "text": "Note, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.",
+    "crumbs": [
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Protein Data</span>"
+    ]
+  },
+  {
+    "objectID": "05E-protein.html#sec-protein-correlation-analysis",
+    "href": "05E-protein.html#sec-protein-correlation-analysis",
+    "title": "5  Protein Data",
+    "section": "5.2 Correlation analysis",
+    "text": "5.2 Correlation analysis\n\n\n\n\n\nFigure 5.3: Scatterplot of Protein vs VGC Biodistribution Data, Colored by Treatment Group, Faceted by Biological Matrix in Study xxxx.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 5.4: Scatterplot of Protein vs RNA Biodistribution Data, Colored by Treatment Group, Faceted by Biological Matrix in Study xxxx.",
+    "crumbs": [
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Protein Data</span>"
+    ]
+  },
+  {
+    "objectID": "09-conclusions.html",
+    "href": "09-conclusions.html",
+    "title": "Conclusion",
+    "section": "",
+    "text": "The analysis will generally be conducted in the following steps:\n\nTrend analysis (visualization)\n\nOverview visualization\nIntegrative visualization\nAssessment of covariates\n\nQuantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation\n\nStatistical modeling\nEmpirical modeling",
+    "crumbs": [
+      "Conclusion"
+    ]
+  },
+  {
+    "objectID": "09A-subsection.html",
+    "href": "09A-subsection.html",
+    "title": "6  Conclusion",
+    "section": "",
+    "text": "The analysis will generally be conducted in the following steps:\n\nTrend analysis (visualization)\n\nOverview visualization\nIntegrative visualization\nAssessment of covariates\n\nQuantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation\n\nStatistical modeling\nEmpirical modeling",
+    "crumbs": [
+      "Conclusion",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>subsection</span>"
+    ]
+  },
+  {
+    "objectID": "10-appendix.html",
+    "href": "10-appendix.html",
+    "title": "Appendix",
+    "section": "",
+    "text": "The analysis will generally be conducted in the following steps:\n\nTrend analysis (visualization)\n\nOverview visualization\nIntegrative visualization\nAssessment of covariates\n\nQuantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation\n\nStatistical modeling\nEmpirical modeling",
+    "crumbs": [
+      "Appendix"
+    ]
+  },
+  {
+    "objectID": "10A-appendix-I.html",
+    "href": "10A-appendix-I.html",
+    "title": "7  Appendix-I",
+    "section": "",
+    "text": "Appendix-I\nThe analysis will generally be conducted in the following steps:\n\nTrend analysis (visualization)\n\nOverview visualization\nIntegrative visualization\nAssessment of covariates\n\nQuantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation\n\nStatistical modeling\nEmpirical modeling",
+    "crumbs": [
+      "Appendix",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Appendix-I</span>"
+    ]
+  },
+  {
+    "objectID": "10B-appendix-II.html",
+    "href": "10B-appendix-II.html",
+    "title": "8  Appendix-II",
+    "section": "",
+    "text": "Appendix-II\nThe analysis will generally be conducted in the following steps:\n\nTrend analysis (visualization)\n\nOverview visualization\nIntegrative visualization\nAssessment of covariates\n\nQuantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation\n\nStatistical modeling\nEmpirical modeling\n\n\nI have a github account on AZ/azu-alexion, and want to connect to US SCP Rstudio, i.e. https://rstudio.us.scp.astrazeneca.net/. Here is what I did: step 1: create SSH key in Rstudio, from options/Git/SVN/Create SSH Key, and then copy the SSH\nstep 2: create an empty repository in github with a readme file;\nstep 3: add the SSH key under my github account, in settings/SSH and GPG keys/New SSH Key\nstep 4: clone the empty repository from github to my US SCP Rstudio session, It gave me the following errors:\n“ssh: connect to host github.com port 22: Connection timed out fatal: Could not read from remote repository.”\nBy searching, I understand it is probably related to the issue with proxy since I am working at home, the port 22 has been blocked by firewall. I tried all the methods listed at https://stackoverflow.com/questions/15589682/how-to-fix-ssh-connect-to-host-github-com-port-22-connection-timed-out-for-g/52817036#52817036\nbut all not working, as shown below:\nssh -T -p 443 git@ssh.github.com ssh: connect to host ssh.github.com port 443: Connection timed out\nAny clues how to move forward?\nI have no issues with legacy SCP, https://rstudio.se.scp.astrazeneca.net/, connection to github is fine.\nThank you so much!\nBest,\nFeng",
+    "crumbs": [
+      "Appendix",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Appendix-II</span>"
+    ]
+  },
+  {
+    "objectID": "05A-overall.html",
+    "href": "05A-overall.html",
+    "title": "1  Biodistribution Data Analysis",
+    "section": "",
+    "text": "1.1 Overall\nAs shown in Table 1.1, the summary of dose groups and associated number of subjects is provided. The barplot representation of overall data is visualized in Figure 1.1.\nTable 1.1: Summary of Dose Groups in Study xxxx\n\n\n\n\n\n\nGROUP\nGROUP_f\nDOSE_f\nSEX_f\nN\n\n\n\n\n1\nVCA + IS\n0\nMale\n5\n\n\n1\nVCA + IS\n0\nFemale\n4\n\n\n2\nVCA - IS\n0\nMale\n4\n\n\n2\nVCA - IS\n0\nFemale\n4\n\n\n3\nLow + IS\n6e+13 vg/kg\nMale\n4\n\n\n3\nLow + IS\n6e+13 vg/kg\nFemale\n4\n\n\n4\nIntermediate + IS\n2.0e+14 vg/kg\nMale\n4\n\n\n4\nIntermediate + IS\n2.0e+14 vg/kg\nFemale\n4\n\n\n5\nIntermediate - IS\n2.0e+14 vg/kg\nMale\n4\n\n\n5\nIntermediate - IS\n2.0e+14 vg/kg\nFemale\n4\n\n\n6\nHigh + IS\n5.0e+14 vg/kg\nMale\n5\n\n\n6\nHigh + IS\n5.0e+14 vg/kg\nFemale\n5\nFigure 1.1: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.\nFigure 1.2: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Key Tissues in Study xxx.",
+    "crumbs": [
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overall</span>"
+    ]
+  },
+  {
+    "objectID": "05A-overall.html#overall",
+    "href": "05A-overall.html#overall",
+    "title": "1  Biodistribution Data Analysis",
     "section": "",
     "text": "Note, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTRV = Heart, Right Ventricle; HRTVFW = Heart, Ventricular Free Wall; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS = Muscle; MUS-BF = Muscle, Skeletal, Biceps Femoris; NRV = Nerve; NRV-TR = Nerve, Trigeminal; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.\n\n\n\nNote, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; THAL = Brain, Thalamus.",
     "crumbs": [
-      "Biodistribution Data Analysis"
-    ]
-  },
-  {
-    "objectID": "05-biodist.html#sec-viral-shedding-analysis",
-    "href": "05-biodist.html#sec-viral-shedding-analysis",
-    "title": "Biodistribution Data Analysis",
-    "section": "Viral Shedding",
-    "text": "Viral Shedding\nThe viral shedding data is visualized in Figure 3.\n\n\n\n\n\nFigure 3: Kinetics of Viral Shedding Data in Study xxxx",
-    "crumbs": [
-      "Biodistribution Data Analysis"
-    ]
-  },
-  {
-    "objectID": "05-biodist.html#sec-vgc-analysis",
-    "href": "05-biodist.html#sec-vgc-analysis",
-    "title": "Biodistribution Data Analysis",
-    "section": "VGC Data",
-    "text": "VGC Data\n\n\n\n\n\nFigure 4: Heatmap Representation of VGC Biodistribution Data Measured at Interim Necropsy Week 6 in Study xxxx.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 5: Heatmap Representation of VGC Biodistribution Data Measured at Interim Necropsy Week 6 in Study xxxx.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 6: Heatmap Representation of VGC Biodistribution Data Measured at Terminal Necropsy Weeks 26/27 in Study xxxx.\n\n\n\n\n\n\n\n\n\n\nNote, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTRV = Heart, Right Ventricle; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS = Muscle; NRV = Nerve; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.",
-    "crumbs": [
-      "Biodistribution Data Analysis"
-    ]
-  },
-  {
-    "objectID": "05-biodist.html#sec-rna-analysis",
-    "href": "05-biodist.html#sec-rna-analysis",
-    "title": "Biodistribution Data Analysis",
-    "section": "RNA Data",
-    "text": "RNA Data\n\n\n\n\n\nFigure 7: Heatmap Representation of RNA Biodistribution Data Measured at Interim Necropsy Week 6\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 8: Heatmap Representation of RNA Biodistribution Data Measured at Terminal Necropsy Weeks 26/27\n\n\n\n\n\n\n\n\n\nNote, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTVFW = Heart, Ventricular Free Wall; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS-BF = Muscle, Skeletal, Biceps Femoris; NRV-TR = Nerve, Trigeminal; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.",
-    "crumbs": [
-      "Biodistribution Data Analysis"
-    ]
-  },
-  {
-    "objectID": "05-biodist.html#sec-protein-evv-analysis",
-    "href": "05-biodist.html#sec-protein-evv-analysis",
-    "title": "Biodistribution Data Analysis",
-    "section": "Protein EVV Data",
-    "text": "Protein EVV Data\n\n\n\n\n\nFigure 9: Heatmap Representation of Protein EVV Biodistribution Data Measured at Interim Necropsy Week 6.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 10: Heatmap Representation of Protein EVV Biodistribution Data Measured at Terminal Necropsy Weeks 26/27.\n\n\n\n\n\n\n\n\n\nNote, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.",
-    "crumbs": [
-      "Biodistribution Data Analysis"
+      "Biodistribution Data Analysis",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overall</span>"
     ]
   }
 ]

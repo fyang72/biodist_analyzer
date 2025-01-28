@@ -2,7 +2,7 @@
 
 ## Overview of Study Data Included in the Analysis
 
-A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled "A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey". 
+A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled "A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey".
 
 The study design is provided below:
 
@@ -10,8 +10,7 @@ The study design is provided below:
 
 Groups 2 to 4 are evaluating CNS capsids. Group 2 utilizes the established control capsid, whereas Groups 3 and 4 employ the new JBC capsids developed by JCR Pharmaceuticals. Notably, the capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant, which is anticipated to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3. Therefore, Groups 3 and 4 will be compared to Group 2 for CNS capsids.
 
-Regarding the DM1 capsids, Group 5 utilizes the established capsid, while Group 6 employs the new Gcap-106 capsid. Therefore, Group 6 (new) will be compared to Group 5 (old) for DM1 capsids.
-<!-- 
+Regarding the DM1 capsids, Group 5 utilizes the established capsid, while Group 6 employs the new Gcap-106 capsid. Therefore, Group 6 (new) will be compared to Group 5 (old) for DM1 capsids. <!-- 
 ## Dataset Preparation
 
 ```{r}

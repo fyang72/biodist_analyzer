@@ -1,0 +1,111 @@
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+load("./data/dat0_0118.RData")  # dat0, spec4matrix
+
+```
+
+# Viral Shedding {#sec-viral-shedding-analysis}
+
+The viral shedding data is visualized in @fig-viral-shedding.
+
+```{r }
+#| label: fun-viral-shedding
+#| 
+#' Plot Viral Shedding Data
+#'
+#' This function generates a plot for viral shedding data based on specified filters and parameters.
+#'
+#' @param data A data frame containing the viral shedding data. The data frame should include the following columns:
+#'   - `ATPT` (numeric or character): Time point for the x-axis.
+#'   - `ATPT_f` (factor or character): Time point factor to filter the data.
+#'   - `AVAL` (numeric): The value to be plotted.
+#'   - `GROUP_f` (factor or character): Group factor for faceting the plot.
+#'   - `PARAMCD` (character): Parameter code to filter the data. 
+#'   - `USUBJID` (character): Unique subject identifier.
+#' @param PARAMCD_filter A character string specifying the parameter code to filter the data. Default is "PK".
+#' @param ATPT_f_filter A vector specifying the time points to filter the data. Default is unique values of `ATPT_f` in the data.
+#' @param y_scale_log10 A logical value indicating whether to use a log10 scale for the y-axis. Default is TRUE.
+#'
+#' @return A ggplot object representing the viral shedding data plot.
+#'
+#' @import dplyr
+#' @import ggplot2
+#' @import ggprism
+#'
+#' @examples
+#' \dontrun{
+#'   # Example usage:
+#'   plot_virial_shedding_data(data = my_data, PARAMCD_filter = "PK", ATPT_f_filter = c("Day 1", "Day 2"), y_scale_log10 = TRUE)
+#' }
+#'
+#' @export
+ 
+ plot_viral_shedding_data <- function(data, 
+                      PARAMCD_filter = "PK", 
+                      ATPT_f_filter = unique(data$ATPT_f),     
+                      y_scale_log10 = TRUE) {
+  
+  # The `df` variable is an internal working data frame used within each function.
+
+  df <- data %>%  
+    filter(PARAMCD == PARAMCD_filter) %>% 
+    filter(ATPT_f %in% ATPT_f_filter) %>% 
+    mutate(AVAL = as.numeric(AVAL)) %>% 
+    drop_na(AVAL)  # Remove rows with NA in AVAL
+  
+    # Determine the range of the x-axis based on the filtered data
+    x_limits <- range(df$ATPT, na.rm = TRUE)
+
+  p <- ggplot(data = df, aes(x = ATPT, y = AVAL)) +
+    geom_line(aes(group = USUBJID), color = rgb(0.5, 0.5, 0.5), size = 1, alpha = 0.3) + 
+    geom_point() + 
+    ggprism::theme_prism() +
+    labs(
+      x = "Time Point (Hrs)", 
+      y = "Value"#, 
+      #title = paste("Plot for PARAMCD:", PARAMCD_filter)
+    )    # Add labels and title
+  
+  if (y_scale_log10) {
+    p <- p + scale_y_log10()
+  }
+  
+  p <- p + 
+    facet_wrap(~GROUP_f) + 
+    ggplot2::xlim(x_limits)  # Set x-axis limits based on the filtered data
+  
+  return(p)
+}
+
+
+
+#install.packages("testthat")
+#library(testthat)
+
+```
+
+```{r}
+#| label: fig-viral-shedding
+#| echo: false
+#| fig-cap: |
+#|   Kinetics of Viral Shedding Data in Study xxxx 
+#| fig-cap-location: top
+#| fig-alt: |
+#|   xxxxxd.  
+#| fig-width: 8
+#| fig-height: 15  
+
+
+#testthat::test_dir("tests/testthat")
+
+plot_viral_shedding_data(
+  dat0 %>% filter(!GROUP %in% c(1, 2)), 
+  PARAMCD_filter = "PK"
+)  #+ theme_prism2()
+
+ 
+
+```

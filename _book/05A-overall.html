@@ -8,7 +8,7 @@
 
 <meta name="author" content="ToxBioDist (TBD) Analyzer Core Development Team">
 
-<title>Materials and Methods – ToxBioDist (TBD) Analyzer</title>
+<title>1&nbsp; Biodistribution Data Analysis – ToxBioDist (TBD) Analyzer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,8 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-biodist.html" rel="next">
-<link href="./01-objective.html" rel="prev">
+<link href="./05B-viral-shedding.html" rel="next">
+<link href="./05-biodist.html" rel="prev">
 <link href="./cover-TBD-Analyzer.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -71,6 +71,10 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 </head>
@@ -84,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-methods.html">Materials and Methods</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-biodist.html">Biodistribution Data Analysis</a></li><li class="breadcrumb-item"><a href="./05A-overall.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overall</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -131,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-methods.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03-methods.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Materials and Methods</span></a>
   </div>
 </li>
@@ -146,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05A-overall.html" class="sidebar-item-text sidebar-link">
+  <a href="./05A-overall.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overall</span></span></a>
   </div>
 </li>
@@ -226,16 +230,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview-of-study-data-included-in-the-analysis" id="toc-overview-of-study-data-included-in-the-analysis" class="nav-link active" data-scroll-target="#overview-of-study-data-included-in-the-analysis">Overview of Study Data Included in the Analysis</a></li>
+  <li><a href="#overall" id="toc-overall" class="nav-link active" data-scroll-target="#overall"><span class="header-section-number">1.1</span> Overall</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/edit/main/03-methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/edit/main/05A-overall.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-biodist.html">Biodistribution Data Analysis</a></li><li class="breadcrumb-item"><a href="./05A-overall.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overall</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-method" class="quarto-section-identifier">Materials and Methods</span></h1>
+<h1 class="title"><span id="sec-biodist-analysis" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Biodistribution Data Analysis</span></span></h1>
 </div>
 
 
@@ -252,120 +256,158 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview-of-study-data-included-in-the-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-study-data-included-in-the-analysis">Overview of Study Data Included in the Analysis</h2>
-<p>A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled “A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey”.</p>
-<p>The study design is provided below:</p>
-<p><img src="images/study_design3_noval_capsid.PNG" class="img-fluid"></p>
-<p>Groups 2 to 4 are evaluating CNS capsids. Group 2 utilizes the established control capsid, whereas Groups 3 and 4 employ the new JBC capsids developed by JCR Pharmaceuticals. Notably, the capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant, which is anticipated to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3. Therefore, Groups 3 and 4 will be compared to Group 2 for CNS capsids.</p>
-<p>Regarding the DM1 capsids, Group 5 utilizes the established capsid, while Group 6 employs the new Gcap-106 capsid. Therefore, Group 6 (new) will be compared to Group 5 (old) for DM1 capsids. <!-- 
-## Dataset Preparation
+<section id="overall" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="overall"><span class="header-section-number">1.1</span> Overall</h2>
+<p>As shown in <a href="#tbl-summary-dose-group" class="quarto-xref">Table&nbsp;<span>1.1</span></a>, the summary of dose groups and associated number of subjects is provided. The barplot representation of overall data is visualized in <a href="#fig-barplot-overall" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>.</p>
+<div class="cell" data-tbl-cap-location="top">
+<div id="tbl-summary-dose-group" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary-dose-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: Summary of Dose Groups in Study xxxx
+</figcaption>
+<div aria-describedby="tbl-summary-dose-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">GROUP</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GROUP_f</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DOSE_f</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">SEX_f</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">VCA + IS</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">VCA + IS</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">VCA - IS</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">VCA - IS</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Low + IS</td>
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Low + IS</td>
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Intermediate + IS</td>
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Intermediate + IS</td>
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Intermediate - IS</td>
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Intermediate - IS</td>
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">High + IS</td>
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">High + IS</td>
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
 
 
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell fig-cap-location-top">
 
-
-
-::: {.cell}
-
-:::
-
-
-
-
-
-### Source Data
-
-During the course of a toxicity and biodistribution study, preliminary datasets will be initially transferred to the designated analysis lead, who will perform the analysis based on the template provided by 'ToxBioDist (TBD) Analyzer'. Subsequently, SEND datasets will be integrated and the analysis will be updated. SEND, an acronym for Standard for Exchange of Nonclinical Data, providing a standardized framework for presenting nonclinical data.
-
-The source data encompasses dosing information, viral shedding, vector genome copies (VGC), mRNA, protein, electrocardiogram (ECG) values, histopathologic findings, demographics, clinical laboratory values, and other covariate information collected in the Study.
-
-There could be two kind of source data:
-
--   From preliminary excel-based dataset for early glimpse;
--   From final SEND-based datasets
-
-
-
-
-
-::: {.cell}
-::: {.cell-output-display}
-![Although the input sources dataset can vary, the analysis set of datasets remains relatively stable #|   for conducting subsequent analyses.
-](diagrams/diagram_data_source.JPG){#fig-diagram-data-source-analysis-set-workflow fig-alt='A diagram displaying the derivation of analysis set on which analysis will be conducted.  ' width=80%}
-:::
-:::
-
-
-
-
-
-Considering that SEND-based datasets usually come late, the key internal decisions will be made based on the preliminary excel-based dataset. Therefore, our focus of this workflow is for option 1).
-
-However, there is a possibility that agencies make requst the analysis, or we may need to defense our position (i.e dose selection). In such a case, the analysis needs to be refreshed based on SEND-dataset.
-
-The specification of the analysis data will be based on yspec format, see xxx.yml. The source files will be based on excel data sheet, see the example data in the folder of ./data/source/.
-
-### Data Specification
-
-Data specifications are a set of guidelines that outline how to convey data and ensure it is consistent and comprehensive. The following requirements should be considered:
-
--   accommodate the ALXN2340 and ALXN2350, if possible, also include PKP2
--   merge shredding, VGC, mRNA, protein data into one unified data structure
--   add ADA data, both ADA per subject, and time-dependent ADA;
--   add baseline weight and time-varied weight (mainly need SEND data)
--   add key Lab info (from SEND data), what Labs to include may depend on the programs, could be baseline or time-varied.
--   we also need to standardize the NAMING CONVENTION for all the MATRIX name, refer to the SEND data
--   for AVAL (Analysis value), we may need to calculate BL, CHG, PCHG, etc.
--   what are the analysis unit for each AVAL?
--   must be arranged by study, dose group, subject, time, event/observations (prefer in the order of shedding, vgc, mRNA, protein, efficacy and toxicity)
--   if missing variables (for example, weight, histopath), leave them "NA" as a placeholder. Let the script to handle for these missing variables.
--   accommodate SEND format as much as possible (such as variable name, etc), using ALXN2350 SEND
--   add toxicity data (such as histopath data)
--   make the main data structure/variables as numerical as possible, (leave the meta info to YML using yspec package)
--   using yspec package, as highly suggested, as this is the format that the popPK/PD analysis that Metrum/AZ are using.
-
-### Data Programming and Quality Control
-
-Assembly of the biodistribution datasets and others will be performed using R version 4.1.0 or later or Statistical Analysis System (SAS®) Version 9.3 or later. Software version numbers will be documented in the report.
-
-Procedures include dataset creation, dataset quality control (QC) review, and preparation of submission-ready datasets (if required). If datasets are modified over the course of the analysis, the file name of each version of the dataset will be unique.
-
-In preparing the analysis set of data, the following requirements should be considered:
-
--   prepare scripts to process the raw data in excel and merge all (shredding, VGC, mRNA, protein, histopath, ADA, meta info, weight, lab info) into one?
--   generate the data based on SEND format (Using ALXN2350 data)
--   how to identify missing/abnormal/grouping error in the preliminary data just created?
--   how to identify the outliers, using visualization and followed by a quantitative way?
--   by what criteria we can call such a dataset is QC'd, and ready for subsequent analysis. (align with data specification, consistency with study design and naming convention)
--   during the QC steps, we may need to generate a lot of plots and identify the outliers, could we make it dynamic using shiny?
-
-### Evaluable Subjects
-
-The analysis population for this analysis will include all subjects who received at least one dose of study drug, VCA control, with or without immunosuppressantand, have at least one valid measurements from Day -1 and on-treatment measurement. All filters will be listed when a particular analysis is applied upon a sub-population.
-
-### Handling of Missing and/or Incomplete Data
-
-Data analyses will be performed only on observed data. Any concentration or measurements that cannot be uniquely and unequivocally attributed to a particular time point will be treated as incomplete data. Incomplete data will be excluded from analysis data sets.
-
-Measurement below the lower assay limit of quantitation (BLQ) will be set to LOOQ/2, and missing data or not recorded samples will be treated as "NA".
-
-Any outliers will be identified, and their handling will be agreed upon by Core Development Team and discussed and documented in the report.
-
-### Software
-
-All visualization and statistical analyses will be performed using R and/or SAS. Software version numbers will be documented in the report.
-
-## Data Visualization and Statistical Analysis
-
-The analysis will generally be conducted in the following steps:
-
-• Trend analysis (visualization) -- Overview visualization -- Integrative visualization -- Assessment of covariates
-
-• Quantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation -- Statistical modeling -- Empirical modeling
-
--   Use boxplot to illustrate the covariate effects i.e. x-axis show the covariate, y-axis show the analysis values. The analysis value can be scaled or not.
-
--   A quantitative method is to use generalized linear model to classify the covariates, i.e. y=function(x) with a list of potential covariates --></p>
+</div>
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div id="fig-barplot-overall" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.  " data-cap-location="top">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-barplot-overall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.
+</figcaption>
+<div aria-describedby="fig-barplot-overall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05A-overall_files/figure-html/fig-barplot-overall-1.png" class="img-fluid figure-img" alt="A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.  " width="768">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div style="color: gray; font-size: 0.8em;">
+<p>Note, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTRV = Heart, Right Ventricle; HRTVFW = Heart, Ventricular Free Wall; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS = Muscle; MUS-BF = Muscle, Skeletal, Biceps Femoris; NRV = Nerve; NRV-TR = Nerve, Trigeminal; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.</p>
+</div>
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div id="fig-barplot-key-regions" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across Biological Matrix in Key Tissues in Study xxx.  " data-cap-location="top">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-barplot-key-regions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Key Tissues in Study xxx.
+</figcaption>
+<div aria-describedby="fig-barplot-key-regions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05A-overall_files/figure-html/fig-barplot-key-regions-1.png" class="img-fluid figure-img" alt="A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across Biological Matrix in Key Tissues in Study xxx.  " width="768">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div style="color: gray; font-size: 0.8em;">
+<p>Note, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCF = Brain, Cerebral Cortex, Frontal; CCGM = Brain, Cerebral Cortex, Grey Matter; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CCT = Brain, Cerebral Cortex, Temporal; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; THAL = Brain, Thalamus.</p>
+</div>
 
 
 </section>
@@ -790,13 +832,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01-objective.html" class="pagination-link" aria-label="Analysis Objective(s)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Analysis Objective(s)</span>
+      <a href="./05-biodist.html" class="pagination-link" aria-label="Biodistribution Data Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Biodistribution Data Analysis</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-biodist.html" class="pagination-link" aria-label="Biodistribution Data Analysis">
-        <span class="nav-page-text">Biodistribution Data Analysis</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05B-viral-shedding.html" class="pagination-link" aria-label="Viral Shedding">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Viral Shedding</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -808,7 +850,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/edit/main/03-methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/edit/main/05A-overall.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

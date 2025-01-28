@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/05-viral-shedding-vgc-mRNA-protein.html</loc>
-    <lastmod>2025-01-27T00:49:51.466Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/01-objective.html</loc>
-    <lastmod>2025-01-27T01:48:03.506Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/02-intro.html</loc>
-    <lastmod>2025-01-24T20:55:46.570Z</lastmod>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/index.html</loc>
+    <lastmod>2025-01-28T13:47:30.036Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/03-methods.html</loc>
-    <lastmod>2025-01-27T02:02:11.914Z</lastmod>
+    <lastmod>2025-01-28T13:45:39.725Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/index.html</loc>
-    <lastmod>2025-01-21T21:10:46.000Z</lastmod>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/01-objective.html</loc>
+    <lastmod>2025-01-28T13:46:13.879Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/05-biodist.html</loc>
-    <lastmod>2025-01-27T15:02:33.281Z</lastmod>
+    <lastmod>2025-01-28T12:38:47.048Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/05B-viral-shedding.html</loc>
+    <lastmod>2025-01-28T12:53:42.591Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/05C-VGC.html</loc>
+    <lastmod>2025-01-28T12:54:59.909Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/05D-mRNA.html</loc>
+    <lastmod>2025-01-28T12:55:37.612Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/05E-protein.html</loc>
+    <lastmod>2025-01-28T13:02:54.761Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/09-conclusions.html</loc>
+    <lastmod>2025-01-28T12:42:57.546Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/09A-subsection.html</loc>
+    <lastmod>2025-01-28T12:49:02.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/10-appendix.html</loc>
+    <lastmod>2025-01-28T12:32:58.169Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/10A-appendix-I.html</loc>
+    <lastmod>2025-01-28T12:59:41.117Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/10B-appendix-II.html</loc>
+    <lastmod>2025-01-28T12:44:40.378Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/05A-overall.html</loc>
+    <lastmod>2025-01-28T13:44:30.922Z</lastmod>
   </url>
 </urlset>

@@ -8,7 +8,7 @@
 
 <meta name="author" content="ToxBioDist (TBD) Analyzer Core Development Team">
 
-<title>Materials and Methods – ToxBioDist (TBD) Analyzer</title>
+<title>3&nbsp; VGC Data – ToxBioDist (TBD) Analyzer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,8 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-biodist.html" rel="next">
-<link href="./01-objective.html" rel="prev">
+<link href="./05D-mRNA.html" rel="next">
+<link href="./05B-viral-shedding.html" rel="prev">
 <link href="./cover-TBD-Analyzer.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-methods.html">Materials and Methods</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-biodist.html">Biodistribution Data Analysis</a></li><li class="breadcrumb-item"><a href="./05C-VGC.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">VGC Data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -131,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-methods.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03-methods.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Materials and Methods</span></a>
   </div>
 </li>
@@ -158,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05C-VGC.html" class="sidebar-item-text sidebar-link">
+  <a href="./05C-VGC.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">VGC Data</span></span></a>
   </div>
 </li>
@@ -221,21 +221,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#overview-of-study-data-included-in-the-analysis" id="toc-overview-of-study-data-included-in-the-analysis" class="nav-link active" data-scroll-target="#overview-of-study-data-included-in-the-analysis">Overview of Study Data Included in the Analysis</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/edit/main/03-methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-biodist.html">Biodistribution Data Analysis</a></li><li class="breadcrumb-item"><a href="./05C-VGC.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">VGC Data</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-method" class="quarto-section-identifier">Materials and Methods</span></h1>
+<h1 class="title"><span id="sec-vgc-analysis" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">VGC Data</span></span></h1>
 </div>
 
 
@@ -252,123 +246,471 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview-of-study-data-included-in-the-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-study-data-included-in-the-analysis">Overview of Study Data Included in the Analysis</h2>
-<p>A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled “A Non-GLP Single Dose Exploratory Biodistribution Study of AAV9 Capsid Variants by Intravenous Injection in Cynomolgus Monkey”.</p>
-<p>The study design is provided below:</p>
-<p><img src="images/study_design3_noval_capsid.PNG" class="img-fluid"></p>
-<p>Groups 2 to 4 are evaluating CNS capsids. Group 2 utilizes the established control capsid, whereas Groups 3 and 4 employ the new JBC capsids developed by JCR Pharmaceuticals. Notably, the capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant, which is anticipated to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3. Therefore, Groups 3 and 4 will be compared to Group 2 for CNS capsids.</p>
-<p>Regarding the DM1 capsids, Group 5 utilizes the established capsid, while Group 6 employs the new Gcap-106 capsid. Therefore, Group 6 (new) will be compared to Group 5 (old) for DM1 capsids. <!-- 
-## Dataset Preparation
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div id="fig-boxplot-vgc-facet-by-ATPT_f" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A heatmap showing the distribution of VGC data Faceted by Time Points in Study xxxx.  " data-cap-location="top">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-boxplot-vgc-facet-by-ATPT_f-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Boxplot Representation of VGC Biodistribution Data Measured Faceted by Time Points in Study xxxx.<br>
+
+</figcaption>
+<div aria-describedby="fig-boxplot-vgc-facet-by-ATPT_f-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05C-VGC_files/figure-html/fig-boxplot-vgc-facet-by-ATPT_f-1.png" class="img-fluid figure-img" alt="A heatmap showing the distribution of VGC data Faceted by Time Points in Study xxxx.  " width="768">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div style="color: gray; font-size: 0.8em;">
+<p>Note, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.</p>
+</div>
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div id="fig-boxplot-vgc-facet-by-matrix" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A heatmap showing the distribution of VGC data Across Treatment Group, Faceted by Biological Matrix in Study xxxx.  " data-cap-location="top">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-boxplot-vgc-facet-by-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Boxplot Representation of VGC Biodistribution Data Across Treatment Group, Faceted by Biological Matrix in Study xxxx.<br>
+
+</figcaption>
+<div aria-describedby="fig-boxplot-vgc-facet-by-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05C-VGC_files/figure-html/fig-boxplot-vgc-facet-by-matrix-1.png" class="img-fluid figure-img" alt="A heatmap showing the distribution of VGC data Across Treatment Group, Faceted by Biological Matrix in Study xxxx.  " width="768">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div style="color: gray; font-size: 0.8em;">
+<p>Note, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.</p>
+</div>
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div id="fig-scatterplot-vgc-facetgrid-by-matrix-atpt" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A heatmap showing the distribution of VGC data Across Treatment Group, Faceted by Biological Matrix and Time Points in Study xxxx.   " data-cap-location="top">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-scatterplot-vgc-facetgrid-by-matrix-atpt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.3: Scatterplot Representation of VGC Biodistribution Data vs Dose Group in Brain Regions Across Treatment Group, Faceted by Biological Matrix and Time Points in Study xxxx.<br>
+
+</figcaption>
+<div aria-describedby="fig-scatterplot-vgc-facetgrid-by-matrix-atpt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05C-VGC_files/figure-html/fig-scatterplot-vgc-facetgrid-by-matrix-atpt-1.png" class="img-fluid figure-img" alt="A heatmap showing the distribution of VGC data Across Treatment Group, Faceted by Biological Matrix and Time Points in Study xxxx.   " width="768">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div style="color: gray; font-size: 0.8em;">
+<p>Note, AMY = Brain, Amygdala; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; EC = Brain, Entorhinal Cortex; HC = Brain, Hippocampus; HT = Brain, Hypothalamus; THAL = Brain, Thalamus.</p>
+</div>
+<div id="tbl-summarytab-vgc" class="cell anchored">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 24%">
+<col style="width: 30%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">dose_f</th>
+<th style="text-align: left;">matrixcd</th>
+<th style="text-align: left;">tissue</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">interim_necropsy_week_6</th>
+<th style="text-align: right;">terminal_necropsy_weeks_26_27</th>
+<th style="text-align: left;">PCHG</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">AMY</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">220150.00</td>
+<td style="text-align: right;">114425.42</td>
+<td style="text-align: left;">-48.0239%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CB</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">22089.88</td>
+<td style="text-align: right;">13603.75</td>
+<td style="text-align: left;">-38.4164%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">66953.38</td>
+<td style="text-align: right;">124820.78</td>
+<td style="text-align: left;">86.4294%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CCGM-FS</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">194987.27</td>
+<td style="text-align: right;">157683.44</td>
+<td style="text-align: left;">-19.1314%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CCGM-S</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">257885.48</td>
+<td style="text-align: right;">253154.37</td>
+<td style="text-align: left;">-1.8346%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CCGM-TS</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">374358.44</td>
+<td style="text-align: right;">188108.89</td>
+<td style="text-align: left;">-49.7517%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">153192.45</td>
+<td style="text-align: right;">191139.21</td>
+<td style="text-align: left;">24.7706%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CWM-D</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">65472.20</td>
+<td style="text-align: right;">65712.14</td>
+<td style="text-align: left;">0.3665%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">CWM-S</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">108040.55</td>
+<td style="text-align: right;">152057.01</td>
+<td style="text-align: left;">40.7407%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">EC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">345927.26</td>
+<td style="text-align: right;">196966.58</td>
+<td style="text-align: left;">-43.0613%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">HC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">100711.62</td>
+<td style="text-align: right;">101485.77</td>
+<td style="text-align: left;">0.7687%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">HT</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">87800.14</td>
+<td style="text-align: right;">183333.73</td>
+<td style="text-align: left;">108.8080%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6e+13 vg/kg</td>
+<td style="text-align: left;">THAL</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">95973.51</td>
+<td style="text-align: right;">117567.41</td>
+<td style="text-align: left;">22.4999%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">AMY</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">386157.89</td>
+<td style="text-align: right;">397526.31</td>
+<td style="text-align: left;">2.9440%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CB</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">53845.00</td>
+<td style="text-align: right;">46709.38</td>
+<td style="text-align: left;">-13.2522%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">392337.76</td>
+<td style="text-align: right;">269264.59</td>
+<td style="text-align: left;">-31.3692%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CCGM-FS</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">601157.32</td>
+<td style="text-align: right;">386535.59</td>
+<td style="text-align: left;">-35.7014%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CCGM-S</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">646040.30</td>
+<td style="text-align: right;">426742.55</td>
+<td style="text-align: left;">-33.9449%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CCGM-TS</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">884421.68</td>
+<td style="text-align: right;">444418.09</td>
+<td style="text-align: left;">-49.7504%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">616878.24</td>
+<td style="text-align: right;">466193.90</td>
+<td style="text-align: left;">-24.4269%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CWM-D</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">321352.37</td>
+<td style="text-align: right;">212576.75</td>
+<td style="text-align: left;">-33.8493%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">CWM-S</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">616383.24</td>
+<td style="text-align: right;">378487.67</td>
+<td style="text-align: left;">-38.5954%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">EC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">637099.26</td>
+<td style="text-align: right;">371508.42</td>
+<td style="text-align: left;">-41.6875%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">HC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">372758.44</td>
+<td style="text-align: right;">244699.71</td>
+<td style="text-align: left;">-34.3543%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">HT</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">438210.34</td>
+<td style="text-align: right;">349623.97</td>
+<td style="text-align: left;">-20.2155%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.0e+14 vg/kg</td>
+<td style="text-align: left;">THAL</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">426111.21</td>
+<td style="text-align: right;">303338.96</td>
+<td style="text-align: left;">-28.8123%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">AMY</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">844713.22</td>
+<td style="text-align: right;">429106.17</td>
+<td style="text-align: left;">-49.2010%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CB</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">49973.75</td>
+<td style="text-align: right;">27333.75</td>
+<td style="text-align: left;">-45.3038%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">262811.61</td>
+<td style="text-align: right;">554957.87</td>
+<td style="text-align: left;">111.1619%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CCGM-FS</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">668142.64</td>
+<td style="text-align: right;">704880.58</td>
+<td style="text-align: left;">5.4985%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CCGM-S</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">693368.49</td>
+<td style="text-align: right;">534290.58</td>
+<td style="text-align: left;">-22.9428%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CCGM-TS</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1297255.65</td>
+<td style="text-align: right;">368383.49</td>
+<td style="text-align: left;">-71.6029%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">496929.25</td>
+<td style="text-align: right;">743194.59</td>
+<td style="text-align: left;">49.5574%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CWM-D</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">306246.40</td>
+<td style="text-align: right;">539770.91</td>
+<td style="text-align: left;">76.2538%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">CWM-S</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">693765.81</td>
+<td style="text-align: right;">948706.85</td>
+<td style="text-align: left;">36.7474%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">EC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">611055.41</td>
+<td style="text-align: right;">466802.95</td>
+<td style="text-align: left;">-23.6071%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">HC</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">433250.66</td>
+<td style="text-align: right;">442893.75</td>
+<td style="text-align: left;">2.2258%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">HT</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">746659.09</td>
+<td style="text-align: right;">409663.81</td>
+<td style="text-align: left;">-45.1338%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5.0e+14 vg/kg</td>
+<td style="text-align: left;">THAL</td>
+<td style="text-align: left;">Brain</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">420623.45</td>
+<td style="text-align: right;">116825.12</td>
+<td style="text-align: left;">-72.2257%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05C-VGC_files/figure-html/function-for-heatmap-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- Here is a footnote reference,[^1] and another.[^longnote]
+[^1]: Here is the footnote.
+[^longnote]: Here's one with multiple blocks. -->
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div id="fig-heatmap-vgc-wk26" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A heatmap showing the distribution of VGC biodistribution data measured at terminal necropsy weeks 26/27 in Study xxxx.  " data-cap-location="top">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-heatmap-vgc-wk26-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.4: Heatmap Representation of VGC Biodistribution Data Measured at Terminal Necropsy Weeks 26/27 in Study xxxx.<br>
+
+</figcaption>
+<div aria-describedby="fig-heatmap-vgc-wk26-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05C-VGC_files/figure-html/fig-heatmap-vgc-wk26-1.png" class="img-fluid figure-img" alt="A heatmap showing the distribution of VGC biodistribution data measured at terminal necropsy weeks 26/27 in Study xxxx.  " width="768">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div style="color: gray; font-size: 0.8em;">
+<p>Note, AG = Adrenal Gland; AMY = Brain, Amygdala; BMF = Bone Marrow, Femur; CB = Brain, Cerebellum; CC = Brain, Corpus Callosum; CCGM-FS = Brain, Cerebral Cortex, Grey Matter, Frontal, Superficial; CCGM-S = Brain, Cerebral Cortex, Grey Matter, Superficial; CCGM-TS = Brain, Cerebral Cortex, Grey Matter, Temporal, Superficial; CN = Brain, Caudate Nucleus; CWM-D = Brain, Cerebral White Matter, Deep; CWM-S = Brain, Cerebral White Matter, Superficial; DRG-C = Dorsal Root Ganglion, Cervical; DRG-L = Dorsal Root Ganglion, Lumbar; DRG-S = Dorsal Root Ganglion, Sacral; DRG-T = Dorsal Root Ganglion, Thoracic; EC = Brain, Entorhinal Cortex; GT = Ganglion, Trigeminal; HC = Brain, Hippocampus; HRTRV = Heart, Right Ventricle; HT = Brain, Hypothalamus; KID = Kidney; LIV-RLL = Liver, Right Lateral Lobe; LUN = Lung; MUS = Muscle; NRV = Nerve; OV = Ovary; PAN = Pancreas; SC-C = Spinal Cord, Cervical; SC-L = Spinal Cord, Lumbar; SC-S = Spinal Cord, Sacral; SC-T = Spinal Cord, Thoracic; SPL = Spleen; TES = Testis; THAL = Brain, Thalamus.</p>
+</div>
 
 
-
-
-
-::: {.cell}
-
-:::
-
-
-
-
-
-### Source Data
-
-During the course of a toxicity and biodistribution study, preliminary datasets will be initially transferred to the designated analysis lead, who will perform the analysis based on the template provided by 'ToxBioDist (TBD) Analyzer'. Subsequently, SEND datasets will be integrated and the analysis will be updated. SEND, an acronym for Standard for Exchange of Nonclinical Data, providing a standardized framework for presenting nonclinical data.
-
-The source data encompasses dosing information, viral shedding, vector genome copies (VGC), mRNA, protein, electrocardiogram (ECG) values, histopathologic findings, demographics, clinical laboratory values, and other covariate information collected in the Study.
-
-There could be two kind of source data:
-
--   From preliminary excel-based dataset for early glimpse;
--   From final SEND-based datasets
-
-
-
-
-
-::: {.cell}
-::: {.cell-output-display}
-![Although the input sources dataset can vary, the analysis set of datasets remains relatively stable #|   for conducting subsequent analyses.
-](diagrams/diagram_data_source.JPG){#fig-diagram-data-source-analysis-set-workflow fig-alt='A diagram displaying the derivation of analysis set on which analysis will be conducted.  ' width=80%}
-:::
-:::
-
-
-
-
-
-Considering that SEND-based datasets usually come late, the key internal decisions will be made based on the preliminary excel-based dataset. Therefore, our focus of this workflow is for option 1).
-
-However, there is a possibility that agencies make requst the analysis, or we may need to defense our position (i.e dose selection). In such a case, the analysis needs to be refreshed based on SEND-dataset.
-
-The specification of the analysis data will be based on yspec format, see xxx.yml. The source files will be based on excel data sheet, see the example data in the folder of ./data/source/.
-
-### Data Specification
-
-Data specifications are a set of guidelines that outline how to convey data and ensure it is consistent and comprehensive. The following requirements should be considered:
-
--   accommodate the ALXN2340 and ALXN2350, if possible, also include PKP2
--   merge shredding, VGC, mRNA, protein data into one unified data structure
--   add ADA data, both ADA per subject, and time-dependent ADA;
--   add baseline weight and time-varied weight (mainly need SEND data)
--   add key Lab info (from SEND data), what Labs to include may depend on the programs, could be baseline or time-varied.
--   we also need to standardize the NAMING CONVENTION for all the MATRIX name, refer to the SEND data
--   for AVAL (Analysis value), we may need to calculate BL, CHG, PCHG, etc.
--   what are the analysis unit for each AVAL?
--   must be arranged by study, dose group, subject, time, event/observations (prefer in the order of shedding, vgc, mRNA, protein, efficacy and toxicity)
--   if missing variables (for example, weight, histopath), leave them "NA" as a placeholder. Let the script to handle for these missing variables.
--   accommodate SEND format as much as possible (such as variable name, etc), using ALXN2350 SEND
--   add toxicity data (such as histopath data)
--   make the main data structure/variables as numerical as possible, (leave the meta info to YML using yspec package)
--   using yspec package, as highly suggested, as this is the format that the popPK/PD analysis that Metrum/AZ are using.
-
-### Data Programming and Quality Control
-
-Assembly of the biodistribution datasets and others will be performed using R version 4.1.0 or later or Statistical Analysis System (SAS®) Version 9.3 or later. Software version numbers will be documented in the report.
-
-Procedures include dataset creation, dataset quality control (QC) review, and preparation of submission-ready datasets (if required). If datasets are modified over the course of the analysis, the file name of each version of the dataset will be unique.
-
-In preparing the analysis set of data, the following requirements should be considered:
-
--   prepare scripts to process the raw data in excel and merge all (shredding, VGC, mRNA, protein, histopath, ADA, meta info, weight, lab info) into one?
--   generate the data based on SEND format (Using ALXN2350 data)
--   how to identify missing/abnormal/grouping error in the preliminary data just created?
--   how to identify the outliers, using visualization and followed by a quantitative way?
--   by what criteria we can call such a dataset is QC'd, and ready for subsequent analysis. (align with data specification, consistency with study design and naming convention)
--   during the QC steps, we may need to generate a lot of plots and identify the outliers, could we make it dynamic using shiny?
-
-### Evaluable Subjects
-
-The analysis population for this analysis will include all subjects who received at least one dose of study drug, VCA control, with or without immunosuppressantand, have at least one valid measurements from Day -1 and on-treatment measurement. All filters will be listed when a particular analysis is applied upon a sub-population.
-
-### Handling of Missing and/or Incomplete Data
-
-Data analyses will be performed only on observed data. Any concentration or measurements that cannot be uniquely and unequivocally attributed to a particular time point will be treated as incomplete data. Incomplete data will be excluded from analysis data sets.
-
-Measurement below the lower assay limit of quantitation (BLQ) will be set to LOOQ/2, and missing data or not recorded samples will be treated as "NA".
-
-Any outliers will be identified, and their handling will be agreed upon by Core Development Team and discussed and documented in the report.
-
-### Software
-
-All visualization and statistical analyses will be performed using R and/or SAS. Software version numbers will be documented in the report.
-
-## Data Visualization and Statistical Analysis
-
-The analysis will generally be conducted in the following steps:
-
-• Trend analysis (visualization) -- Overview visualization -- Integrative visualization -- Assessment of covariates
-
-• Quantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation -- Statistical modeling -- Empirical modeling
-
--   Use boxplot to illustrate the covariate effects i.e. x-axis show the covariate, y-axis show the analysis values. The analysis value can be scaled or not.
-
--   A quantitative method is to use generalized linear model to classify the covariates, i.e. y=function(x) with a list of potential covariates --></p>
-
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -790,13 +1132,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01-objective.html" class="pagination-link" aria-label="Analysis Objective(s)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Analysis Objective(s)</span>
+      <a href="./05B-viral-shedding.html" class="pagination-link" aria-label="Viral Shedding">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Viral Shedding</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-biodist.html" class="pagination-link" aria-label="Biodistribution Data Analysis">
-        <span class="nav-page-text">Biodistribution Data Analysis</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05D-mRNA.html" class="pagination-link" aria-label="RNA Data">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">RNA Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -808,7 +1150,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/edit/main/03-methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/edit/main/05C-VGC.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/azu-alexion/cpss-dsu-toxbiodist-analyzer.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

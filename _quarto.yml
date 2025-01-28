@@ -32,11 +32,12 @@ book:
  
 
     - part: 05-biodist.qmd
-      # chapters:
-      #   - 05A-viral-shedding.qmd
-      #   - 05B-vgc-mRNA.qmd
-      #   - 05C-protein.qmd
-      #   - 05D-integrative-analysis.qmd
+      chapters:
+        - 05A-overall.qmd
+        - 05B-viral-shedding.qmd
+        - 05C-VGC.qmd
+        - 05D-mRNA.qmd
+        - 05E-protein.qmd
  
     #
     # - part: 06-inlife-evaluations.qmd
@@ -59,15 +60,14 @@ book:
     #      - 08B-macroscopic.qmd
     #      - 08C-microscopic.qmd
  
-    # - part: 09-conclusions.qmd
-    #   chapters:
-    #     - quarto.qmd
-    #     - quarto-formats.qmd
+    - part: 09-conclusions.qmd
+      chapters:
+        - 09A-subsection.qmd
     
-    # - part: 10-appendix.qmd
-    #   chapters:
-    #   - 10A-appendix-I.qmd
-    #   - 10B-appendix-II.qmd
+    - part: 10-appendix.qmd
+      chapters:
+      - 10A-appendix-I.qmd
+      - 10B-appendix-II.qmd
  
 
 format:

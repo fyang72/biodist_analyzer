@@ -1,5 +1,242 @@
  
-my_heatmap <- function(df0, which_tissue, which_paramcd, which_timepoint,  
+ 
+ # Have a dataset (dat0) with columns of "STUDYID USUBJID GROUP   SEX MATRIX  ATPT SAMPID PARAMCD AVAL   LLOQ MATRIXCD TISSUECD  DOSE GROUP_f  SEX_f  ATPT_f". 
+ # If a column variable ending with "_f", then it means it is a factor. 
+ # 
+ # Please create a function of heatmap using the following scripts as the starting point, with the features of 
+ # 1) using ComplexHeatmap::Heatmap function
+ # 2) be able to split the row (subject) using its associated GROUP; and add annotation to each subject with SEX, GROUP, etc.
+ # 3) be able to split the column (MATRIXCD) using its associated TISSUE type;  and add annotation to each MATRIXCD with TISSUE. 
+ # 4) be able to scale(t(tdata)) or not
+ # 5) be able to cluster the row and columns
+ #  
+
+   
+
+  #' Create a custom heatmap
+  #'
+  #' This function generates a heatmap using the ComplexHeatmap package, with options for filtering, scaling, and annotating the data.
+  #'
+  #' @param data A data frame containing the data to be visualized. The data frame must include the following columns:
+  #'   - `ATPT` (numeric or character): Time point for the x-axis.
+  #'   - `ATPT_f` (factor or character): Time point factor to filter the data.
+  #'   - `AVAL` (numeric): The value to be plotted.
+  #'   - `GROUP_f` (factor or character): Group factor for faceting the plot.
+  #'   - `MATRIXCD` (factor or character): Biological matrix in biodistribution data
+  #'   - `PARAMCD` (character): Parameter code to filter the data. 
+  #'   - `USUBJID` (character): Unique subject identifier.
+  #' @param ATPT_f_filter A character vector specifying the filter for the ATPT_f column. Default is "Terminal Necropsy Weeks 26/27".
+  #' @param PARAMCD_filter A character vector specifying the filter for the PARAMCD column. Default is "VGC_MTH1".
+  #' @param scale_data A logical value indicating whether to scale the data. Default is FALSE.
+  #' @param col_scheme A color mapping function created by colorRamp2 for the heatmap. Default is colorRamp2(c(0, 5, 10), c("blue", "white", "red")).
+  #' @param na_threshold A numeric value specifying the threshold for removing rows and columns with too many NAs. Default is 0.5.
+  #' @param cluster_rows A logical value indicating whether to cluster rows. Default is FALSE.
+  #' @param cluster_columns A logical value indicating whether to cluster columns. Default is FALSE.
+  #'
+  #' @return A heatmap object created by the ComplexHeatmap package.
+  #'
+  #' @examples
+  #' \dontrun{
+  #' create_heatmap(data, ATPT_f_filter = "Terminal Necropsy Weeks 26/27", PARAMCD_filter = "VGC_MTH1")
+  #' }
+  #'
+  #' @import ComplexHeatmap
+  #' @import dplyr
+  #' @import tidyr
+  #' @import RColorBrewer
+  #' @import grDevices
+  #' @export
+   
+# Define the custom heatmap function
+create_heatmap <- function(data, 
+                           ATPT_f_filter = "Terminal Necropsy Weeks 26/27", 
+                           PARAMCD_filter = "VGC_MTH1", 
+                           scale_data = FALSE, 
+                           col_scheme = colorRamp2(c(0, 5, 10), c("blue", "white", "red")),
+                           na_threshold = 0.5, 
+                           cluster_rows = FALSE, 
+                           cluster_columns = FALSE
+    ) {
+  
+
+library(ComplexHeatmap)
+library(dplyr)
+library(tidyr)
+library(RColorBrewer)
+library(grDevices) # For colorRampPalette()
+
+  # The `df` variable is an internal working data frame used within each function.
+
+  # Prepare the data for heatmap
+  #----------------------------------------
+  df <- data %>%
+    dplyr::filter(
+      ATPT_f %in% ATPT_f_filter,         # Filter by ATPT_f
+      PARAMCD %in% PARAMCD_filter        # Filter by PARAMCD
+    ) %>%
+    dplyr::mutate(
+      AVAL = log10(as.numeric(AVAL))     # Log-transform AVAL
+    ) %>%
+    pivot_wider(
+      id_cols = c("USUBJID"),
+      names_from = c("MATRIXCD"),
+      names_sep = "-",  
+      values_from = "AVAL"
+    ) %>%
+    tidyr::unite(ID, USUBJID:USUBJID)  # Create rownames for heatmap
+   
+  # Remove rows with too many NAs (e.g., >50% missing)
+  df <- df[rowMeans(is.na(df)) <= na_threshold, ]
+  
+  # Remove columns with too many NAs (e.g., >50% missing)
+  df <- df[, colMeans(is.na(df)) <= na_threshold]
+     
+  # Extract rownames and convert to matrix
+  rownames_df <- df$ID
+  colnames_df <- setdiff(colnames(df), "ID")
+  # 
+  # if(!is.null(data$MATRIXCD %>% levels())) {
+  #   df = df[, c("ID", intersect(data$MATRIXCD %>% levels(), colnames_df))]
+  # }
+  
+  df <- df %>% select(-ID) %>% as.matrix()
+  rownames(df) <- rownames_df
+  
+  # Optionally scale the data
+  if (scale_data) {
+    df <- t(scale(t(df)))
+  }
+  
+  # Prepare the annotations
+  #----------------------------------------
+  
+  # Prepare row annotations (for subjects)
+  row_annotations <- data %>% 
+    dplyr::select(USUBJID, GROUP, SEX_f) %>%  
+    dplyr::distinct() %>%
+    dplyr::filter(USUBJID %in% rownames(df)) %>%
+    dplyr::mutate(USUBJID0 = USUBJID) %>% 
+    tidyr::separate(USUBJID, into=c("USUBJID", "PARAMCD"), sep = "-")  %>% 
+    column_to_rownames("USUBJID0")
+  
+  row_anno <- rowAnnotation(
+      GROUP = row_annotations$GROUP,
+      SEX = row_annotations$SEX_f,
+      col = list(
+        GROUP = structure(brewer.pal(n = length(unique(row_annotations$GROUP)), "Set3"), 
+                          names = unique(row_annotations$GROUP)),
+        SEX = structure(c("blue", "pink"), names = c("Male", "Female"))  # unique(row_annotations$SEX_f) %>% levels()) # Example for Male/Female
+      ), 
+      annotation_name_gp = gpar(fontsize = 5),  # Adjust annotation text size
+      annotation_legend_param = list(
+      GROUP = list(
+        title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+        labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
+      ), 
+      SEX = list(
+        title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+        labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
+      )
+      
+  )
+    )
+  
+  # Prepare column annotations (for MATRIXCD)
+  column_annotations <- data %>%
+    dplyr::select(MATRIXCD, TISSUECD) %>%
+    dplyr::distinct() %>%
+    dplyr::filter(MATRIXCD %in% colnames(df)) %>%
+    dplyr::mutate(
+      MATRIXCD = ordered(MATRIXCD, levels=colnames(df))
+    ) %>% 
+    dplyr::arrange(MATRIXCD) %>% 
+    column_to_rownames("MATRIXCD")
+  
+# Generate a dynamic color palette for TISSUECD
+  unique_tissues <- unique(column_annotations$TISSUECD)
+  tissue_colors <- structure( 
+    colorRampPalette(brewer.pal(9, "Set1"))(length(unique_tissues)), # Dynamically generate colors
+    names = unique_tissues
+  )
+  
+  col_anno <- HeatmapAnnotation(
+    TISSUE = column_annotations$TISSUECD,
+    col = list(
+      TISSUE = tissue_colors  # Map TISSUECD to colors
+    ), 
+    annotation_name_gp = gpar(fontsize = 5),  # Adjust annotation text size
+    annotation_legend_param = list(
+    TISSUE = list(
+      title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+      labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
+    )
+  )
+  ) 
+  
+  # Create the heatmap
+  # ---------------------
+  ht <- ComplexHeatmap::Heatmap(
+    df,
+    col = col_scheme, 
+    column_names_rot = 45,       # Rotate column names
+    name = "Value",              # Legend title
+    cluster_rows = cluster_rows, # Cluster rows
+    cluster_columns = cluster_columns, # Cluster columns
+    
+    top_annotation = col_anno,   # Add column annotations
+    left_annotation = row_anno,  # Add row annotations 
+    row_split = row_annotations %>%  dplyr::select(GROUP),  # Split rows by GROUP
+    column_split = column_annotations$TISSUECD, # Split columns by TISSUE
+    #cluster_column_slices = FALSE,
+    #column_order = colnames(df) #1:ncol(df)
+   
+    width = unit(15, "cm"),  # Adjust width
+    height = unit(9, "cm"),  # Adjust height
+    row_names_gp = gpar(fontsize = 5),  # Adjust row names text size
+    column_names_gp = gpar(fontsize = 5),  # Adjust column names text size
+
+    row_title_gp = gpar(fontsize = 4),  # Adjust row split label text size
+    column_title_gp = gpar(fontsize = 4),  # Adjust column split label text size
+    heatmap_legend_param = list(
+      title = "Value",
+      title_gp = gpar(fontsize = 6),
+      labels_gp = gpar(fontsize = 4)
+    ), 
+
+   row_gap = unit(.25, "mm"),  # Adjust the size of splitting lines
+   column_gap = unit(0.25, "mm")
+  )
+  
+  # Draw the heatmap
+  #draw(ht, padding = unit(c(10, 15, 10, 10), "mm"), merge_legend = TRUE) # Adjust padding
+  
+  return(ht)
+  
+  # return(list(ht = ht, 
+  #             colnames_lst = colnames_df[column_order(ht) %>% unlist() %>% as.integer()], 
+  #             rownames_lst = rownames_df[row_order(ht) %>% unlist() %>% as.integer()]
+  # )
+  # )
+}
+
+# 
+# 
+# # https://github.com/jokergoo/ComplexHeatmap/issues/299
+# top_annotation = HeatmapAnnotation(
+#             	t1 = anno_block(gp = gpar(fill = 2:5), 
+#             		            labels = c("nm1", "nm2", "nm3", "nm4"))),
+#             left_annotation = rowAnnotation(
+#             	t2 = anno_block(gp = gpar(fill = 2:5), 
+#             		            labels = c("nm1", "nm2", "nm3", "nm4"))),
+# 
+
+
+
+
+
+
+
+my_heatmap_org <- function(df0, which_tissue, which_paramcd, which_timepoint,  
                        cluster_rows = FALSE,  
                        cluster_columns = TRUE, 
                        log_all_scale = FALSE, 

@@ -1,0 +1,92 @@
+
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+load("./data/dat0_0118.RData")  # dat0, spec4matrix
+
+```
+
+# RNA Data {#sec-rna-analysis}
+
+```{r}
+#| label: fig-heatmap-rna-wk6
+#| echo: false
+#| fig-cap: "Heatmap Representation of RNA Biodistribution Data Measured at Interim Necropsy Week 6"
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of RNA biodistribution data measured at Interim Necropsy Week 6 in Study xxxx.  
+#| fig-width: 8
+#| fig-height: 15 
+
+tdata = dat0 %>% filter(!GROUP %in% c(1, 2)) 
+
+biodist_value <- tdata %>% 
+  filter(
+    PARAMCD %in% "RNA_MTH1"  
+  ) %>% 
+  pull(AVAL) %>% as.numeric() %>% log10()
+
+biodist_min <- min(biodist_value, na.rm=TRUE) 
+biodist_max <- max(biodist_value, na.rm=TRUE)
+biodist_median <- median(biodist_value, na.rm=TRUE)
+ 
+ATPT_f_filter = "Interim Necropsy Week 6";
+PARAMCD_filter = c("RNA_MTH1")
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter, 
+  PARAMCD_filter = PARAMCD_filter, 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = FALSE       # Whether to cluster columns
+)
+ 
+```
+
+```{r}
+#| label: fig-heatmap-rna-wk26
+#| echo: false
+#| fig-cap: "Heatmap Representation of RNA Biodistribution Data Measured at Terminal Necropsy Weeks 26/27"
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of RNA biodistribution data measured at Terminal Necropsy Weeks 26/27 in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+#|
+ATPT_f_filter = "Terminal Necropsy Weeks 26/27";
+PARAMCD_filter = c("RNA_MTH1")
+
+create_heatmap(
+  data = tdata, 
+  col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red")),
+  ATPT_f_filter = ATPT_f_filter, 
+  PARAMCD_filter = PARAMCD_filter, 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = FALSE       # Whether to cluster columns
+)
+
+# note for all biological matrix
+a_matrix_lst <- dat0 %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter  # , ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::

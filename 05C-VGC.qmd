@@ -1,0 +1,291 @@
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+load("./data/dat0_0118.RData")  # dat0, spec4matrix
+
+```
+
+# VGC Data {#sec-vgc-analysis}
+
+```{r}
+#| label: fig-boxplot-vgc-facet-by-ATPT_f
+#| echo: false
+#| fig-cap: |
+#|   Boxplot Representation of VGC Biodistribution Data Measured Faceted by Time Points in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC data Faceted by Time Points in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+
+ 
+library(ggpubr)
+library(scales)
+
+df = dat0 %>% 
+  filter(!GROUP %in% c(1,2)) %>% 
+  filter(TISSUE=="Brain", PARAMCD=="VGC_MTH1") %>% 
+  mutate(AVAL = as.numeric(AVAL))
+ 
+
+fig = ggplot(df,aes(x=MATRIXCD,y=AVAL,fill=GROUP_f))+
+  geom_boxplot(width=0.5,position = position_dodge(width=0.8), alpha = 0.5) + 
+  labs(fill= "GROUP_f",x="Matrix",y="Value")  + 
+  scale_y_continuous("VGC (cp/\u00B5g)", limits = c(0,2500000), labels = scientific_format())   + 
+  theme_prism2() + 
+  theme(axis.text.x = element_text(size=12, angle = 45, hjust = 1, vjust=1, face="plain")) +    # 	Font face ("plain", "italic", "bold", "bold.italic")
+
+  facet_wrap(~ATPT_f, scales="free_y", ncol=1)  
+fig
+
+ PARAMCD_filter = "VGC_MTH1"
+
+# note for all biological matrix
+a_matrix_lst <- df %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    TISSUE=="Brain", PARAMCD=="VGC_MTH1"
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+```{r}
+#| label: fig-boxplot-vgc-facet-by-matrix
+#| echo: false
+#| fig-cap: |
+#|   Boxplot Representation of VGC Biodistribution Data Across Treatment Group, Faceted by Biological Matrix in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC data Across Treatment Group, Faceted by Biological Matrix in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+
+ fig = ggplot(df,aes(x=GROUP_f,y=AVAL,fill=ATPT_f))+
+  geom_boxplot(width=0.5,position = position_dodge(width=0.8), alpha = 0.5) + 
+  labs(fill= "ATPT_f",x="Matrix",y="Value")  + 
+  scale_y_continuous("VGC (cp/\u00B5g)", limits = c(0,2500000), labels = scientific_format())   + 
+  theme_prism2() + 
+  theme(axis.text.x = element_text(size=12, angle = 45, hjust = 1, vjust=1, face="plain")) +    # 	Font face ("plain", "italic", "bold", "bold.italic")
+
+  facet_wrap(~MATRIXCD, scales="free_y") #, ncol=1)  
+ 
+fig
+
+
+# note for all biological matrix
+a_matrix_lst <- df %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter  # , ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+```{r }
+#| label: fig-scatterplot-vgc-facetgrid-by-matrix-atpt
+#| echo: false
+#| fig-cap: |
+#|   Scatterplot Representation of VGC Biodistribution Data vs Dose Group in Brain Regions Across Treatment Group, Faceted by Biological Matrix and Time Points in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC data Across Treatment Group, Faceted by Biological Matrix and Time Points in Study xxxx.  
+#| fig-width: 8
+#| fig-height: 15 
+
+
+df = dat0 %>% 
+  filter(!GROUP %in% c(1,2)) %>% 
+  filter(TISSUE=="Brain", PARAMCD=="VGC_MTH1") %>% 
+  mutate(AVAL = as.numeric(AVAL))
+  
+ggplot(data=df, # %>% filter(order=="Primary"), 
+       aes(x=DOSE, y=AVAL)) +
+  geom_point(aes(group=USUBJID, color=DOSE_f, shape=DOSE_f), 
+             size=2, position=position_dodge(width = 2)) + 
+  stat_summary(geom='point', fun=mean, size=2, aes(color=DOSE_f), show.legend = F) + 
+  geom_smooth(method="lm", se=F, color="black", show.legend = F, size =0.5) +
+  # stat_regline_equation(label.x=22, label.y=2000000, color="black", size=3) +
+  # stat_cor(aes(label=..rr.label..), label.x=22, label.y=1700000, color="black", size=3) +
+  # geom_text_repel(aes(label=subject), size=3,position = position_dodge(width = 0.2)) + 
+  labs(caption=paste("\nOpen symbols represent individual animal records.\nClosed symbols represent group mean.")) +
+  scale_x_continuous("Dose (E13 vg/kg)", limits = c(5,52), breaks = c(6,20,50)) + 
+  scale_y_continuous("VGC (cp/\u00B5g)", limits = c(0,2500000), labels = scientific_format()#,
+                     #breaks = vgc.tick
+                     ) +
+  facet_grid(ATPT_f~MATRIXCD) + 
+  scale_shape_manual(values=c(21, 21, 4, 21)) + 
+  #scale_color_manual(values=as.vector(glasbey(20))) +
+  theme_prism2() + 
+  theme(strip.text.x = element_text(size = 8.5),
+        axis.text.x=element_text(angle=0, vjust=1, hjust=1))
+
+ 
+# note for all biological matrix
+a_matrix_lst <- df %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter  # , ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+```{r}
+#| label: tbl-summarytab-vgc 
+#| echo: false
+#| 
+df = dat0 %>% 
+  filter(!GROUP %in% c(1,2)) %>% 
+  filter(TISSUE=="Brain", PARAMCD=="VGC_MTH1") %>% 
+  mutate(AVAL = as.numeric(AVAL))
+
+df_summary = df   %>% 
+  group_by(DOSE_f, ATPT_f, MATRIXCD, TISSUE) %>% 
+  summarise(N = length(unique(USUBJID)), 
+            Mean = mean(AVAL),
+            ) %>% 
+  ungroup() %>% 
+   pivot_wider(names_from = c("ATPT_f"), values_from="Mean") %>% 
+  janitor::clean_names() %>% 
+  
+  mutate(PCHG=scales::percent((terminal_necropsy_weeks_26_27-interim_necropsy_week_6 )/interim_necropsy_week_6)) 
+   
+  df_summary %>% 
+  knitr::kable() #%>% 
+  #kableExtra::kable_styling(position = "left") 
+
+```
+
+```{r}
+#| label: function-for-heatmap
+#| echo: false
+ 
+
+#| label: fig-heatmap-vgc-wk6
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of VGC Biodistribution Data Measured at Interim Necropsy Week 6 in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC data measured at interim necropsy week 6 in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+
+###############################################
+# Run heatmap 
+###############################################
+ 
+# [1] "D1: 24HR"                      "D1: 6HR"                       "D1: Predose"                   
+# "Day 14"                        "Day 3"                         "Day 8"             
+# [7] "Interim Necropsy Week 6"       "Pretest"                       "Terminal Necropsy Weeks 26/27"
+
+df = dat0 %>% filter(!GROUP %in% c(1, 2)) 
+
+biodist_value <- df %>% 
+  filter(
+    PARAMCD %in% "VGC_MTH1" 
+  ) %>% 
+  pull(AVAL) %>% as.numeric() %>% log10()
+
+# make sure the color scheme is consistent across all heatmaps
+biodist_min <- min(biodist_value, na.rm=TRUE) 
+biodist_max <- max(biodist_value, na.rm=TRUE)
+biodist_median <- median(biodist_value, na.rm=TRUE)
+col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red"))
+
+PARAMCD_filter = c("VGC_MTH1")
+
+ht1 = create_heatmap(
+  data = df, 
+  col_scheme = col_scheme,
+  ATPT_f_filter = "Interim Necropsy Week 6", 
+  PARAMCD_filter = PARAMCD_filter, # , "RNA_MTH1"), 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = TRUE       # Whether to cluster columns
+)
+ 
+ht2 = create_heatmap(
+  data = df, # %>% mutate(MATRIXCD = ordered(MATRIXCD, levels=tmp1$colnames_lst)) %>% dplyr::arrange(MATRIXCD),  
+  col_scheme = col_scheme,
+  ATPT_f_filter = "Terminal Necropsy Weeks 26/27", 
+  PARAMCD_filter = PARAMCD_filter, # , "RNA_MTH1"), 
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = TRUE       # Whether to cluster columns
+)
+
+draw(ht1, padding = unit(c(0.5, 0.5, 0.5, 0.5), "mm"), merge_legend = TRUE) # Adjust padding
+ 
+```
+
+```{=html}
+<!-- Here is a footnote reference,[^1] and another.[^longnote]
+[^1]: Here is the footnote.
+[^longnote]: Here's one with multiple blocks. -->
+```
+
+```{r}
+#| label: fig-heatmap-vgc-wk26
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of VGC Biodistribution Data Measured at Terminal Necropsy Weeks 26/27 in Study xxxx.  
+#| fig-cap-location: top
+#| fig-alt: |
+#|   A heatmap showing the distribution of VGC biodistribution data measured at terminal necropsy weeks 26/27 in Study xxxx. 
+#| fig-width: 8
+#| fig-height: 15 
+ 
+draw(ht2, padding = unit(c(0.5, 0.5, 0.5, 0.5), "mm"), merge_legend = TRUE) # Adjust padding
+
+# note for all biological matrix
+a_matrix_lst <- dat0 %>% filter(!GROUP %in% c(1, 2))  %>% 
+  dplyr::filter(
+    PARAMCD %in% PARAMCD_filter    #, ATPT_f %in% ATPT_f_filter
+  ) %>%  
+  pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
