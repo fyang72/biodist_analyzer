@@ -3,128 +3,87 @@
 #| echo: false
 
 source("_common.R")
-load("./data/dat0_0118.RData")  # dat0, spec4matrix
+load("./data/dat0_0118.RData")  # dat0, spec4matrix, yml_spec
 
 library("kableExtra")
 library("circlize")
+
+footnote1 <- c(
+"DNA_MTH1 = Sample Concentration (cp/µg, VG/ug genomic DNA); 
+DNA_MTH2 = Sample Concentration (VG/haploid- Normalized to MfTFRC); 
+EVV = Total HumanEVV peptide  (ng/mL); 
+LPA = Total Human LPA peptide (ng/mL)")
 
 ```
 
 # Overall
 
-As shown in @tbl-summary-dose-group, the summary of dose groups and associated number of subjects is provided. The barplot representation of overall data is visualized in @fig-barplot-overall.
+The study `r yml_spec$STUDYID$values[1]` involves `r length(unique(dat0$USUBJID))` subjects across `r length(unique(dat0$GROUP))` dose groups, encompassing `r length(unique(dat0$PARAMCD))` analytes or parameters and `r length(unique(dat0$MATRIX))` biological matrices. A summary of the dose groups and the associated number of subjects is presented in @tbl-summary-dose-group.
+
+An overall barplot of the mean expression levels of VGC, mRNA, and proteins across all biological matrices, is shown in @fig-barplot-overall. Additionally, barplots illustrating the mean expression levels in Groups for CNS capsids and DM1 capsids are shown in @fig-barplot-cns-capsids and @fig-barplot-dm1-capsids, respectively.
+
+Tentative observations are summarized below. The more detailed results are presented in the subsequent sections.
+
+**CNS Capsids**
+
+-   The expression levels of VGC and mRNA in CNS-related regions are higher in Groups 3 and 4, which utilize the new JBC capsids developed by JCR Pharmaceuticals, compared to the established control capsid group (Group 2).
+
+-   The capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant and is expected to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3.
+
+-   Distribution in non-target tissues is anticipated to be lower compared to CNS-related regions in Groups 4, 5, and 6.
+
+-   Note that proteins are not detected in some regions or biological matrices due to: 1) the absence of sample collection, or 2) the lack of protein expression in those regions.
+
+**DM1 Capsids**
+
+-   The expression levels of VGC and mRNA in DM1-related regions are higher in Group 6, utilizing the new Gcap-106 capsid, compared to the established control capsid group (Group 5).
+
+-   Distribution in non-target tissues is expected to be lower compared to DM1-related regions in Groups 5 and 6.
+
+-   Note that proteins are not detected in some regions or biological matrices due to: 1) the absence of sample collection, or 2) the lack of protein expression in those regions.
+
+Due to the limited number of subjects in the study, inter-subject variability could not be assessed. Consequently, the above observations are preliminary and require further validation in a larger cohort.
 
 ```{r}
 #| label: tbl-summary-dose-group
-#| tbl-cap: Summary of Dose Groups in Study xxxx
+#| tbl-cap: Summary of Dose Groups in the Study
 #| tbl-cap-location: top
-
+#| tbl-alignment: "l"
+#| 
 
 #install.packages("kableExtra")
 library(kableExtra)
 library(flextable)
 library(knitr)
-
-# dat0 %>% 
-# group_by(GROUP, GROUP_f, DOSE_f, SEX_f) %>% 
-# dplyr::summarise(N = unique(USUBJID)%>% length())  %>% 
-# flextable() %>% 
-# merge_v(j=c("GROUP", "GROUP_f", "DOSE_f"))
-
  
 # Summarize data
-summary_data <- dat0 %>% 
-  group_by(GROUP, GROUP_f, DOSE_f, SEX_f) %>% 
-  dplyr::summarise(N = n_distinct(USUBJID)) %>% 
+summary_data <- dat0 %>%
+  group_by(GROUP, GROUP_f, DOSE_f) %>%
+  dplyr::summarise(N = n_distinct(USUBJID)) %>%
   ungroup()
 
 # Create a flextable with merged cells and zebra striping
-ft <- summary_data %>% 
-  flextable() %>% 
-  merge_v(j = c("GROUP", "GROUP_f", "DOSE_f")) %>% 
-  hline(part = "all", border = fp_border(color = "gray"))
+ft <- summary_data %>%
+  knitr::kable() %>%
+  kableExtra::kable_styling(position = "left") 
+
+  # flextable() %>%
+  # flextable::merge_v(j = c("GROUP", "GROUP_f", "DOSE_f")) %>%
+  # flextable::hline(part = "all", border = officer::fp_border(color = "gray"))
 
 # Print the flextable
 ft
+
+
  
-  # knitr::kable() %>% 
-  # kableExtra::kable_styling(position = "left")  #%>%  
-  # kableExtra::pack_rows(index = summary_data$GROUP) %>% 
-  # kableExtra::pack_rows(index = summary_data$GROUP_f) 
-
-
-
-
-
-```
-
-```{r}
-#| label: function-for-barplot
-#| echo: false
-#| fig-cap: |
-#|   Although the input sources dataset can vary, the analysis set of datasets remains relatively stable #|   for conducting subsequent analyses.
-#| fig-cap-location: top
-#| fig-alt: |
-#|   A diagram displaying the derivation of analysis set on which analysis will be conducted.  
-#| fig-width: 8
-#| fig-height: 15  
- 
-
-
-# my_barplot = function(
-#     df,    
-#      facet_by = "PARAMCD"
-# ) {
-  
-#   # https://stackoverflow.com/questions/52506296/ggplot-geom-point-position-jitterdodge-not-working-when-color-specified
-#   p <-  
-#     ggplot(df, aes(x = MATRIXCD, y = AVAL, fill = GROUP_f, group = GROUP_f)) +
-#     geom_bar(
-#       position = "dodge", width = 0.8, stat = "summary", fun = "mean",
-#       color = "black", linewidth = .8
-#     ) +
-#     scale_fill_manual(values = color.scheme.certara[3:length(color.scheme.certara)]) + # gg_color_hue(n=12)) + 
-    
-#     # scale_color_discrete( c("gray", "blue", "cyan"), 
-#     #                      labels = c("Young Adult", "Older Adult", "sfsf")) +
-#     stat_summary(
-#       fun.data = mean_sdl, geom = "errorbar", color = "black",
-#       position = position_dodge(0.8), width = 0.2, linewidth = 0.8
-#     ) +
-    
-#     #scale_color_manual(values = c("gray", "blue", "cyan", "red", "gray90")) +    # for 0, 1, 2, 3, NA
-#     #scale_size_manual(values = c(1, 2, 3, 4, 5)) + 
-    
-#     scale_y_log10() + 
-#     #scale_color_brewer(palette = "Set1") +   # , name = "color_legend_name") +
-#     #facet_wrap(~TIME, nrow=2)+ theme_bw() +
-    
-#     labs(x="", y= "Expression Levels") + # , fill = fill_legend_txt, color= histopah_legend_txt, size=histopah_legend_txt) + 
-    
-#     theme_prism2() + 
-#     theme(legend.position="bottom", legend.box="vertical")  +
-#     theme(axis.text.x = element_text(size=10, angle = 45, hjust = 1, vjust=1, face="plain")) +  # 	Font face ("plain", "italic", "bold", "bold.italic")
-#     theme(legend.title = element_text())  
-  
-#   #facet_grid(cols = vars(ARM_f), scales = "free") +
-#   #facet_wrap(as.formula(paste("~", cement({{.param}}))), ncol=1, scales="free_y")
-   
-#    p = p + facet_wrap(as.formula(paste("~", facet_by)), ncol=1, scales="free_y")
-#    p
- 
-   
-# }   
-
 ```
 
 ```{r}
 #| label: fig-barplot-overall
 #| echo: false
 #| fig-cap: |
-#|   Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx.
+#|   Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix.
 #| fig-cap-location: top
-#| fig-alt: |
-#|   A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Study xxx. 
 #| fig-width: 8
 #| fig-height: 15  
  
@@ -171,48 +130,44 @@ abbreviation_of_matrix_lst <- spec4matrix %>%
   dplyr::arrange(MATRIXCD) %>% 
   tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
   dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+ 
 
 ```
 
 ::: {style="color: gray; font-size: 0.8em;"}
 Note, `r abbreviation_of_matrix_lst`.
+
+`r footnote1`.
 :::
 
 ```{r}
-#| label: fig-barplot-key-regions
+#| label: fig-barplot-cns-capsids
 #| echo: false
 #| fig-cap: |
-#|   Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across All Biological Matrix in Key Tissues in Study xxx.
+#|   Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across Biological Matrix in CNS-Related Tissue and Group for CNS Capsids (Group 2, 3 and 4) 
 #| fig-cap-location: top
-#| fig-alt: |
-#|   A Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across Biological Matrix in Key Tissues in Study xxx. 
 #| fig-width: 8
 #| fig-height: 15  
  
+  GROUP_filter = seq(1, 4, by=1)  # 2, 3, 4   Groups evaluating CNS capsids
   PARAMCD_filter = c("VGC_MTH1", "RNA_MTH1", "EVV", "LPA" )
   TISSUECD_filter = c("BR", "SC")
 
-  df = dat0   %>% #filter(!GROUP %in% c(1, 2))
-  mutate(AVAL = as.numeric(AVAL))  %>% 
-  filter(PARAMCD %in%  PARAMCD_filter) %>%   #  "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
-   filter(TISSUECD %in%  TISSUECD_filter)
-   
-
+  df = dat0 %>% 
+    filter(GROUP %in% GROUP_filter) %>% 
+    filter(PARAMCD %in%  PARAMCD_filter) %>%   #  "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
+    filter(TISSUECD %in%  TISSUECD_filter) %>% 
+    mutate(AVAL = as.numeric(AVAL))  
+    
 library(ggh4x)   
   
-  my_barplot(
-    df, 
-    facet_by = "PARAMCD")  + 
-     facet_grid(vars(PARAMCD), vars(TISSUE), scales="free_x") + 
-     labs(fill = "Treatment") + 
-     ggh4x::force_panelsizes(cols = c(1, 0.3))  
+  my_barplot(df, facet_by = "PARAMCD")  + 
+    facet_grid(vars(PARAMCD), vars(TISSUE), scales="free_x") + 
+    labs(fill = "Treatment") + 
+    ggh4x::force_panelsizes(cols = c(1, 0.3))  
      
 # note for all biological matrix
-a_matrix_lst <- df %>% #filter(!GROUP %in% c(1, 2))  %>% 
-  dplyr::filter(
-    PARAMCD %in% PARAMCD_filter    #, ATPT_f %in% ATPT_f_filter
-  ) %>%  
-  pull(MATRIX)  %>% unique()
+a_matrix_lst <- df %>% pull(MATRIX)  %>% unique()
 
 abbreviation_of_matrix_lst <- spec4matrix %>%
   dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
@@ -224,4 +179,49 @@ abbreviation_of_matrix_lst <- spec4matrix %>%
 
 ::: {style="color: gray; font-size: 0.8em;"}
 Note, `r abbreviation_of_matrix_lst`.
+
+`r footnote1`.
+:::
+
+```{r}
+#| label: fig-barplot-dm1-capsids
+#| echo: false
+#| fig-cap: |
+#|   Barplot of Mean Expression Level in VGC, mRNA, LPA and EVV Across Biological Matrix in Musle-Related Tissue and Group for DM1 Capsids (Group 5 and 6) 
+#| fig-cap-location: top
+#| fig-width: 8
+#| fig-height: 15  
+ 
+  GROUP_filter = c(1, 5, 6)  #  Groups evaluating DM1 capsids
+  PARAMCD_filter = c("VGC_MTH1", "RNA_MTH1", "EVV", "LPA" )
+  TISSUECD_filter = c("MUS")            #  dat0 %>% distinct(TISSUECD, TISSUE)   %>% view()
+
+  df = dat0 %>% 
+    filter(GROUP %in% GROUP_filter) %>% 
+    filter(PARAMCD %in%  PARAMCD_filter) %>%   #  "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
+    filter(TISSUECD %in%  TISSUECD_filter) %>% 
+    mutate(AVAL = as.numeric(AVAL))  
+    
+  library(ggh4x)   
+  
+  my_barplot(df, facet_by = "PARAMCD")  + 
+    facet_grid(vars(PARAMCD), vars(TISSUE), scales="free_x") + 
+    labs(fill = "Treatment")   #+ 
+    #ggh4x::force_panelsizes(cols = c(1, 0.3))  
+     
+  # note for all biological matrix
+  a_matrix_lst <- df %>% pull(MATRIX)  %>% unique()
+  
+  abbreviation_of_matrix_lst <- spec4matrix %>%
+    dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+    dplyr::arrange(MATRIXCD) %>% 
+    tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+    dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+
+`r footnote1`.
 :::

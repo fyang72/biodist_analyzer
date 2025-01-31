@@ -15,7 +15,7 @@ A non-GLP NHP study was conducted with Sponsor Reference No: 24021, titled "A No
 
 More specifically, the objective of this study is to evaluate novel engineered AAV capsids that are believed to transduce the central nervous system or skeletal muscles with superior potency and selectivity compared to wild type AAVs. The transgenes used encode for wild type Glucocerebrosidase protein or a truncated version of muscle blind under control of neuronal promoter or skeletal muscle promoters, respectively. This would allow for robust expression in CNS or skeletal muscle tissues to assess selectivity of targeting.
 
-```{=html}
+
 <!-- 
 The primary objective of this analysis is to provide an integrative analysis workflow tailored to support genomic medicine, with the goals of (but not limited to):
 
@@ -46,4 +46,3 @@ The data types considered in this analysis include, but are not limited to:
 -   Other response data
     -   respiratory data
     -   clinical Laboratory Data -->
-```

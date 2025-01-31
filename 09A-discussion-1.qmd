@@ -1,0 +1,41 @@
+# Discussion {#sec-discussion-subsection}
+
+Other than translational efficiency and protein biomarker, additional Analyses in Gene Therapy Context could be considered.
+
+**1. Comparison with Endogenous Levels**
+
+*Baseline Comparison*: Compare therapeutic protein expression levels with endogenous protein levels found in healthy individuals. This serves as a gold standard to evaluate whether the therapy achieves physiologically relevant protein concentrations.
+
+*Safety Assessment*: Ensuring that protein expression levels do not exceed physiological limits helps prevent potential adverse effects associated with overexpression.
+
+**2. Dynamics of Gene Expression**
+
+*Temporal Profiling*: Assess the timing and kinetics of gene expression, including the onset and duration of mRNA and protein levels post-administration, to understand gene activation dynamics.
+
+*Longitudinal Monitoring*: Continuously monitor gene expression over time to determine the stability and persistence of the therapeutic effects, and assess potential immune-mediated loss of expression.
+
+**3. Dose-Response Relationship**
+
+*Dose Optimization*: Examine the relationship between the dose of the viral vector administered and the resulting levels of VGC, mRNA, and protein to optimize dosing strategies.
+
+*Therapeutic Windows*: Identify the range of vector doses that achieve the desired therapeutic effect without triggering toxicity or immune responses.
+
+**4. Impact of Immune Responses**
+
+*Immunogenicity Analysis*: Evaluate immune responses against the vector or the expressed protein, which might reduce efficacy or cause adverse events. Detection of antibodies or immune responses can inform strategies to mitigate immunogenicity.
+
+**5. Functional Outcomes and Clinical Endpoints**
+
+*Functional Assays*: Measure the functional activity of expressed proteins, ensuring they are active and achieving desired biological effects.
+
+*Clinical Correlation*: Align biochemical data with clinical outcomes, such as disease markers or symptoms reduction, to comprehensively evaluate the gene therapy’s efficacy.
+
+**6. Off-target Effects and Biodistribution**
+
+*Off-target Expression*: Investigate expression levels in non-target tissues to assess safety and specificity, critical for minimizing potential harm.
+
+*Comprehensive Biodistribution*: Map the vector and gene product distribution across the body to confirm targeting efficiency and identify unexpected distribution patterns.
+
+------------------------------------------------------------------------
+
+Performing these analyses provides a comprehensive understanding of the therapy's impact, guiding clinical application and refinement of gene therapy protocols to enhance both efficacy and safety.

@@ -9,85 +9,156 @@ load("./data/dat0_0118.RData")  # dat0, spec4matrix
 
 # Protein Data {#sec-protein-analysis}
 
-## EVV Data   {#sec-protein-evv-analysis}
+
+## Background 
+
+*Protein expression* in gene therapy refers to the synthesis of proteins from introduced therapeutic genes, aiming to restore or modify function within patient cells. The primary goal is to achieve therapeutic levels of protein expression to address genetic disorders or impart beneficial effects.
+ 
+Protein expression is measured using various techniques, such as:
+- Western blotting
+- ELISA (enzyme-linked immunosorbent assay)
+- Mass spectrometry
+- Immunohistochemistry
+
+Expected outcomes include:
+- *Therapeutic Levels*: Achieve desired protein levels that result in therapeutic effects, including replacing deficient proteins or modulating immune responses.
+- *Temporal Dynamics*: Understanding the timing, duration, and stability of protein expression is crucial for assessing therapy efficacy.
+- *Biodistribution*: Protein expression should be localized to target tissues, minimizing off-target effects.
+- *Correlation with VGC and mRNA*: Protein expression should correlate with vector genome copies (VGC) and mRNA levels, indicating successful gene delivery and transcription. However, please note: 
+  - *Plateau Phase*: Beyond a certain threshold, increased vector numbers may not proportionately increase protein expression due to cellular saturation.
+  - *Translational Control*: Post-transcriptional modifications influence actual protein levels.
+
+## Biomarker Identification
+
+One of the primary objectives of protein expression analysis is to identify a suitable serum protein biomarker that effectively correlates with the expression levels in target tissues. This biomarker can serve as a pharmacodynamic (PD) marker in clinical studies, providing a non-invasive means to monitor therapeutic efficacy and facilitate personalized treatment strategies.
+
+- *Correlation Analysis*: Identify serum protein biomarkers that show a statistically significant correlation with protein expression levels in target tissues, indicating reliable monitoring of the therapeutic effect. In addition, establish that sustained protein expression over time aligns with therapeutic efficacy in both local (tissue-specific) and systemic (serum) measurements.
+ 
+- *Biomarker Selection*: Evaluate the specificity, sensitivity, and dynamic range of potential biomarkers to ensure accurate representation of protein expression levels. Consider factors such as detection limits, assay variability, and biological relevance in selecting the most suitable biomarker for clinical applications.
+  
+
+## Results
+
+This assessment of protein expression is a critical indicator of a gene therapy treatment's efficacy and informs clinical decisions and development strategies.
+
+Heatmap Representation of EVV biodistribution Data in CNS-related treatment groups (Group 2, 3, 4) were presented in @fig-heatmap-evv-cns-wk6 and @fig-heatmap-evv-cns-wk26, for Interim Necropsy Week 6 and Terminal Necropsy Weeks 26/27. Heatmap Representation of mRNA Biodistribution Data in DM1-related treatment groups (Group 5, 6) were presented in @fig-heatmap-evv-dm1-wk6 and @fig-heatmap-evv-dm1-wk26, for Interim Necropsy Week 6 and Terminal Necropsy Weeks 26/27. The heatmaps provide a visual representation of mRNA levels across different tissues, treatment groups and time points, highlighting patterns in mRNA distribution and relative abundance.
+  
+Scatterplot Representation of EVV vs VGC and mRNA in Across Treatment Group, Faceted by Biological Matrix were presented in @fig-protein-vgc-correlation-scatterplot and  @fig-protein-rna-correlation-scatterplot, respectively.
+The scatterplots visualize the relationship between protein and VGC or mRNA levels is to identify a suitable serum protein biomarker that effectively correlates with the expression levels in target tissues.  
+  
+**CNS Capsids**
+
+*Efficacy Assurance*
+
+- *Successful Expression*: Protein levels within the therapeutic range indicate successful gene delivery and expression. The expression levels of proteins in CNS-related regions are higher in Groups 3 and 4, which utilize the new JBC capsids developed by JCR Pharmaceuticals, compared to the established control capsid group (Group 2).
+
+- The capsid used in Group 4, JBC-AAVdQ, is a liver-detargeting variant and is expected to exhibit reduced liver distribution compared to the capsids used in Groups 2 and 3.
+
+- Sustained protein expression over an extended period suggests prolonged therapeutic effects, which are beneficial for chronic or long-term conditions.
+
+*Safety Validation*
+
+- *Localized Expression*: Protein expression is confined to target tissues, minimizing off-target effects. In particular, protein distribution in non-target tissues is anticipated to be lower compared to CNS-related regions in Groups 4, 5, and 6.
+
+- Overall, low or undetectable protein levels in non-target tissues indicate the specificity of the vector, reducing potential off-target effects and associated risks.
+
+- Temporary detection of proteins in non-target tissues, followed by rapid clearance, suggests a favorable safety profile and reduced long-term risk.
+
+High protein expression levels in target tissues confirm the effective delivery and persistence of the therapeutic protein, supporting the efficacy of the gene therapy. Further dosing range studies are expected to be conducted to estimate the administered dose achieving the desired therapeutic outcome without reaching levels that could cause toxicity.
+
+---
+
+
+**DM1 Capsids**
+
+*Efficacy Assurance*
+
+- *Successful Expression*: Protein levels within the therapeutic range indicate successful gene delivery and expression. The expression levels of proteins in DM1-related regions are higher in Group 6, utilizing the new Gcap-106 capsid, compared to the established control capsid group (Group 5).
+
+- Sustained protein expression over an extended period suggests prolonged therapeutic effects, which are beneficial for chronic or long-term conditions.
+
+*Safety Validation*
+
+- *Localized Expression*: Protein expression is confined to target tissues, minimizing off-target effects. In particular, protein distribution in non-target tissues is expected to be lower compared to DM1-related regions in Groups 5 and 6.
+
+- Overall, low or undetectable protein levels in non-target tissues indicate the specificity of the vector, reducing potential off-target effects and associated risks.
+
+- Temporary detection of proteins in non-target tissues, followed by rapid clearance, suggests a favorable safety profile and reduced long-term risk.
+
+High protein expression levels in target tissues confirm the effective delivery and persistence of the therapeutic protein, supporting the efficacy of the gene therapy. Further dosing range studies are expected to be conducted to estimate the administered dose achieving the desired therapeutic outcome without reaching levels that could cause toxicity.
+
+
+
+---
+
+ 
+ 
+## Heatmap Representation (CNS and DM1) {#sec-protein-evv-heatmap-analysis}
 
 ```{r}
-#| label: fig-heatmap-protein-evv-wk6
+#| label: fig-heatmap-evv-cns-wk6
 #| echo: false
 #| fig-cap: |
-#|   Heatmap Representation of Protein EVV Biodistribution Data Measured at Interim Necropsy Week 6.
+#|   Heatmap Representation of EVV Biodistribution Data in CNS-related Treatment Groups, Measured at Interim Necropsy Week 6.  
 #| fig-cap-location: top
-#| fig-alt: |
-#|   A heatmap Representation of RNA Biodistribution Data Measured at Interim Necropsy Week 6.  
 #| fig-width: 8
 #| fig-height: 15 
-
-
-# 3003        3     1 Brain, White Matter  4368 <NA>   LPA     132.76                NA WM       BR           6 Low + IS Male  Terminal Necropsy Weeks 26/27
-
-
-PARAMCD_filter = "EVV" 
-
-df = dat0 %>% filter(!GROUP %in% c(1, 2))
-
-biodist_value <- df  %>% 
-  filter(
-    PARAMCD %in% PARAMCD_filter 
-  ) %>% 
-  pull(AVAL) %>% as.numeric() %>% log10()
-
+       
+#  "Interim Necropsy Week 6"   "Terminal Necropsy Weeks 26/27"
+df = dat0 %>% 
+  dplyr::filter(
+    #ATPT_f %in% ATPT_f_filter,         # Filter by ATPT_f
+    PARAMCD %in% c("EVV"),        # Filter by PARAMCD
+    #TISSUE %in% (dat0$TISSUE%>%unique()),  # Filter by TISSUE
+    GROUP %in% c(3, 4, 5, 6)             # Filter by GROUP
+  )  
+ 
+# make sure the color scheme is consistent across all timepoints
+biodist_value <- df %>% pull(AVAL) %>% as.numeric() %>% log10()
 biodist_min <- min(biodist_value, na.rm=TRUE) 
 biodist_max <- max(biodist_value, na.rm=TRUE)
 biodist_median <- median(biodist_value, na.rm=TRUE)
 col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red"))
  
 ht1 = create_heatmap(
-  data = df, 
+  data = df %>% filter(ATPT_f %in% "Interim Necropsy Week 6"), 
   col_scheme = col_scheme,
-  ATPT_f_filter = "Interim Necropsy Week 6",  # "Interim Necropsy Week 6"  
-  PARAMCD_filter = PARAMCD_filter,   # "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
   scale_data = FALSE,           # Whether to scale the data
   na_threshold = 0.5,          # NA threshold to filter
   cluster_rows = FALSE,         # Whether to cluster rows
   cluster_columns = TRUE       # Whether to cluster columns
-) 
-
-ht2 = create_heatmap(
-  data = df, #  %>% mutate(MATRIXCD = ordered(MATRIXCD, levels=tmp1$colnames_lst)) %>% dplyr::arrange(MATRIXCD), 
-  col_scheme = col_scheme,
-  ATPT_f_filter = "Terminal Necropsy Weeks 26/27",  # "Interim Necropsy Week 6"  
-  PARAMCD_filter = PARAMCD_filter,   # "PK"       "VGC_MTH1" "VGC_MTH2" "RNA_MTH1" "RNA_MTH2" "EVV"      "LPA" 
-  scale_data = FALSE,           # Whether to scale the data
-  na_threshold = 0.5,          # NA threshold to filter
-  cluster_rows = FALSE, #  function(df) as.dendrogram(row_dend(ht2)), # (ComplexHeatmap::row_dend(ht2)),         # Whether to cluster rows
-  cluster_columns = TRUE #   function(df) as.dendrogram(column_dend(ht2))       # Whether to cluster columns
 )
-
+  
 draw(ht1, padding = unit(c(0.5, 0.5, 0.5, 0.5), "mm"), merge_legend = TRUE) # Adjust padding
-
+ 
 ```
 
+<!-- Here is a footnote reference,[^1] and another.[^longnote]
+[^1]: Here is the footnote.
+[^longnote]: Here's one with multiple blocks. -->
+
 ```{r}
-#| label: fig-heatmap-protein-evv-wk26
+#| label: fig-heatmap-evv-cns-wk26
 #| echo: false
 #| fig-cap: |
-#|   Heatmap Representation of Protein EVV Biodistribution Data Measured at Terminal Necropsy Weeks 26/27.
+#|   Heatmap Representation of EVV Biodistribution Data in CNS-related Treatment Groups, Measured at Terminal Necropsy Weeks 26/27.  
 #| fig-cap-location: top
-#| fig-alt: |
-#|   A heatmap Representation of RNA Biodistribution Data Measured at Terminal Necropsy Weeks 26/27.  
 #| fig-width: 8
 #| fig-height: 15 
  
+ht2 = create_heatmap(
+  data = df %>% filter(ATPT_f %in% "Terminal Necropsy Weeks 26/27"),   
+  col_scheme = col_scheme,
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = TRUE       # Whether to cluster columns
+)
 
 draw(ht2, padding = unit(c(0.5, 0.5, 0.5, 0.5), "mm"), merge_legend = TRUE) # Adjust padding
 
-
 # note for all biological matrix
-a_matrix_lst <- dat0 %>% filter(!GROUP %in% c(1, 2))  %>% 
-  dplyr::filter(
-    PARAMCD %in% PARAMCD_filter  # , ATPT_f %in% ATPT_f_filter
-  ) %>%  
-  pull(MATRIX)  %>% unique()
+a_matrix_lst <- df %>%  pull(MATRIX)  %>% unique()
 
 abbreviation_of_matrix_lst <- spec4matrix %>%
   dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
@@ -101,10 +172,88 @@ abbreviation_of_matrix_lst <- spec4matrix %>%
 Note, `r abbreviation_of_matrix_lst`.
 :::
 
-## Correlation analysis {#sec-protein-correlation-analysis}
+```{r}
+#| label: fig-heatmap-evv-dm1-wk6
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of EVV Biodistribution Data in DM1-related Treatment Groups, Measured at Interim Necropsy Week 6.  
+#| fig-cap-location: top
+#| fig-width: 8
+#| fig-height: 15 
+
+#  "Interim Necropsy Week 6"   "Terminal Necropsy Weeks 26/27"
+df = dat0 %>% 
+  dplyr::filter(
+    #ATPT_f %in% ATPT_f_filter,         # Filter by ATPT_f
+    PARAMCD %in% c("EVV"),        # Filter by PARAMCD
+    #TISSUE %in% (dat0$TISSUE%>%unique()),  # Filter by TISSUE
+    GROUP %in% c(3, 4, 5, 6)             # Filter by GROUP #########################
+  )  
+ 
+# make sure the color scheme is consistent across all timepoints
+biodist_value <- df %>% pull(AVAL) %>% as.numeric() %>% log10()
+biodist_min <- min(biodist_value, na.rm=TRUE) 
+biodist_max <- max(biodist_value, na.rm=TRUE)
+biodist_median <- median(biodist_value, na.rm=TRUE)
+col_scheme = colorRamp2(c(biodist_min, biodist_median, biodist_max), c("blue", "white", "red"))
+ 
+ht1 = create_heatmap(
+  data = df %>% filter(ATPT_f %in% "Interim Necropsy Week 6"), 
+  col_scheme = col_scheme,
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = TRUE       # Whether to cluster columns
+)
+  
+draw(ht1, padding = unit(c(0.5, 0.5, 0.5, 0.5), "mm"), merge_legend = TRUE) # Adjust padding
+ 
+```
+
+<!-- Here is a footnote reference,[^1] and another.[^longnote]
+[^1]: Here is the footnote.
+[^longnote]: Here's one with multiple blocks. -->
 
 ```{r}
-#| label: fig-protein-VGC-correlation-scatterplot
+#| label: fig-heatmap-evv-dm1-wk26
+#| echo: false
+#| fig-cap: |
+#|   Heatmap Representation of EVV Biodistribution Data in DM1-related Treatment Groups, Measured at Terminal Necropsy Weeks 26/27.  
+#| fig-cap-location: top
+#| fig-width: 8
+#| fig-height: 15 
+ 
+ht2 = create_heatmap(
+  data = df %>% filter(ATPT_f %in% "Terminal Necropsy Weeks 26/27"), 
+  col_scheme = col_scheme,
+  scale_data = FALSE,           # Whether to scale the data
+  na_threshold = 0.5,          # NA threshold to filter
+  cluster_rows = FALSE,         # Whether to cluster rows
+  cluster_columns = TRUE       # Whether to cluster columns
+)
+
+draw(ht2, padding = unit(c(0.5, 0.5, 0.5, 0.5), "mm"), merge_legend = TRUE) # Adjust padding
+
+# note for all biological matrix
+a_matrix_lst <- df %>% pull(MATRIX)  %>% unique()
+
+abbreviation_of_matrix_lst <- spec4matrix %>%
+  dplyr::filter(MATRIX %in% a_matrix_lst) %>% 
+  dplyr::arrange(MATRIXCD) %>% 
+  tidyr::unite("ABBR", MATRIXCD, MATRIX, sep = " = ") %>% 
+  dplyr::pull(ABBR) %>% paste0( collapse="; ")   
+
+```
+
+::: {style="color: gray; font-size: 0.8em;"}
+Note, `r abbreviation_of_matrix_lst`.
+:::
+
+
+## Correlation analysis {#sec-protein-evv-vgc-rna-correlation-analysis} 
+
+```{r}
+#| label: fig-protein-vgc-correlation-scatterplot
 #| echo: false
 #| fig-cap: |
 #|   Scatterplot of Protein vs VGC Biodistribution Data, Colored by Treatment Group, Faceted by Biological Matrix in Study xxxx.  
@@ -167,7 +316,7 @@ create_scatter_correlation_plot(df, "VGC_MTH1", "EVV", "GROUP_f", "ATPT_f", "MAT
 ```
 
 ```{r}
-#| label: fig-protein-RNA-correlation-scatterplot
+#| label: fig-protein-rna-correlation-scatterplot
 #| echo: false
 #| fig-cap: |
 #|   Scatterplot of Protein vs RNA Biodistribution Data, Colored by Treatment Group, Faceted by Biological Matrix in Study xxxx.  

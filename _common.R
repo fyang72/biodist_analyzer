@@ -315,7 +315,7 @@ status = "DRAFT"  #flag for labeling figures as draft
 
 source("./scripts/utils.R")
 source("./scripts/my_barplot.R")
-source("./scripts/my_heatmap.R")
+source("./scripts/my_heatmap2.R")
 source("./scripts/my_plot_conc_profile.R")
 
 actionButton_style ="float:left;color: #fff; background-color: #328332; border-color: #328332"

@@ -1,0 +1,13 @@
+# Integrative Analysis {#sec-vgc-mRNA-protein-integrative-analysis}
+
+vgc-mRNA-protein-integrative-analysis
+
+The analysis will generally be conducted in the following steps:
+
+-   Trend analysis (visualization)
+    -   Overview visualization
+    -   Integrative visualization
+    -   Assessment of covariates
+-   Quantification of the relationship between dose, PK, PD, and responses, and identification of sources of variation
+    -   Statistical modeling
+    -   Empirical modeling

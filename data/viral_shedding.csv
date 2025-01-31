@@ -1,0 +1,588 @@
+STUDYID,USUBJID,GROUP,SEX,MATRIX,ATPT,SAMPID,PARAMCD,AVAL,LLOQ,MATRIXCD,TISSUE,TISSUECD,DOSE,GROUP_f,DOSE_f,SEX_f,ATPT_f
+XXXXXX,1001,1,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Male,Pretest
+XXXXXX,1002,1,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Male,Pretest
+XXXXXX,1003,1,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Male,Pretest
+XXXXXX,1501,1,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Pretest
+XXXXXX,1502,1,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Pretest
+XXXXXX,1503,1,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Pretest
+XXXXXX,1604,1,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Pretest
+XXXXXX,2001,2,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Pretest
+XXXXXX,2002,2,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Pretest
+XXXXXX,2003,2,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Pretest
+XXXXXX,2004,2,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Pretest
+XXXXXX,2501,2,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Pretest
+XXXXXX,2502,2,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Pretest
+XXXXXX,2503,2,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Pretest
+XXXXXX,2504,2,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Pretest
+XXXXXX,3001,3,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3002,3,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3003,3,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3004,3,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3501,3,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3502,3,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3503,3,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3504,3,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,4001,4,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4002,4,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4003,4,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4004,4,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4501,4,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4502,4,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4503,4,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4504,4,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5001,5,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5002,5,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5003,5,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5004,5,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5501,5,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5502,5,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5503,5,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5504,5,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,6001,6,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6003,6,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6104,6,1,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6501,6,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6503,6,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6504,6,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6505,6,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6602,6,2,Feces,-3,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,1001,1,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1002,1,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1501,1,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,1502,1,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2001,2,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2002,2,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2501,2,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2502,2,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,3001,3,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3002,3,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3501,3,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,3502,3,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4001,4,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4002,4,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4004,4,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4501,4,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4502,4,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5001,5,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5002,5,1,Feces,1008,NA,PK,6.4,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5501,5,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5502,5,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6001,6,1,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,6501,6,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6505,6,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6602,6,2,Feces,1008,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,1003,1,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,1503,1,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1604,1,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2003,2,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2004,2,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2503,2,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2504,2,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3003,3,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3004,3,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3503,3,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3504,3,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4003,4,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4503,4,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4504,4,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5003,5,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5004,5,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5503,5,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5504,5,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6003,6,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6104,6,1,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6503,6,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6504,6,2,Feces,4368,NA,PK,<LLOQ,10,FEC,Feces,FEC,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1001,1,1,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1002,1,1,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1501,1,2,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,1502,1,2,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2001,2,1,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2002,2,1,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2501,2,2,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2502,2,2,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,3001,3,1,PBMC,1008,NA,PK,1.3,10,PBMC,PBMC,PBMC,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3501,3,2,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,3502,3,2,PBMC,1008,NA,PK,1,10,PBMC,PBMC,PBMC,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4001,4,1,PBMC,1008,NA,PK,6.4,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4002,4,1,PBMC,1008,NA,PK,3.9,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4501,4,2,PBMC,1008,NA,PK,1.9,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4502,4,2,PBMC,1008,NA,PK,3.9,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5001,5,1,PBMC,1008,NA,PK,5.6,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5002,5,1,PBMC,1008,NA,PK,2.4,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5501,5,2,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5502,5,2,PBMC,1008,NA,PK,2.6,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6001,6,1,PBMC,1008,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,6501,6,2,PBMC,1008,NA,PK,9.1,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6505,6,2,PBMC,1008,NA,PK,4.4000000000000004,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6602,6,2,PBMC,1008,NA,PK,3.9,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,1003,1,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA + IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,1503,1,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1604,1,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2003,2,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2004,2,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2503,2,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2504,2,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3003,3,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3004,3,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3503,3,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3504,3,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4003,4,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4004,4,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4503,4,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4504,4,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5003,5,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5004,5,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5503,5,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5504,5,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6003,6,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6104,6,1,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6503,6,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6504,6,2,PBMC,4368,NA,PK,<LLOQ,10,PBMC,PBMC,PBMC,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1001,1,1,Saliva,-3,NA,PK,79.400000000000006,10,SAL,Saliva,SAL,0,VCA + IS,0,Male,Pretest
+XXXXXX,1002,1,1,Saliva,-3,NA,PK,52.6,10,SAL,Saliva,SAL,0,VCA + IS,0,Male,Pretest
+XXXXXX,1003,1,1,Saliva,-3,NA,PK,55,10,SAL,Saliva,SAL,0,VCA + IS,0,Male,Pretest
+XXXXXX,1501,1,2,Saliva,-3,NA,PK,59.1,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Pretest
+XXXXXX,1502,1,2,Saliva,-3,NA,PK,55.8,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Pretest
+XXXXXX,1503,1,2,Saliva,-3,NA,PK,53.1,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Pretest
+XXXXXX,1604,1,2,Saliva,-3,NA,PK,56.8,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Pretest
+XXXXXX,2001,2,1,Saliva,-3,NA,PK,38.1,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Pretest
+XXXXXX,2002,2,1,Saliva,-3,NA,PK,77.2,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Pretest
+XXXXXX,2003,2,1,Saliva,-3,NA,PK,56.4,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Pretest
+XXXXXX,2004,2,1,Saliva,-3,NA,PK,57,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Pretest
+XXXXXX,2501,2,2,Saliva,-3,NA,PK,92,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Pretest
+XXXXXX,2502,2,2,Saliva,-3,NA,PK,62.7,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Pretest
+XXXXXX,2503,2,2,Saliva,-3,NA,PK,77.5,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Pretest
+XXXXXX,2504,2,2,Saliva,-3,NA,PK,84.1,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Pretest
+XXXXXX,3001,3,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3002,3,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3003,3,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3004,3,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3501,3,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3502,3,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3503,3,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3504,3,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,4001,4,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4002,4,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4003,4,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4004,4,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4501,4,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4502,4,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4503,4,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4504,4,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5001,5,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5002,5,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5003,5,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5004,5,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5501,5,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5502,5,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5503,5,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5504,5,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,6001,6,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6003,6,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6104,6,1,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6501,6,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6503,6,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6504,6,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6505,6,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6602,6,2,Saliva,-3,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,1001,1,1,Saliva,1008,NA,PK,70.5,10,SAL,Saliva,SAL,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1002,1,1,Saliva,1008,NA,PK,83.3,10,SAL,Saliva,SAL,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1501,1,2,Saliva,1008,NA,PK,93.5,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,1502,1,2,Saliva,1008,NA,PK,52.8,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2001,2,1,Saliva,1008,NA,PK,80.400000000000006,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2002,2,1,Saliva,1008,NA,PK,88.7,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2501,2,2,Saliva,1008,NA,PK,64.400000000000006,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2502,2,2,Saliva,1008,NA,PK,70.7,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,3001,3,1,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3002,3,1,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3501,3,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,3502,3,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4001,4,1,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4002,4,1,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4501,4,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4502,4,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5001,5,1,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5002,5,1,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5501,5,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5502,5,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6001,6,1,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,6501,6,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6505,6,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6602,6,2,Saliva,1008,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,1003,1,1,Saliva,4368,NA,PK,61.4,10,SAL,Saliva,SAL,0,VCA + IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,1503,1,2,Saliva,4368,NA,PK,62.7,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1604,1,2,Saliva,4368,NA,PK,62,10,SAL,Saliva,SAL,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2003,2,1,Saliva,4368,NA,PK,60.8,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2004,2,1,Saliva,4368,NA,PK,68.900000000000006,10,SAL,Saliva,SAL,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2503,2,2,Saliva,4368,NA,PK,70.599999999999994,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2504,2,2,Saliva,4368,NA,PK,62.5,10,SAL,Saliva,SAL,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3003,3,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3004,3,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3503,3,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3504,3,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4003,4,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4004,4,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4503,4,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4504,4,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5003,5,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5004,5,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5503,5,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5504,5,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6003,6,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6104,6,1,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6503,6,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6504,6,2,Saliva,4368,NA,PK,<LLOQ,10,SAL,Saliva,SAL,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1501,1,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: Predose
+XXXXXX,1502,1,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: Predose
+XXXXXX,1503,1,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: Predose
+XXXXXX,1604,1,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: Predose
+XXXXXX,2501,2,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: Predose
+XXXXXX,2502,2,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: Predose
+XXXXXX,2503,2,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: Predose
+XXXXXX,2504,2,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: Predose
+XXXXXX,3501,3,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: Predose
+XXXXXX,3502,3,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: Predose
+XXXXXX,3503,3,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: Predose
+XXXXXX,3504,3,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: Predose
+XXXXXX,4501,4,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,4502,4,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,4503,4,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,4504,4,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,5501,5,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,5502,5,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,5503,5,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,5504,5,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,6104,6,1,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,D1: Predose
+XXXXXX,6501,6,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,6503,6,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,6504,6,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,6505,6,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,6602,6,2,Serum,0,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: Predose
+XXXXXX,1501,1,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 6HR
+XXXXXX,1502,1,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 6HR
+XXXXXX,1503,1,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 6HR
+XXXXXX,1604,1,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 6HR
+XXXXXX,2501,2,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 6HR
+XXXXXX,2502,2,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 6HR
+XXXXXX,2503,2,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 6HR
+XXXXXX,2504,2,2,Serum,6,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 6HR
+XXXXXX,3501,3,2,Serum,6,NA,PK,5554500,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 6HR
+XXXXXX,3502,3,2,Serum,6,NA,PK,6701100,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 6HR
+XXXXXX,3503,3,2,Serum,6,NA,PK,4898500,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 6HR
+XXXXXX,3504,3,2,Serum,6,NA,PK,7119200,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 6HR
+XXXXXX,4501,4,2,Serum,6,NA,PK,14779800,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,4502,4,2,Serum,6,NA,PK,17708600,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,4503,4,2,Serum,6,NA,PK,12717700,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,4504,4,2,Serum,6,NA,PK,8882800,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,5501,5,2,Serum,6,NA,PK,6358600,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,5502,5,2,Serum,6,NA,PK,9596500,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,5503,5,2,Serum,6,NA,PK,11895400,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,5504,5,2,Serum,6,NA,PK,12933700,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,6104,6,1,Serum,6,NA,PK,37213800,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,D1: 6HR
+XXXXXX,6501,6,2,Serum,6,NA,PK,37912200,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,6503,6,2,Serum,6,NA,PK,33098800,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,6504,6,2,Serum,6,NA,PK,20588100,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,6505,6,2,Serum,6,NA,PK,13715500,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,6602,6,2,Serum,6,NA,PK,22008900,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 6HR
+XXXXXX,1501,1,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 24HR
+XXXXXX,1502,1,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 24HR
+XXXXXX,1503,1,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 24HR
+XXXXXX,1604,1,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,D1: 24HR
+XXXXXX,2501,2,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 24HR
+XXXXXX,2502,2,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 24HR
+XXXXXX,2503,2,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 24HR
+XXXXXX,2504,2,2,Serum,24,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,D1: 24HR
+XXXXXX,3501,3,2,Serum,24,NA,PK,965663.5,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 24HR
+XXXXXX,3502,3,2,Serum,24,NA,PK,1341400,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 24HR
+XXXXXX,3503,3,2,Serum,24,NA,PK,1278300,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 24HR
+XXXXXX,3504,3,2,Serum,24,NA,PK,3586100,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,D1: 24HR
+XXXXXX,4501,4,2,Serum,24,NA,PK,6950400,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,4502,4,2,Serum,24,NA,PK,7393600,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,4503,4,2,Serum,24,NA,PK,4763900,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,4504,4,2,Serum,24,NA,PK,659081,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,5501,5,2,Serum,24,NA,PK,1088300,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,5502,5,2,Serum,24,NA,PK,2743000,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,5503,5,2,Serum,24,NA,PK,5049900,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,5504,5,2,Serum,24,NA,PK,3729700,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,6104,6,1,Serum,24,NA,PK,16450000,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,D1: 24HR
+XXXXXX,6501,6,2,Serum,24,NA,PK,20320700,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,6503,6,2,Serum,24,NA,PK,16645600,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,6504,6,2,Serum,24,NA,PK,5095000,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,6505,6,2,Serum,24,NA,PK,5665800,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,6602,6,2,Serum,24,NA,PK,6975600,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,D1: 24HR
+XXXXXX,1501,1,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 3
+XXXXXX,1502,1,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 3
+XXXXXX,1503,1,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 3
+XXXXXX,1604,1,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 3
+XXXXXX,2501,2,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 3
+XXXXXX,2502,2,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 3
+XXXXXX,2503,2,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 3
+XXXXXX,2504,2,2,Serum,48,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 3
+XXXXXX,3501,3,2,Serum,48,NA,PK,226532.6,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 3
+XXXXXX,3502,3,2,Serum,48,NA,PK,267669.40000000002,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 3
+XXXXXX,3503,3,2,Serum,48,NA,PK,334015,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 3
+XXXXXX,3504,3,2,Serum,48,NA,PK,1266100,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 3
+XXXXXX,4501,4,2,Serum,48,NA,PK,3104400,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,4502,4,2,Serum,48,NA,PK,2030400,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,4503,4,2,Serum,48,NA,PK,1347300,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,4504,4,2,Serum,48,NA,PK,73039.199999999997,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,5501,5,2,Serum,48,NA,PK,8499.7999999999993,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,5502,5,2,Serum,48,NA,PK,27166.2,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,5503,5,2,Serum,48,NA,PK,274827.2,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,5504,5,2,Serum,48,NA,PK,176146.3,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 3
+XXXXXX,6104,6,1,Serum,48,NA,PK,3950200,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 3
+XXXXXX,6501,6,2,Serum,48,NA,PK,6843400,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 3
+XXXXXX,6503,6,2,Serum,48,NA,PK,4271600,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 3
+XXXXXX,6504,6,2,Serum,48,NA,PK,822377.1,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 3
+XXXXXX,6505,6,2,Serum,48,NA,PK,1006100,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 3
+XXXXXX,6602,6,2,Serum,48,NA,PK,1267700,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 3
+XXXXXX,1501,1,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 8
+XXXXXX,1502,1,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 8
+XXXXXX,1503,1,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 8
+XXXXXX,1604,1,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 8
+XXXXXX,2501,2,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 8
+XXXXXX,2502,2,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 8
+XXXXXX,2503,2,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 8
+XXXXXX,2504,2,2,Serum,168,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 8
+XXXXXX,3501,3,2,Serum,168,NA,PK,256.2,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 8
+XXXXXX,3502,3,2,Serum,168,NA,PK,257.7,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 8
+XXXXXX,3503,3,2,Serum,168,NA,PK,763.1,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 8
+XXXXXX,3504,3,2,Serum,168,NA,PK,154.1,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 8
+XXXXXX,4001,4,1,Serum,168,NA,PK,2300.9,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,4002,4,1,Serum,168,NA,PK,1031.4000000000001,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,4003,4,1,Serum,168,NA,PK,289.89999999999998,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,4004,4,1,Serum,168,NA,PK,1250,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,4501,4,2,Serum,168,NA,PK,1067.5,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,4502,4,2,Serum,168,NA,PK,588,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,4503,4,2,Serum,168,NA,PK,897.1,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,4504,4,2,Serum,168,NA,PK,1009.7,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,5001,5,1,Serum,168,NA,PK,118.9,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,5002,5,1,Serum,168,NA,PK,161.4,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,5003,5,1,Serum,168,NA,PK,385,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,5004,5,1,Serum,168,NA,PK,375.8,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 8
+XXXXXX,5501,5,2,Serum,168,NA,PK,162.5,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,5502,5,2,Serum,168,NA,PK,60.1,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,5503,5,2,Serum,168,NA,PK,239.8,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,5504,5,2,Serum,168,NA,PK,135,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 8
+XXXXXX,6001,6,1,Serum,168,NA,PK,69.400000000000006,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 8
+XXXXXX,6002,6,1,Serum,168,NA,PK,923.5,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 8
+XXXXXX,6003,6,1,Serum,168,NA,PK,289,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 8
+XXXXXX,6004,6,1,Serum,168,NA,PK,696.2,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 8
+XXXXXX,6104,6,1,Serum,168,NA,PK,1648.4,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 8
+XXXXXX,6501,6,2,Serum,168,NA,PK,1407.1,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 8
+XXXXXX,6503,6,2,Serum,168,NA,PK,1448.3,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 8
+XXXXXX,6504,6,2,Serum,168,NA,PK,407.5,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 8
+XXXXXX,6505,6,2,Serum,168,NA,PK,678.2,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 8
+XXXXXX,6602,6,2,Serum,168,NA,PK,1359.1,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 8
+XXXXXX,1001,1,1,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Male,Day 14
+XXXXXX,1002,1,1,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Male,Day 14
+XXXXXX,1003,1,1,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Male,Day 14
+XXXXXX,1501,1,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 14
+XXXXXX,1502,1,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 14
+XXXXXX,1503,1,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 14
+XXXXXX,1604,1,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Day 14
+XXXXXX,2001,2,1,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Day 14
+XXXXXX,2002,2,1,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Day 14
+XXXXXX,2003,2,1,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Day 14
+XXXXXX,2004,2,1,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Day 14
+XXXXXX,2501,2,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 14
+XXXXXX,2502,2,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 14
+XXXXXX,2503,2,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 14
+XXXXXX,2504,2,2,Serum,312,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Day 14
+XXXXXX,3001,3,1,Serum,312,NA,PK,25.9,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Day 14
+XXXXXX,3002,3,1,Serum,312,NA,PK,89.4,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Day 14
+XXXXXX,3003,3,1,Serum,312,NA,PK,46.8,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Day 14
+XXXXXX,3004,3,1,Serum,312,NA,PK,8.1,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Day 14
+XXXXXX,3501,3,2,Serum,312,NA,PK,12.4,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 14
+XXXXXX,3502,3,2,Serum,312,NA,PK,50.8,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 14
+XXXXXX,3503,3,2,Serum,312,NA,PK,116.8,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 14
+XXXXXX,3504,3,2,Serum,312,NA,PK,27.9,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Day 14
+XXXXXX,4001,4,1,Serum,312,NA,PK,71.400000000000006,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,4002,4,1,Serum,312,NA,PK,69,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,4003,4,1,Serum,312,NA,PK,34.4,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,4004,4,1,Serum,312,NA,PK,113.6,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,4501,4,2,Serum,312,NA,PK,435.1,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,4502,4,2,Serum,312,NA,PK,221.5,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,4503,4,2,Serum,312,NA,PK,134.30000000000001,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,4504,4,2,Serum,312,NA,PK,225.5,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,5001,5,1,Serum,312,NA,PK,13.3,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,5002,5,1,Serum,312,NA,PK,19.100000000000001,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,5003,5,1,Serum,312,NA,PK,30,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,5004,5,1,Serum,312,NA,PK,23.5,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Day 14
+XXXXXX,5501,5,2,Serum,312,NA,PK,8.1999999999999993,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,5502,5,2,Serum,312,NA,PK,3.1,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,5503,5,2,Serum,312,NA,PK,21.8,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,5504,5,2,Serum,312,NA,PK,7.3,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Day 14
+XXXXXX,6001,6,1,Serum,312,NA,PK,1.1000000000000001,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 14
+XXXXXX,6003,6,1,Serum,312,NA,PK,64,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 14
+XXXXXX,6104,6,1,Serum,312,NA,PK,278,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Day 14
+XXXXXX,6501,6,2,Serum,312,NA,PK,157.5,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 14
+XXXXXX,6503,6,2,Serum,312,NA,PK,320,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 14
+XXXXXX,6504,6,2,Serum,312,NA,PK,89.6,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 14
+XXXXXX,6505,6,2,Serum,312,NA,PK,309.39999999999998,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 14
+XXXXXX,6602,6,2,Serum,312,NA,PK,724.7,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Day 14
+XXXXXX,1001,1,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1002,1,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1003,1,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1501,1,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,1502,1,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,1503,1,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,1604,1,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2001,2,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2002,2,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2003,2,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2004,2,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2501,2,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2502,2,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2503,2,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2504,2,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,3001,3,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3002,3,1,Serum,1008,NA,PK,2,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3003,3,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3004,3,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3501,3,2,Serum,1008,NA,PK,1.7,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,3502,3,2,Serum,1008,NA,PK,2.1,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,3503,3,2,Serum,1008,NA,PK,6.7,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,3504,3,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4001,4,1,Serum,1008,NA,PK,3.2,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4002,4,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4003,4,1,Serum,1008,NA,PK,3.5,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4004,4,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4501,4,2,Serum,1008,NA,PK,1.3,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4502,4,2,Serum,1008,NA,PK,2.6,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4503,4,2,Serum,1008,NA,PK,1.2,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4504,4,2,Serum,1008,NA,PK,2.5,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5001,5,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5002,5,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5003,5,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5004,5,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5501,5,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5502,5,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5503,5,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5504,5,2,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6001,6,1,Serum,1008,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,6003,6,1,Serum,1008,NA,PK,2.2999999999999998,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,6104,6,1,Serum,1008,NA,PK,52,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,6501,6,2,Serum,1008,NA,PK,6.4,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6503,6,2,Serum,1008,NA,PK,3.1,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6504,6,2,Serum,1008,NA,PK,4.8,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6505,6,2,Serum,1008,NA,PK,12.1,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6602,6,2,Serum,1008,NA,PK,4,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,1003,1,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,1503,1,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1604,1,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2003,2,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2004,2,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2503,2,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2504,2,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3003,3,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3004,3,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3503,3,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3504,3,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4003,4,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4004,4,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4503,4,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4504,4,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5003,5,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5004,5,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5503,5,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5504,5,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6003,6,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6104,6,1,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6503,6,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6504,6,2,Serum,4368,NA,PK,<LLOQ,10,SER,Serum,SER,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1001,1,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Male,Pretest
+XXXXXX,1002,1,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Male,Pretest
+XXXXXX,1003,1,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Male,Pretest
+XXXXXX,1501,1,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Pretest
+XXXXXX,1502,1,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Pretest
+XXXXXX,1503,1,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Pretest
+XXXXXX,1604,1,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Pretest
+XXXXXX,2001,2,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Pretest
+XXXXXX,2002,2,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Pretest
+XXXXXX,2003,2,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Pretest
+XXXXXX,2004,2,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Pretest
+XXXXXX,2501,2,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Pretest
+XXXXXX,2502,2,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Pretest
+XXXXXX,2503,2,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Pretest
+XXXXXX,2504,2,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Pretest
+XXXXXX,3001,3,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3002,3,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3003,3,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3004,3,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Pretest
+XXXXXX,3501,3,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3502,3,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3503,3,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,3504,3,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Pretest
+XXXXXX,4001,4,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4002,4,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4003,4,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4004,4,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,4501,4,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4502,4,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4503,4,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,4504,4,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5001,5,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5002,5,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5003,5,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5004,5,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Pretest
+XXXXXX,5501,5,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5502,5,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5503,5,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,5504,5,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Pretest
+XXXXXX,6001,6,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6003,6,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6104,6,1,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Male,Pretest
+XXXXXX,6501,6,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6503,6,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6504,6,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6505,6,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,6602,6,2,Urine,-3,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Pretest
+XXXXXX,1001,1,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1002,1,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Male,Interim Necropsy Week 6
+XXXXXX,1501,1,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,1502,1,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2001,2,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2002,2,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Interim Necropsy Week 6
+XXXXXX,2501,2,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,2502,2,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Interim Necropsy Week 6
+XXXXXX,3001,3,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3002,3,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,3501,3,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,3502,3,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4001,4,1,Urine,1008,NA,PK,36.9,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4002,4,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,4501,4,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,4502,4,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5001,5,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5002,5,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,5501,5,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,5502,5,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6001,6,1,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Male,Interim Necropsy Week 6
+XXXXXX,6501,6,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6505,6,2,Urine,1008,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,6602,6,2,Urine,1008,NA,PK,4,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Interim Necropsy Week 6
+XXXXXX,1003,1,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,1503,1,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,1604,1,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA + IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2003,2,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2004,2,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,2503,2,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,2504,2,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,0,VCA - IS,0,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3003,3,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3004,3,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,3503,3,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,3504,3,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,6,Low + IS,6e+13 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4003,4,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4004,4,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,4503,4,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,4504,4,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate + IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5003,5,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5004,5,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,5503,5,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,5504,5,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,20,Intermediate - IS,2.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6003,6,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6104,6,1,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Male,Terminal Necropsy Weeks 26/27
+XXXXXX,6503,6,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27
+XXXXXX,6504,6,2,Urine,4368,NA,PK,<LLOQ,10,URN,Urine,URN,50,High + IS,5.0e+14 vg/kg,Female,Terminal Necropsy Weeks 26/27

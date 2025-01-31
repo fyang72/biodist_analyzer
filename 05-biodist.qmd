@@ -15,7 +15,6 @@ addl.libpath = c("/opt/scp/services/azcore/biometrics/0.3.1/libraries/R/4.3.1" ,
 source("_common.R")
 load("./data/dat0_0118.RData")  # dat0, spec4matrix
 
-
 library("kableExtra")
 library("circlize")
 

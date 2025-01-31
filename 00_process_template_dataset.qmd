@@ -9,7 +9,7 @@
 #| include: true
 
 
-HOME = getwd() # "/home/kwqz358/01_alxn_projects/cpss-dsu-toxbiodist-analyzer/"
+HOME = "/home/kwqz358/01_alxn_projects/cpss-dsu-toxbiodist-analyzer/"
 source(paste0(HOME, "/_common.R"))
 
 data_dir <- here::here(HOME, "data")
@@ -430,15 +430,195 @@ dat0 <- dat0 %>%
 
 
 spec_location <- here(data_dir, "biodist-spec-2025-01-18.yml")
-spec <- ys_load(spec_location) %>% ys_namespace("plot")
+yml_spec <- ys_load(spec_location) %>% ys_namespace("plot")
 
 dat0 <- dat0 %>% 
-    yspec_add_factors(spec, GROUP, SEX, DOSE, ATPT ) #%>%  # Refactor table for plots 
+    yspec_add_factors(yml_spec, GROUP, DOSE, SEX, ATPT ) #%>%  # Refactor table for plots 
 
 
 
 
-save(dat0, spec4matrix, file="./data/dat0_0118.RData" )
+save(dat0, spec4matrix, yml_spec, file="./data/dat0_0118.RData" )
 
+
+```
+
+```{r}
+
+ 
+
+###################################################
+# STOP HERE
+###################################################
+
+
+
+
+
+
+
+
+
+
+
+matrix_lst <- t1$MATRIX %>% unique() %>% sort()   
+ids = which(!(matrix_lst %in% spec4matrix$MATRIX))
+matrix_lst[ids]
+
+
+sample_ID <- dat_RNA %>% filter(MATRIX == "NA") %>% pull(SAMPID) %>% unique()
+dat_RNA %>% filter(SAMPID %in% sample_ID)
+
+
+
+
+
+
+dat_VGC %>% 
+  mutate(
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -5)=="Right", stringr::str_sub(MATRIX, 1, -8), MATRIX), 
+    MATRIX = ifelse(stringr::str_sub(MATRIX, -4)=="Left", stringr::str_sub(MATRIX, 1, -7), MATRIX)  
+  )
+substr(a$data,1,nchar(a$data)-3)
+
+
+#################################################
+
+
+
+tdata = tdata0 %>% 
+  rename(ATPT = `Time Point`) %>% 
+  mutate(ATPT0 = ATPT) %>% 
+  mutate(CTL = str_extract(ATPT, "Brain-\\d+")) %>% 
+  
+  mutate(ATPT  = str_replace(ATPT, pattern = "Brain-\\d+", "") %>% 
+           str_replace(pattern = " R ", "")
+  )  %>% 
+  mutate(Side =  str_replace(ATPT0, pattern = "Brain-\\d+", "") %>% 
+           str_replace(pattern = "Wk", "") %>% 
+           str_replace(pattern = "\\d+", "")  %>% 
+     str_extract(" R ")  %>% 
+       stringr::str_trim() 
+  ) %>% 
+  mutate(Side = ifelse(is.na(Side), "", Side)) %>% 
+  
+  rename(MATRIX = `Biological Matrix`) %>% 
+  mutate(MATRIX0 = MATRIX) %>% 
+  tidyr::separate(MATRIX, into=c("TISSUE2", "MATRIX2"), sep= "-")  %>% 
+
+  
+  mutate(
+    MATRIX3 = paste0(ifelse(is.na(MATRIX2), '', MATRIX2), " ", 
+                     ifelse(stringr::str_trim(TISSUE2)=="Brain", '', TISSUE2)) %>% 
+      stringr::str_trim() 
+  ) %>% 
+  
+  mutate(
+    MATRIX3 = ifelse(MATRIX3 =="Frontal (Right) Cortex", "Frontal Cortex (Right)", MATRIX3)
+  )
+
+
+
+
+
+head(tdata) %>% as.data.frame()
+
+tdata$MATRIX3 %>% unique()
+tdata$MATRIX0 %>% unique()
+
+ids = (tdata$MATRIX3 %>% unique()) %in% (meta %>% filter(Domain=="CRL") %>% pull(Name1))
+
+(tdata$MATRIX3 %>% unique())[!ids]
+
+
+
+
+write_csv(tdata, spec4matrix, file="tdata.csv")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+str_replace(string = "17 nights$5 Days",
+            pattern = "(^\\d+).*",
+            replacement = "\\1")
+
+"Wk 26 R Brain-12"  %>% str_replace(pattern = "Brain-\\d+", "") %>% 
+  
+  str_replace(pattern = " R ", "")
+
+tdata = tdata0 %>% 
+  rename(ATPT = `Time Point`) %>% 
+  mutate(CTL = str_extract(ATPT, "Brain-\\d+")) %>% 
+  
+  mutate(ATPT  = str_replace(ATPT, pattern = "Brain-\\d+", "") %>% 
+           
+           str_replace(pattern = " R ", "")
+  )
+
+
+tdata$CTL %>% unique()
+
+tdata$ATPT %>% unique()
+
+
+
+
+  #for matrix
+##################################  
+
+
+##############################
+
+matrix_lst <- dat_VGC$MATRIX %>% unique()
+
+lib_lst <- setdiff(meta %>% filter(Domain=="CRL")  %>% pull(Name1), "Tissue Structure" ) %>% sort()
+
+
+  
+
+data_dir = paste0(HOME, "/data/derived/")
+ 
+library(readr)
+dat0_2340 <- readr::read_csv(paste0(data_dir, "/alxn2340_biodistribution_data.csv"))
+dat0_2340 %>% distinct(MATRIX, MATRIXCD, MATRIX_GROUP)
+
+ 
+  
+dat0_2350 <- readr::read_csv(paste0(data_dir, "/alxn2350_biodistribution_data.csv"))
+dat0_2350 %>% distinct(MATRIX, MATRIXCD, MATRIX_GROUP)
+
+tdata_PRN = read_xlsx(
+  paste0(getwd(), "/data/data_template_based_on_20424913 - 20502226 Biodistribution Tables (ID 5879653)_Review.xlsx"), 
+  sheet = "PGRN Brain", 
+  skip=4)
+
+tdata_pk = read_xlsx(
+  paste0(getwd(), "/data/data_template_based_on_20424913 - 20502226 Biodistribution Tables (ID 5879653)_Review.xlsx"), 
+  sheet = "Shedding", 
+  skip=3)
+
+tmp <- bind_rows(
+  dat0_2340 %>% distinct(MATRIX, MATRIXCD, MATRIX_GROUP) %>% arrange(MATRIX)  ,
+  dat0_2350 %>% distinct(MATRIX, MATRIXCD, MATRIX_GROUP) %>% arrange(MATRIX)
+)   
+  
+tmp99 = tdata_PRN %>% distinct(Tissue, `Biological Matrix`, CRL)%>% arrange(Tissue, `Biological Matrix`)
+write_csv(tmp99, file="tmp99.csv")
+
+write_csv(tmp, file="tmp.csv")
 
 ```

@@ -9,7 +9,65 @@ load("./data/dat0_0118.RData")  # dat0, spec4matrix
 
 # Viral Shedding {#sec-viral-shedding-analysis}
 
-The viral shedding data is visualized in @fig-viral-shedding.
+## Background
+
+Viral shedding refers to the release of virus particles from a host organism following administration. In the context of gene therapy, viral vectors are often used to deliver therapeutic genes to target cells. These vectors frequently include adeno-associated viruses (AAVs), lentiviruses, or retroviruses. While these vectors are designed to be safe and non-replicating, monitoring for viral shedding is essential for understanding their biodistribution and potential impact on non-target tissues or transmission to others.
+
+**Expected Results**
+
+1.  *Duration and Quantity*: Typically, viral shedding is expected to be transient, occurring shortly after administration and decreasing over time. The amount of shed virus is generally low, owing to the non-replicating nature of most viral vectors used in gene therapy.
+
+2.  *Route of Shedding*: Shedding can occur through various biological fluids, such as blood, saliva, urine, or feces, depending on the vector type and administration route.
+
+3.  *Biodistribution Patterns*: Minimal and transient presence in non-target tissues is anticipated due to the targeted nature of gene therapy vectors.
+
+**Interpreting Viral Shedding Data**
+
+-   *Safety Evaluation*: Low or undetectable levels of viral shedding indicate a favorable safety profile, reducing the risk of horizontal transmission or unintended effects on the environment.
+
+-   *Vector Effectiveness*: Effectiveness is typically not directly linked to shedding levels. However, if shedding levels are unusually high, it might suggest incorrect targeting or immune clearance issues.
+
+-   *Regulatory Compliance*: Monitoring and documentation of viral shedding are often required to fulfill regulatory guidelines and demonstrate the biosafety of gene therapy interventions.
+
+-   *Duration Monitoring*: Monitoring should continue until shedding is no longer detectable, which helps establish the timeline for environmental containment and potential transmission to close contacts.
+
+Viral shedding studies are crucial, not only for assessing the safety of the therapy for the individual patient but also for understanding potential environmental and public health impacts. If shedding is significant or prolonged, additional studies and measures may be necessary to mitigate risks.
+
+## Observations
+
+The viral shedding data is visualized in @fig-viral-shedding-facet-by-group-color-by-tissue. The data is faceted by treatment groups and colored by tissue type. The viral shedding data is also visualized in @fig-viral-shedding-facet-by-tissue-color-by-group, where the data is faceted by tissue type and colored by treatment groups. The viral shedding data in serum is visualized in @fig-viral-shedding-facet-by-tissue-color-by-group-serum, where the data is colored by treatment groups.
+
+The data shows that viral shedding is minimal and transient, with a rapid decrease in concentration over time. The shedding is primarily observed in the blood and liver tissues, consistent with the expected biodistribution of the viral vector. The levels of shedding are low, indicating a low risk of transmission to other tissues or individuals. The data also demonstrates that the viral vector remains mostly contained within the target tissues, with minimal shedding in non-target tissues. These findings support the safety and efficacy of the gene therapy intervention.
+
+<!-- ## Safety Profile -->
+
+<!-- - **Low Risk of Transmission**: If shedding is minimal and transient, it suggests a low risk of transmission to others or to unintended tissues within the body. -->
+
+<!-- - **Containment Assurance**: Limited shedding indicates that the viral vector remains mostly contained at the target site, minimizing environmental exposure and cross-contamination risks. -->
+
+<!-- ## Efficacy Confirmation -->
+
+<!-- - **Successful Targeting**: Expected shedding patterns confirm that the vector reaches and remains concentrated in the intended target tissues. -->
+
+<!-- - **Reduced Off-target Effects**: Minimal shedding in non-target tissues supports the vector's specificity and reduces potential off-target effects. -->
+
+<!-- ## Regulatory Compliance -->
+
+<!-- - **Fulfillment of Guidelines**: Documented shedding within acceptable limits demonstrates adherence to regulatory safety guidelines and can aid in gaining approval from regulatory bodies. -->
+
+<!-- - **Public Health Safety**: Data supports claims of minimal environmental and public health risk, ensuring safety beyond the direct recipient. -->
+
+<!-- ## Potential for Further Development -->
+
+<!-- - **Basis for Expanded Trials**: Positive shedding data might encourage further clinical trials or broader applications of the gene therapy. -->
+
+<!-- - **Adjustments for Improvement**: If unexpected shedding patterns are observed, it may lead to adjustments in vector design or administration protocols to enhance safety and efficacy. -->
+
+<!-- ## Need for Additional Monitoring -->
+
+<!-- - If atypical or prolonged shedding is observed, further investigation may be recommended to understand and mitigate any unforeseen safety concerns. -->
+
+<!-- These conclusions are integral to demonstrating both the safety and effectiveness of gene therapies, providing critical information for commercialization and broader clinical application. -->
 
 ```{r }
 #| label: fun-viral-shedding
@@ -45,7 +103,11 @@ The viral shedding data is visualized in @fig-viral-shedding.
  
  plot_viral_shedding_data <- function(data, 
                       PARAMCD_filter = "PK", 
-                      ATPT_f_filter = unique(data$ATPT_f),     
+                      ATPT_f_filter = unique(data$ATPT_f), 
+                      
+                      color_by = "TISSUE",
+                      facet_by = "GROUP_f",
+                      
                       y_scale_log10 = TRUE) {
   
   # The `df` variable is an internal working data frame used within each function.
@@ -59,22 +121,24 @@ The viral shedding data is visualized in @fig-viral-shedding.
     # Determine the range of the x-axis based on the filtered data
     x_limits <- range(df$ATPT, na.rm = TRUE)
 
-  p <- ggplot(data = df, aes(x = ATPT, y = AVAL)) +
+  p <- ggplot(data = df, aes_string(x = "ATPT", y = "AVAL", color= color_by)) +
     geom_line(aes(group = USUBJID), color = rgb(0.5, 0.5, 0.5), size = 1, alpha = 0.3) + 
     geom_point() + 
     ggprism::theme_prism() +
     labs(
       x = "Time Point (Hrs)", 
-      y = "Value"#, 
+      y = "Concentration (cp/µL)"#, 
       #title = paste("Plot for PARAMCD:", PARAMCD_filter)
     )    # Add labels and title
   
   if (y_scale_log10) {
-    p <- p + scale_y_log10()
+    p <- p + scale_y_log10()  # Set y-axis to log10 scale
   }
   
   p <- p + 
-    facet_wrap(~GROUP_f) + 
+    #facet_wrap(~GROUP_f) + 
+    facet_wrap(as.formula(paste("~", facet_by))) #  ncol=1, scales="free_y")
+  
     ggplot2::xlim(x_limits)  # Set x-axis limits based on the filtered data
   
   return(p)
@@ -88,13 +152,11 @@ The viral shedding data is visualized in @fig-viral-shedding.
 ```
 
 ```{r}
-#| label: fig-viral-shedding
+#| label: fig-viral-shedding-facet-by-group-color-by-tissue
 #| echo: false
 #| fig-cap: |
-#|   Kinetics of Viral Shedding Data in Study xxxx 
+#|   Kinetics of Viral Shedding Data Faceted by Treatment Groups and Colored by Tissue Type.
 #| fig-cap-location: top
-#| fig-alt: |
-#|   xxxxxd.  
 #| fig-width: 8
 #| fig-height: 15  
 
@@ -102,10 +164,57 @@ The viral shedding data is visualized in @fig-viral-shedding.
 #testthat::test_dir("tests/testthat")
 
 plot_viral_shedding_data(
-  dat0 %>% filter(!GROUP %in% c(1, 2)), 
+  dat0,  
   PARAMCD_filter = "PK"
-)  #+ theme_prism2()
+) + 
+  theme_prism2()  
+  
+  
+ 
+  
+  
 
  
+
+```
+
+```{r}
+#| label: fig-viral-shedding-facet-by-tissue-color-by-group
+#| echo: false
+#| fig-cap: |
+#|   Kinetics of Viral Shedding Data Faceted by Tissue Type and Colored by Treatment Groups.  
+#| fig-cap-location: top
+#| fig-width: 8
+#| fig-height: 15  
+
+
+plot_viral_shedding_data(
+  dat0, #   
+  PARAMCD_filter = "PK", 
+  color_by = "GROUP_f ",
+  facet_by = "TISSUE",
+) + 
+  theme_prism2() 
+
+```
+
+```{r}
+#| label: fig-viral-shedding-facet-by-tissue-color-by-group-serum
+#| echo: false
+#| fig-cap: |
+#|   Kinetics of Viral Shedding Data in Serum, Colored by Treatment Group.
+#| fig-cap-location: top
+#| fig-width: 8
+#| fig-height: 15  
+
+
+plot_viral_shedding_data(
+    dat0 %>% filter(TISSUE == "Serum"), #   
+    PARAMCD_filter = "PK", 
+    color_by = "GROUP_f ",
+    facet_by = "TISSUE",
+) + 
+    theme_prism2()  
+
 
 ```
