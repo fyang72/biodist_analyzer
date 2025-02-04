@@ -34,6 +34,8 @@ spec4matrix = read_xlsx(path = here::here(data_dir, inFile), sheet = "Matrix" ) 
   )
 colnames(spec4matrix) <- colnames(spec4matrix) %>% stringr::str_to_upper()    # stringr::str_to_title
 
+# load("./data/dat0_0118.RData")
+
 # Define global environment for storing data
 env = new.env()
  
