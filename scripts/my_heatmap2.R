@@ -58,11 +58,8 @@ prepare_dataset_for_heatmap <- function(
 ) { 
   # Prepare the data for heatmap
   #----------------------------------------
-  df <- data %>%
-    # dplyr::filter(
-    #   ATPT_f %in% ATPT_f_filter,         # Filter by ATPT_f
-    #   PARAMCD %in% PARAMCD_filter        # Filter by PARAMCD
-    # ) %>%
+  df <- data %>%  
+    dplyr::distinct(USUBJID, MATRIXCD, AVAL) %>% 
     dplyr::mutate(
       AVAL = log10(as.numeric(AVAL))     # Log-transform AVAL
     ) %>%
@@ -120,7 +117,7 @@ library(grDevices) # For colorRampPalette()
   
   # Prepare row annotations (for subjects)
   row_annotations <- data %>% 
-    dplyr::select(USUBJID, GROUP, SEX_f) %>%  
+    dplyr::select(USUBJID, GROUPN, SEX_f) %>%  
     dplyr::distinct() %>%
     dplyr::filter(USUBJID %in% rownames(df)) %>%
     dplyr::mutate(USUBJID0 = USUBJID) %>% 
@@ -128,16 +125,16 @@ library(grDevices) # For colorRampPalette()
     column_to_rownames("USUBJID0")
   
   row_anno <- rowAnnotation(
-      GROUP = row_annotations$GROUP,
+      GROUPN = row_annotations$GROUPN,
       SEX = row_annotations$SEX_f,
       col = list(
-        GROUP = structure(brewer.pal(n = length(unique(row_annotations$GROUP)), "Set3"), 
-                          names = unique(row_annotations$GROUP)),
+        GROUPN = structure(brewer.pal(n = length(unique(row_annotations$GROUPN)), "Set3"), 
+                          names = unique(row_annotations$GROUPN)),
         SEX = structure(c("blue", "pink"), names = c("Male", "Female"))  # unique(row_annotations$SEX_f) %>% levels()) # Example for Male/Female
       ), 
       annotation_name_gp = gpar(fontsize = base_font_size),  # Adjust annotation text size
       annotation_legend_param = list(
-      GROUP = list(
+      GROUPN = list(
         title_gp = gpar(fontsize = base_font_size),  # Adjust legend title text size
         labels_gp = gpar(fontsize = base_font_size)   # Adjust legend labels text size
       ), 
@@ -193,7 +190,7 @@ library(grDevices) # For colorRampPalette()
     
     top_annotation = col_anno,   # Add column annotations
     left_annotation = row_anno,  # Add row annotations 
-    row_split = row_annotations %>%  dplyr::select(GROUP),  # Split rows by GROUP
+    row_split = row_annotations %>%  dplyr::select(GROUPN),  # Split rows by GROUP
     column_split = column_annotations$TISSUECD, # Split columns by TISSUE
     #cluster_column_slices = FALSE,
     #column_order = colnames(df) #1:ncol(df)
@@ -307,7 +304,7 @@ my_heatmap_org <- function(df0, which_tissue, which_paramcd, which_timepoint,
   }
   
   meta <- df1 %>% distinct(SUBJECT) %>% 
-    left_join(df0 %>% distinct(SUBJECT, ARM, ARM_f, DOSE, GROUP, SEX_f, NAB), by="SUBJECT")
+    left_join(df0 %>% distinct(SUBJECT, ARM, ARM_f, DOSN, GROUPN, SEX_f, NAB), by="SUBJECT")
   
   rownames(df1) <- df1 %>% pull(SUBJECT)  # subj_lst
   df1 <- df1 %>% select(-SUBJECT)
