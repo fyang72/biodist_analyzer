@@ -1,3 +1,50 @@
+# This script creates a Shiny dashboard application for visualizing BioDistData.
+# It includes functionalities for loading data from an Excel file, filtering the data,
+# and generating interactive heatmaps for different types of analyses (Viral, VGC, RNA, Protein).
+
+# Libraries:
+# - here: For constructing file paths
+# - stringr: For string manipulation
+# - InteractiveComplexHeatmap: For interactive heatmaps
+# - ComplexHeatmap: For complex heatmaps
+# - circlize: For circular visualization
+# - DT: For data tables
+# - shiny: For building interactive web applications
+# - shinydashboard: For creating dashboards
+# - dplyr: For data manipulation
+# - tidyr: For tidying data
+# - readr: For reading data
+# - readxl: For reading Excel files
+# - ggplot2: For data visualization
+
+# The script performs the following tasks:
+# 1. Sets the working directory and loads common scripts.
+# 2. Defines a global environment for storing data.
+# 3. Defines utility functions for string manipulation and brush actions on heatmaps.
+# 4. Defines the UI components of the dashboard, including the header, sidebar, and body.
+# 5. Defines the server logic for loading data, processing input data, updating UI components,
+#    and generating plots based on user inputs.
+# 6. Runs the Shiny application.
+
+# Functions:
+# - extract_prefix: Extracts the substring before the underscore in a given string.
+# - brush_action: Handles brush actions on heatmaps and updates the output based on the selected heatmap.
+# - generate_plot: Generates a heatmap based on the input data and parameters.
+
+# UI Components:
+# - header: Defines the dashboard header with title and dropdown menus for messages, notifications, and tasks.
+# - sidebar: Defines the dashboard sidebar with menu items for loading data, filtering data, and facelifting options.
+# - body: Defines the dashboard body with tabs for different types of analyses (Data, Viral, VGC, RNA, Protein).
+
+# Server Components:
+# - data_list: Reactive expression to load data from the Excel file.
+# - input_data: Reactive expression to process the loaded data.
+# - observe: Observers to update UI components based on the loaded data.
+# - generate_plot: Function to generate heatmaps based on the input data and parameters.
+# - messageMenu: Renders the message menu with error messages.
+
+# The application is run using shinyApp(ui, server).
+
 # Load necessary libraries
 library(here)
 library(stringr)
@@ -43,7 +90,7 @@ extract_prefix <- function(string) {
 brush_action <- function(df, input, output, session, heatmap_id, env) {
   row_index <- unique(unlist(df$row_index))
   col_index <- unique(unlist(df$column_index))
-  
+
   if (heatmap_id == "ht_viral") {
     row_selected <- env$viral$row_index[row_index]
     col_selected <- env$viral$col_index[col_index]
@@ -51,7 +98,7 @@ brush_action <- function(df, input, output, session, heatmap_id, env) {
       as.data.frame() %>%
       slice(row_selected) %>%
       select(all_of(col_selected))
-    output <- outputs_after_brush_action_viral(res, input, output, session, env)    
+    output <- outputs_after_brush_action_viral(res, input, output, session, env)
   } else if (heatmap_id == "ht_vgc") {
     row_selected <- env$vgc$row_index[row_index]
     col_selected <- env$vgc$col_index[col_index]
@@ -59,7 +106,7 @@ brush_action <- function(df, input, output, session, heatmap_id, env) {
       as.data.frame() %>%
       slice(row_selected) %>%
       select(all_of(col_selected))
-    output <- outputs_after_brush_action_vgc(res, input, output, session, env)    
+    output <- outputs_after_brush_action_vgc(res, input, output, session, env)
   } else if (heatmap_id == "ht_rna") {
     row_selected <- env$rna$row_index[row_index]
     col_selected <- env$rna$col_index[col_index]
@@ -77,34 +124,41 @@ brush_action <- function(df, input, output, session, heatmap_id, env) {
 header <- dashboardHeader(
   title = span("Visualization of BioDistData", style = "font-size: 16px;"),
   dropdownMenuOutput("messageMenu"),
-  dropdownMenu(type = "notifications", badgeStatus = "warning",
-               notificationItem(text = "5 new users joined today", icon = icon("users")),
-               notificationItem(text = "Server load at 90%", icon = icon("exclamation-triangle"))
+  dropdownMenu(
+    type = "notifications", badgeStatus = "warning",
+    notificationItem(text = "5 new users joined today", icon = icon("users")),
+    notificationItem(text = "Server load at 90%", icon = icon("exclamation-triangle"))
   ),
-  dropdownMenu(type = "tasks", badgeStatus = "danger",
-               taskItem(value = 80, color = "aqua", "Data analysis"),
-               taskItem(value = 50, color = "green", "Report generation")
+  dropdownMenu(
+    type = "tasks", badgeStatus = "danger",
+    taskItem(value = 80, color = "aqua", "Data analysis"),
+    taskItem(value = 50, color = "green", "Report generation")
   )
 )
 
 sidebar <- dashboardSidebar(
   sidebarMenu(
-    menuItem("Loading", icon = icon("upload"),
-             fileInput("file1", "Choose Excel File", accept = ".xlsx")),
-    menuItem("Filtering", icon = icon("filter"),
-             selectInput("trt_group", label = "Group:", choices = NULL, multiple = TRUE),
-             selectInput("paramcd_f", label = "Analyte:", choices = NULL, multiple = FALSE),
-             selectInput("tissue_group", label = "Tissue:", choices = NULL, multiple = TRUE),
-             selectInput("biological_matrix", label = "Biological Matrix:", choices = NULL, multiple = TRUE),
-             selectInput("atpt_f", label = "Timepoint:", choices = NULL, multiple = TRUE),
-             menuItem("More", icon = icon("filter"),
-                      checkboxGroupInput("sex_f", label = "Sex:", choices = c("M", "F"), inline = TRUE, width = "100%", selected = c("M", "F")),
-                      sliderInput("aval_range", "ValueRange:", min = 0, max = 100, value = c(0, 100))
-             )
+    menuItem("Loading",
+      icon = icon("upload"),
+      fileInput("file1", "Choose Excel File", accept = ".xlsx")
     ),
-    menuItem("Facelifting", icon = icon("paint-brush"),
-             radioButtons("log10", label = "Log10:", choices = c("Yes" = "Y", "No" = "N"), inline = TRUE, width = "100%", selected = c("Y")),
-             radioButtons("add_aval_txt", "Add cell label:", c("Yes" = TRUE, "No" = FALSE), selected = FALSE, inline = TRUE)
+    menuItem("Filtering",
+      icon = icon("filter"),
+      selectInput("trt_group", label = "Group:", choices = NULL, multiple = TRUE),
+      selectInput("paramcd_f", label = "Analyte:", choices = NULL, multiple = FALSE),
+      selectInput("tissue_group", label = "Tissue:", choices = NULL, multiple = TRUE),
+      selectInput("biological_matrix", label = "Biological Matrix:", choices = NULL, multiple = TRUE),
+      selectInput("atpt_f", label = "Timepoint:", choices = NULL, multiple = TRUE),
+      menuItem("More",
+        icon = icon("filter"),
+        checkboxGroupInput("sex_f", label = "Sex:", choices = c("M", "F"), inline = TRUE, width = "100%", selected = c("M", "F")),
+        sliderInput("aval_range", "ValueRange:", min = 0, max = 100, value = c(0, 100))
+      )
+    ),
+    menuItem("Facelifting",
+      icon = icon("paint-brush"),
+      radioButtons("log10", label = "Log10:", choices = c("Yes" = "Y", "No" = "N"), inline = TRUE, width = "100%", selected = c("Y")),
+      radioButtons("add_aval_txt", "Add cell label:", c("Yes" = TRUE, "No" = FALSE), selected = FALSE, inline = TRUE)
     ),
     actionButton("generate_plot", label = "Generate plots", style = "float:left;color: #fff; background-color: #328332; border-color: #328332")
   )
@@ -112,13 +166,13 @@ sidebar <- dashboardSidebar(
 
 body <- dashboardBody(
   navbarPage(
-    id = "bio_dist_data_analysis", 
-    title = "", 
-    theme = "bootstrap.css",   
+    id = "bio_dist_data_analysis",
+    title = "",
+    theme = "bootstrap.css",
     tabPanel(title = "Data", id = "panel_data", uiOutput("ui_data_table")),
-    tabPanel(title = "Viral", id = "panel_viral", ui_viral_analysis()), 
-    tabPanel(title = "VGC", id = "panel_VGC", ui_vgc_analysis()),  
-    tabPanel(title = "RNA", id = "panel_RNA", ui_rna_analysis()), 
+    tabPanel(title = "Viral", id = "panel_viral", ui_viral_analysis()),
+    tabPanel(title = "VGC", id = "panel_VGC", ui_vgc_analysis()),
+    tabPanel(title = "RNA", id = "panel_RNA", ui_rna_analysis()),
     tabPanel(title = "Protein", id = "panel_protein", uiOutput("ui_protein_analysis"))
   )
 )
@@ -128,71 +182,79 @@ ui <- dashboardPage(header, sidebar, body)
 
 # Define server components
 server <- function(input, output, session) {
-  
   # Reactive expression to load data from excel file
   data_list <- reactive({
     data_list <- loading_from_excel(input$file1)
     env$data_list <- data_list
     data_list
   })
-  
+
   # Reactive expression to process the loaded data
   input_data <- reactive({
     req(input$file1)
     req(input$log10)
-    
+
     df <- data_list() %>%
-      pre_process_input_data() %>% 
+      pre_process_input_data() %>%
       mutate(AVAL = suppressWarnings(as.numeric(AVAL))) %>%
       filter(!is.na(AVAL)) %>%
-      mutate(USUBJID = paste0("P", USUBJID))  # in case of integer of ID
-     
+      mutate(USUBJID = paste0("P", USUBJID)) # in case of integer of ID
+
     if (input$log10 == "Y") {
       df <- df %>% mutate(AVAL = ifelse(AVAL <= 0, 0, log10(AVAL)))
     }
-    
+
     df
   })
- 
+
   # Render UI components
   output$ui_data_table <- renderUI({
     ui_data_table(input_data())
   })
-  
-  output$ui_viral_shedding <- renderUI({})
-  
   output$ui_protein_analysis <- renderUI({})
- 
+
   # Update UI components based on the loaded data
   observe({
     data <- input_data()
- 
     updateSelectInput(session, "trt_group", choices = unique(data$GROUP_f), selected = unique(data$GROUP_f) %>% sort())
     updateSelectInput(session, "paramcd_f", choices = unique(data$PARAMCD_f), selected = unique(data$PARAMCD_f)[1])
-    updateSliderInput(session, "aval_range", 
-                      min = min(data$AVAL, na.rm = TRUE) %>% base::signif(2),
-                      max = max(data$AVAL, na.rm = TRUE) %>% base::signif(2),
-                      value = range(data$AVAL, na.rm = TRUE) %>% base::signif(2))
+    updateSliderInput(session, "aval_range",
+      min = min(data$AVAL, na.rm = TRUE) %>% base::signif(2),
+      max = max(data$AVAL, na.rm = TRUE) %>% base::signif(2),
+      value = range(data$AVAL, na.rm = TRUE) %>% base::signif(2)
+    )
   })
-  
+
   observe({
-    data <- input_data()  
+    data <- input_data()
     shiny::req(input$paramcd_f, input$trt_group)
-    atpt_f_choices <- data %>% filter(PARAMCD_f %in% input$paramcd_f, GROUP_f %in% input$trt_group) %>% pull(ATPT_f) %>% unique() %>% sort()
+    atpt_f_choices <- data %>%
+      filter(PARAMCD_f %in% input$paramcd_f, GROUP_f %in% input$trt_group) %>%
+      pull(ATPT_f) %>%
+      unique() %>%
+      sort()
     updateSelectInput(session, "atpt_f", choices = atpt_f_choices, selected = atpt_f_choices)
   })
-  
+
   observe({
-    data <- input_data()  
+    data <- input_data()
     shiny::req(input$paramcd_f, input$trt_group)
-    tissue_choices <- data %>% filter(PARAMCD_f %in% input$paramcd_f, GROUP_f %in% input$trt_group) %>% pull(TISSUECD) %>% unique() %>% sort()
+    tissue_choices <- data %>%
+      filter(PARAMCD_f %in% input$paramcd_f, GROUP_f %in% input$trt_group) %>%
+      pull(TISSUECD) %>%
+      unique() %>%
+      sort()
     updateSelectInput(session, "tissue_group", choices = tissue_choices, selected = tissue_choices)
   })
-  
+
   observe({
-    data <- input_data()  
+    data <- input_data()
     shiny::req(input$paramcd_f, input$trt_group)
-    matrix_choices <- data %>% filter(PARAMCD_f %in% input$paramcd_f, GROUP_f %in% input$trt_group, TISSUECD %in% input$tissue_group) %>% pull(MATRIXCD) %>% unique() %>% sort()
+    matrix_choices <- data %>%
+      filter(PARAMCD_f %in% input$paramcd_f, GROUP_f %in% input$trt_group, TISSUECD %in% input$tissue_group) %>%
+      pull(MATRIXCD) %>%
+      unique() %>%
+      sort()
     updateSelectInput(session, "biological_matrix", choices = matrix_choices, selected = matrix_choices)
   })
 
@@ -206,39 +268,21 @@ server <- function(input, output, session) {
         SEX_f %in% input$sex_f,
         AVAL >= input$aval_range[1] & AVAL <= input$aval_range[2]
       )
-    
-    if (nrow(df_filtered) == 0) print("no data after filtering")  
-    if (nrow(df_filtered) == 0) return(NULL)
 
-    na_threshold = 0.5
+    if (nrow(df_filtered) == 0) {return(NULL)}
+
+    na_threshold <- 0.5  # default
     if (param_prefix %in% "viral") {
-      #df_filtered = data
-      #df_filtered = data
-      na_threshold = 0
-      tmp = df_filtered %>% distinct(MATRIXCD, ATPT_f)  %>% 
-      arrange(MATRIXCD, ATPT_f)  %>%
-      mutate(MATRIXCD = paste0(MATRIXCD, "-", ATPT_f))
+      na_threshold <- 0
 
-      df_filtered <- df_filtered %>% 
-        mutate(MATRIXCD = paste0(MATRIXCD, "-", ATPT_f))  %>% 
-        mutate(MATRIXCD = ordered(MATRIXCD, levels=tmp$MATRIXCD)) 
+      tmp <- df_filtered %>%
+        distinct(MATRIXCD, ATPT_f) %>%
+        arrange(MATRIXCD, ATPT_f) %>%
+        mutate(MATRIXCD = paste0(MATRIXCD, "-", ATPT_f))
 
-#     df_pivoted <- df_filtered %>%  
-#     dplyr::distinct(USUBJID, MATRIXCD, AVAL) %>% 
-#     pivot_wider(
-#       id_cols = c("USUBJID"),
-#       names_from = c("MATRIXCD"),
-#       names_sep = "-",  
-#       values_from = "AVAL"
-#     )
-
-#     df_pivoted = df_pivoted %>% select(USUBJID, all_of(levels(df_filtered$MATRIXCD)))
-
-#  colnames(df_pivoted)
-
-      # print("LINE 217")
-      # print( df_filtered %>% pull(ATPT_f) %>% unique())
-      # print(input$atpt_f)
+      df_filtered <- df_filtered %>%
+        mutate(MATRIXCD = paste0(MATRIXCD, "-", ATPT_f)) %>%
+        mutate(MATRIXCD = ordered(MATRIXCD, levels = tmp$MATRIXCD))
     }
 
     df_filtered_pivoted <- prepare_dataset_for_heatmap(df_filtered, scale_data = FALSE, na_threshold = na_threshold)
@@ -251,32 +295,37 @@ server <- function(input, output, session) {
     ht <- create_heatmap2(df_filtered_pivoted, df_filtered, col_scheme = NULL, cluster_rows = FALSE, cluster_columns = FALSE, base_font_size = 8, add_aval_txt = input$add_aval_txt)
 
     if (!is.null(ht)) {
-      makeInteractiveComplexHeatmap(input, output, session, ht_list = ht, heatmap_id = heatmap_id, 
-                                    brush_action = function(df, input, output, session) {
-                                      brush_action(df, input, output, session, heatmap_id = heatmap_id, env)
-                                    })
+      makeInteractiveComplexHeatmap(input, output, session,
+        ht_list = ht, heatmap_id = heatmap_id,
+        brush_action = function(df, input, output, session) {
+          brush_action(df, input, output, session, heatmap_id = heatmap_id, env)
+        }
+      )
     } else {
-      output[[ht_heatmap]]- renderPlot({
+      output[[ht_heatmap]] - renderPlot({
         grid.newpage()
         grid.text("No row exists after filtering.")
       })
     }
   }
 
-  observeEvent(input$generate_plot, {
-    req(input$file1)
+  observeEvent(input$generate_plot,
+    {
+      req(input$file1)
 
-    param_prefix <- tolower(extract_prefix(input$paramcd_f))
-    if (param_prefix == "viral") {
-      generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
-    } else if (param_prefix == "vgc") {
-      generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
-    } else if (param_prefix == "rna") {
-      generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
-    } else {
-      warning("Unknown parameter prefix")
-    }
-  }, ignoreNULL = FALSE)
+      param_prefix <- tolower(extract_prefix(input$paramcd_f))
+      if (param_prefix == "viral") {
+        generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
+      } else if (param_prefix == "vgc") {
+        generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
+      } else if (param_prefix == "rna") {
+        generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
+      } else {
+        warning("Unknown parameter prefix")
+      }
+    },
+    ignoreNULL = FALSE
+  )
 
   # Render message menu
   output$messageMenu <- renderMenu({
