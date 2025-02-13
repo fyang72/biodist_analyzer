@@ -47,61 +47,15 @@
   #' @import grDevices
   #' @export
    
-
-
-
 # Define the custom heatmap function
-prepare_dataset_for_heatmap <- function(
-  data,  
-  scale_data = FALSE, 
-  na_threshold = 0.5 
-) { 
-  # Prepare the data for heatmap
-  #----------------------------------------
-  df <- data %>%  
-    dplyr::distinct(USUBJID, MATRIXCD, AVAL) %>% 
-    # dplyr::mutate(
-    #   AVAL = log10(as.numeric(AVAL))     # Log-transform AVAL
-    # ) %>%
-    pivot_wider(
-      id_cols = c("USUBJID"),
-      names_from = c("MATRIXCD"),
-      names_sep = "-",  
-      values_from = "AVAL"
-    ) %>%
-    tidyr::unite(ID, USUBJID:USUBJID)  # Create rownames for heatmap
- 
-  if (na_threshold>0) {
-    # Remove rows with too many NAs (e.g., >50% missing)
-    df <- df[rowMeans(is.na(df)) <= na_threshold, ]
-    
-    # Remove columns with too many NAs (e.g., >50% missing)
-    df <- df[, colMeans(is.na(df)) <= na_threshold]
-  }
-  
-  # Extract rownames and convert to matrix
-  rownames_df <- df$ID
-  colnames_df <- setdiff(colnames(df), "ID")
-  # 
-  df <- df %>% select(-ID) %>% as.matrix()
-  rownames(df) <- rownames_df
-  
-  # Optionally scale the data
-  if (scale_data) {
-    df <- t(scale(t(df)))
-  }
-
-  return(df)
-}
-
-
-# Define the custom heatmap function
-create_heatmap2 <- function(df, data,
-                           col_scheme = colorRamp2(c(0, 5, 10), c("blue", "white", "red")),                           
+create_heatmap <- function(data, 
+                           #ATPT_f_filter = "Terminal Necropsy Weeks 26/27", 
+                           #PARAMCD_filter = "VGC_MTH1", 
+                           scale_data = FALSE, 
+                           col_scheme = colorRamp2(c(0, 5, 10), c("blue", "white", "red")),
+                           na_threshold = 0.5, 
                            cluster_rows = FALSE, 
-                           cluster_columns = FALSE, 
-                           base_font_size = 6, 
-                           add_aval_txt = FALSE
+                           cluster_columns = FALSE
     ) {
   
 
@@ -112,14 +66,53 @@ library(RColorBrewer)
 library(grDevices) # For colorRampPalette()
 
   # The `df` variable is an internal working data frame used within each function.
- 
+
+  # Prepare the data for heatmap
+  #----------------------------------------
+  df <- data %>%
+    # dplyr::filter(
+    #   ATPT_f %in% ATPT_f_filter,         # Filter by ATPT_f
+    #   PARAMCD %in% PARAMCD_filter        # Filter by PARAMCD
+    # ) %>%
+    dplyr::mutate(
+      AVAL = log10(as.numeric(AVAL))     # Log-transform AVAL
+    ) %>%
+    pivot_wider(
+      id_cols = c("USUBJID"),
+      names_from = c("MATRIXCD"),
+      names_sep = "-",  
+      values_from = "AVAL"
+    ) %>%
+    tidyr::unite(ID, USUBJID:USUBJID)  # Create rownames for heatmap
+   
+  # Remove rows with too many NAs (e.g., >50% missing)
+  df <- df[rowMeans(is.na(df)) <= na_threshold, ]
+  
+  # Remove columns with too many NAs (e.g., >50% missing)
+  df <- df[, colMeans(is.na(df)) <= na_threshold]
+     
+  # Extract rownames and convert to matrix
+  rownames_df <- df$ID
+  colnames_df <- setdiff(colnames(df), "ID")
+  # 
+  # if(!is.null(data$MATRIXCD %>% levels())) {
+  #   df = df[, c("ID", intersect(data$MATRIXCD %>% levels(), colnames_df))]
+  # }
+  
+  df <- df %>% select(-ID) %>% as.matrix()
+  rownames(df) <- rownames_df
+  
+  # Optionally scale the data
+  if (scale_data) {
+    df <- t(scale(t(df)))
+  }
   
   # Prepare the annotations
   #----------------------------------------
   
   # Prepare row annotations (for subjects)
   row_annotations <- data %>% 
-    dplyr::select(USUBJID, GROUPN, SEX_f) %>%  
+    dplyr::select(USUBJID, GROUP, SEX_f) %>%  
     dplyr::distinct() %>%
     dplyr::filter(USUBJID %in% rownames(df)) %>%
     dplyr::mutate(USUBJID0 = USUBJID) %>% 
@@ -127,23 +120,22 @@ library(grDevices) # For colorRampPalette()
     column_to_rownames("USUBJID0")
   
   row_anno <- rowAnnotation(
-      GROUPN = row_annotations$GROUPN,
+      GROUP = row_annotations$GROUP,
       SEX = row_annotations$SEX_f,
       col = list(
-        GROUPN = structure(
-          colorRampPalette(brewer.pal(9, "Set1"))(length(unique(row_annotations$GROUPN))), #brewer.pal(n = length(unique(row_annotations$GROUPN)), "Set3"), 
-                          names = unique(row_annotations$GROUPN)),
-        SEX = structure(c("blue", "pink"), names = c("M", "F"))  # unique(row_annotations$SEX_f) %>% levels()) # Example for Male/Female
+        GROUP = structure(brewer.pal(n = length(unique(row_annotations$GROUP)), "Set3"), 
+                          names = unique(row_annotations$GROUP)),
+        SEX = structure(c("blue", "pink"), names = c("Male", "Female"))  # unique(row_annotations$SEX_f) %>% levels()) # Example for Male/Female
       ), 
-      annotation_name_gp = gpar(fontsize = base_font_size),  # Adjust annotation text size
+      annotation_name_gp = gpar(fontsize = 5),  # Adjust annotation text size
       annotation_legend_param = list(
-      GROUPN = list(
-        title_gp = gpar(fontsize = base_font_size),  # Adjust legend title text size
-        labels_gp = gpar(fontsize = base_font_size)   # Adjust legend labels text size
+      GROUP = list(
+        title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+        labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
       ), 
       SEX = list(
-        title_gp = gpar(fontsize = base_font_size),  # Adjust legend title text size
-        labels_gp = gpar(fontsize = base_font_size)   # Adjust legend labels text size
+        title_gp = gpar(fontsize = 5),  # Adjust legend title text size
+        labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
       )
       
   )
@@ -172,11 +164,11 @@ library(grDevices) # For colorRampPalette()
     col = list(
       TISSUE = tissue_colors  # Map TISSUECD to colors
     ), 
-    annotation_name_gp = gpar(fontsize = base_font_size),  # Adjust annotation text size
+    annotation_name_gp = gpar(fontsize = 5),  # Adjust annotation text size
     annotation_legend_param = list(
     TISSUE = list(
       title_gp = gpar(fontsize = 5),  # Adjust legend title text size
-      labels_gp = gpar(fontsize = base_font_size)   # Adjust legend labels text size
+      labels_gp = gpar(fontsize = 4)   # Adjust legend labels text size
     )
   )
   ) 
@@ -193,33 +185,26 @@ library(grDevices) # For colorRampPalette()
     
     top_annotation = col_anno,   # Add column annotations
     left_annotation = row_anno,  # Add row annotations 
-    row_split = row_annotations %>%  dplyr::select(GROUPN),  # Split rows by GROUP
+    row_split = row_annotations %>%  dplyr::select(GROUP),  # Split rows by GROUP
     column_split = column_annotations$TISSUECD, # Split columns by TISSUE
     #cluster_column_slices = FALSE,
     #column_order = colnames(df) #1:ncol(df)
    
-    #width = unit(15, "cm"),  # Adjust width
-    #height = unit(9, "cm"),  # Adjust height
-    row_names_gp = gpar(fontsize = base_font_size),  # Adjust row names text size
-    column_names_gp = gpar(fontsize = base_font_size),  # Adjust column names text size
+    width = unit(15, "cm"),  # Adjust width
+    height = unit(9, "cm"),  # Adjust height
+    row_names_gp = gpar(fontsize = 5),  # Adjust row names text size
+    column_names_gp = gpar(fontsize = 5),  # Adjust column names text size
 
-    row_title_gp = gpar(fontsize = base_font_size),  # Adjust row split label text size
-    column_title_gp = gpar(fontsize = base_font_size),  # Adjust column split label text size
+    row_title_gp = gpar(fontsize = 4),  # Adjust row split label text size
+    column_title_gp = gpar(fontsize = 4),  # Adjust column split label text size
     heatmap_legend_param = list(
       title = "Value",
-      title_gp = gpar(fontsize = base_font_size),
-      labels_gp = gpar(fontsize = base_font_size)
+      title_gp = gpar(fontsize = 6),
+      labels_gp = gpar(fontsize = 4)
     ), 
 
    row_gap = unit(.25, "mm"),  # Adjust the size of splitting lines
-   column_gap = unit(0.25, "mm"), 
-
-
-  cell_fun = function(j, i, x, y, width, height, fill) {
-    if (add_aval_txt) {
-    grid.text(df[i, j] %>% base::signif(digits=2), x, y, gp = gpar(fontsize = base_font_size-2))
-    }
-  }
+   column_gap = unit(0.25, "mm")
   )
   
   # Draw the heatmap
@@ -307,7 +292,7 @@ my_heatmap_org <- function(df0, which_tissue, which_paramcd, which_timepoint,
   }
   
   meta <- df1 %>% distinct(SUBJECT) %>% 
-    left_join(df0 %>% distinct(SUBJECT, ARM, ARM_f, DOSN, GROUPN, SEX_f, NAB), by="SUBJECT")
+    left_join(df0 %>% distinct(SUBJECT, ARM, ARM_f, DOSE, GROUP, SEX_f, NAB), by="SUBJECT")
   
   rownames(df1) <- df1 %>% pull(SUBJECT)  # subj_lst
   df1 <- df1 %>% select(-SUBJECT)

@@ -1,6 +1,5 @@
 
 HOME = getwd()
- 
 
 library(utils)
 #library(azcore)
@@ -32,6 +31,7 @@ library(table1)
 library(survminer)
 
 
+# library(flextable)
 
 
 set.seed(1014)
@@ -315,12 +315,11 @@ status = "DRAFT"  #flag for labeling figures as draft
 
 source("./scripts/utils.R")
 source("./scripts/my_barplot.R")
-source("./scripts/my_heatmap2.R")
-source("./scripts/pre_process_input_data.R")
-source("./scripts/ui_data_table.R")
- 
+source("./scripts/my_heatmap.R")
+source("./scripts/my_heatmap2.R")  ################
+source("./scripts/pre_process_input_data.R")  ################
 source("./scripts/my_plot_conc_profile.R")
-
+ 
 actionButton_style ="float:left;color: #fff; background-color: #328332; border-color: #328332"
 
 # ggplot settings, xgx_theme_set()

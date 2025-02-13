@@ -5,7 +5,7 @@ if (1==2) {
   data_dir <- here::here(HOME, "data")
   
   excel_file <- "data_template_0208.xlsx"
-  
+  #excel_file <- "CRL31967411 _ 2025Feb10v2 _ data_ template_FY.xlsx"
   
   # Get the names of all sheets in the Excel file
   sheet_names <- excel_sheets(path = here::here(data_dir, excel_file))
@@ -23,29 +23,62 @@ if (1==2) {
   
   
   dat0 = pre_process_input_data(data_list)
-  save(dat0, spec4matrix,file="./data/dat0_0208.RData" )
+  #save(dat0, spec4matrix,file="./data/dat0_0208.RData" )
   
+  
+  data = dat0 %>% filter(PARAMCD_f %in% "VGC_MTH2")
+  df = prepare_dataset_for_heatmap(
+    data,  
+    scale_data = FALSE, 
+    na_threshold = 0.5 
+  )
+  
+  # Define the custom heatmap function
+  create_heatmap2(df, data,
+                              col_scheme = NULL, #colorRamp2(c(0, 5, 10), c("blue", "white", "red")),                           
+                              cluster_rows = FALSE, 
+                              cluster_columns = FALSE, 
+                              base_font_size = 6, 
+                              add_aval_txt = FALSE
+  )
+    
+    
 }
 
 
-#
+
+  
+# load all sheets from excel (See example dataset) 
+loading_from_excel <- function(file) {
+  ext <- tools::file_ext(file$datapath)
+  
+  excel_file <- file$datapath
+  if(is.null(excel_file)) {
+    return(NULL)
+  }
+  
+  # Get the names of all sheets in the Excel file
+  sheet_names <- excel_sheets(path = file$datapath)
+  
+  # Read all sheets into a list of data frames
+  data_list <- lapply(sheet_names, function(sheet) {
+    read_excel(path = file$datapath,
+               col_names = FALSE,
+               skip = 4,  # the top 4 lines will be always skipped
+               sheet = sheet)  
+  })
+  
+  # Optionally, name the list elements with the sheet names for easy reference
+  names(data_list) <- sheet_names
+  data_list
+}
+
+
+
 pre_process_input_data <- function(data_list) {
-  
+   
  
-
-#---------------------------------------------------
-# load all sheets from excel (See example dataset)
-#---------------------------------------------------
-
-# 
-# # Specify the path to your Excel file
-# #excel_file <- "data_template_based_on_20424913 - 20502226 Biodistribution Tables (ID 5879653)_Review_2025-02-06.xlsx"
-
-  
-
-#-----------------------------
 # spec4matrix
-#-----------------------------
 #spec4matrix = read_xlsx(path = here::here(data_dir, input_file), sheet = "Matrix" )
 spec4matrix = data_list$`Biological Matrix` %>% 
   janitor::row_to_names(row_number = 1) %>%   suppressWarnings() %>%
@@ -60,9 +93,8 @@ spec4matrix = data_list$`Biological Matrix` %>%
 # spec4matrix[duplicated(spec4matrix$MATRIX), ]
 # spec4matrix[duplicated(spec4matrix$MATRIXCD), ]
 
-#-----------------------------
+
 # Study Design
-#-----------------------------
 meta = NULL
 meta$STUDY = parse_meta(data_list$`Study Design`, key="STUDY")
 meta$GROUP = parse_meta(data_list$`Study Design`, key="GROUP")
@@ -70,24 +102,29 @@ meta$ATPT = parse_meta(data_list$`Study Design`, key="TIMEPOINT")
 meta$PARAMCD = parse_meta(data_list$`Study Design`, key="PARAMCD")
 meta$SEX = parse_meta(data_list$`Study Design`, key="SEX")
 
+
+
+# assembly all
 selected_vars = 
   c("STUDYID", "USUBJID", "GROUPN", "GROUP_f", "SEXN", "SEX_f", "DOSN", "DOSU", 
     "MATRIX", "ATPTN", "ATPT_f", "PARAMCD_f", "PARAM_f", "AVAL", "LLOQ")
 
 dat0 <- NULL
 sheet_name_lst <-  names(data_list)[which(str_detect(names(data_list), "Viral|VGC|RNA|Protein"))]
-for (isheet in sheet_name_lst) {                  
+for (isheet in sheet_name_lst) {  
+  #print(isheet)
   dat0 <- dat0 %>% 
-    bind_rows(process_input_data(data_list, sheet_names=isheet) %>% add_meta_info(meta, selected_vars))
+    bind_rows(assembly_input_data(data_list, sheet_names=isheet) %>% add_meta_info(meta, selected_vars))
 }
 
 dat0   %>% 
-  left_join(spec4matrix %>% select(MATRIX, MATRIXCD, TISSUE, TISSUECD), by=c("MATRIX"))  
+ left_join(spec4matrix %>% select(MATRIX, MATRIXCD, TISSUE, TISSUECD), by=c("MATRIX"))  
 
 }
-#-----------------------------
+
+
+
 # meta from "Study Design"
-#-----------------------------
 # Define function to parse meta information
 parse_meta <- function(meta, key="STUDY") {
   
@@ -158,20 +195,17 @@ parse_meta <- function(meta, key="STUDY") {
   df
 }
 
-#-----------------------------
-# process_input_data  
-#-----------------------------
 
-process_input_data <- function(data_list, sheet_names="Protein (Brain)") {
+# assembly_input_data  
+assembly_input_data <- function(data_list, sheet_names="Protein (Brain)") {
   
   df = data_list[[sheet_names]]
-  
-  sheet_names = toupper(sheet_names)
+    
   key_word <- case_when(
-    str_detect(sheet_names, "VIRAL") ~ "VIRAL", 
-    str_detect(sheet_names, "VGC") ~ "VGC", 
-    str_detect(sheet_names, "RNA") ~ "RNA", 
-    str_detect(sheet_names, "PROTEIN") ~ "PROTEIN", 
+    str_detect(toupper(sheet_names), "VIRAL") ~ "VIRAL", 
+    str_detect(toupper(sheet_names), "VGC") ~ "VGC", 
+    str_detect(toupper(sheet_names), "RNA") ~ "RNA", 
+    str_detect(toupper(sheet_names), "PROTEIN") ~ "PROTEIN", 
     TRUE ~ NA
   )
   
@@ -207,9 +241,8 @@ process_input_data <- function(data_list, sheet_names="Protein (Brain)") {
   
 }
 
-#-----------------------------
+
 # add_meta_info
-#-----------------------------
 add_meta_info <-  function(
     df, 
     meta, 
@@ -239,3 +272,11 @@ add_meta_info <-  function(
   
   df
 }
+
+
+
+
+
+
+
+
