@@ -73,6 +73,7 @@ source("./scripts/01_data_table.R")
 source("./scripts/02_viral_analysis.R")
 source("./scripts/03_vgc_analysis.R")
 source("./scripts/04_rna_analysis.R")
+source("./scripts/05_protein_analysis.R")
 
 # Define global environment (env) for storing data
 env <- new.env()
@@ -115,6 +116,14 @@ brush_action <- function(df, input, output, session, heatmap_id, env) {
       slice(row_selected) %>%
       select(all_of(col_selected))
     output <- outputs_after_brush_action_rna(res, input, output, session, env)
+  } else if (heatmap_id == "ht_protein") {
+    row_selected <- env$protein$row_index[row_index]
+    col_selected <- env$protein$col_index[col_index]
+    res <- env$protein$df_filtered_pivoted %>%
+      as.data.frame() %>%
+      slice(row_selected) %>%
+      select(all_of(col_selected))
+    output <- outputs_after_brush_action_protein(res, input, output, session, env)    
   } else {
     warning("Unknown heatmap_id")
   }
@@ -173,7 +182,7 @@ body <- dashboardBody(
     tabPanel(title = "Viral", id = "panel_viral", ui_viral_analysis()),
     tabPanel(title = "VGC", id = "panel_VGC", ui_vgc_analysis()),
     tabPanel(title = "RNA", id = "panel_RNA", ui_rna_analysis()),
-    tabPanel(title = "Protein", id = "panel_protein", uiOutput("ui_protein_analysis"))
+    tabPanel(title = "Protein", id = "panel_protein", ui_protein_analysis())
   )
 )
 
@@ -186,6 +195,18 @@ server <- function(input, output, session) {
   data_list <- reactive({
     data_list <- loading_from_excel(input$file1)
     env$data_list <- data_list
+    env$spec4matrix <- data_list$`Biological Matrix` %>%
+      janitor::row_to_names(row_number = 1) %>%
+      suppressWarnings() %>%
+      dplyr::rename(
+        MATRIX = `Biological Matrix`,
+        TISSUE = Tissue,
+        MATRIXCD = `Biological Matrix Short`,
+        TISSUECD = `Tissue Short`
+      ) %>%
+      dplyr::rename_all(stringr::str_to_upper)
+
+
     data_list
   })
 
@@ -319,6 +340,8 @@ server <- function(input, output, session) {
       } else if (param_prefix == "vgc") {
         generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
       } else if (param_prefix == "rna") {
+        generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
+      } else if (param_prefix == "protein") {
         generate_plot(input, output, session, env, param_prefix, paste0("ht_", param_prefix))
       } else {
         warning("Unknown parameter prefix")
